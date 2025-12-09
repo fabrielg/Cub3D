@@ -1,13 +1,13 @@
 .PHONY: all clean fclean re
 
-NAME			= cub3d.exe
+NAME			= cub3d
 CC				= cc
 CFLAGS			= -Wall -Wextra -Werror
 LIBFT			= ./libft/libft.a
 MINILIBX		= ./minilibx-linux/libmlx.a
 
-CUB3D_DIR		= cub3d/
-CUB3D_BONUS_DIR	= cub3d_bonus/
+CUB3D_DIR		= src/
+CUB3D_BONUS_DIR	= src_bonus/
 
 OBJ_DIR			= obj
 OBJ_DIR_MANDA	= $(OBJ_DIR)/manda
