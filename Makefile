@@ -10,8 +10,8 @@ CUB3D_DIR		= src/
 CUB3D_BONUS_DIR	= src_bonus/
 
 OBJ_DIR			= obj
-OBJ_DIR_MANDA	= $(OBJ_DIR)/manda
-OBJ_DIR_BONUS	= $(OBJ_DIR)/bonus
+OBJ_DIR_MANDA	= $(OBJ_DIR)/manda/
+OBJ_DIR_BONUS	= $(OBJ_DIR)/bonus/
 OBJ_DIR_TARGET	= $(OBJ_DIR_MANDA)
 
 
@@ -22,7 +22,7 @@ SRCS_COMMUN		=
 SRCS			= $(MAIN) $(SRCS_COMMUN)
 
 SRC_FILES		= $(notdir $(SRCS))
-OBJS			= $(addprefix $(OBJ_DIR_TARGET)/,$(SRC_FILES:.c=.o))
+OBJS			= $(addprefix $(OBJ_DIR_TARGET),$(SRC_FILES:.c=.o))
 
 
 
@@ -38,7 +38,7 @@ $(LIBFT):
 $(MINILIBX):
 	make -C ./minilibx-linux/
 
-$(OBJ_DIR_MANDA)/%.o: $(CUB3D_DIR)%.c
+$(OBJ_DIR_MANDA)%.o: $(CUB3D_DIR)%.c
 	@mkdir -p $(OBJ_DIR_MANDA)
 	$(CC) $(CFLAGS) -Imlx -O3 -c $< -o $@
 
