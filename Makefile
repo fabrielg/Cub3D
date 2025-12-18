@@ -1,6 +1,6 @@
 .PHONY: all clean fclean re
 
-NAME			= cub3d
+NAME			= cub3D
 CC				= cc
 CFLAGS			= -Wall -Wextra -Werror
 LIBFT			= ./libft/libft.a

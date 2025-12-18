@@ -1,81 +1,85 @@
 #include "libft.h"
 #include "map.h"
 
-#define NORTH "NO"
-#define SOUTH "SO"
-#define WEAST "WE"
-#define EAST "EA"
-#define CELLING "C"
-#define FLOOR "F"
-
-static t_list	*get_lines_from_file(int fd)
+int	get_map(int fd, t_map_data *map_data)
 {
-	t_list	*lines;
-	char	*temp;
-
-	lines = NULL;
-	temp = get_next_line(fd);
-	while (temp)
-	{
-		ft_lstadd_back(&lines, ft_lstnew(temp));
-		temp = get_next_line(fd);
-	}
-	return (lines);
-}
-
-static int	values_parser(char **values)
-{
-	static const char	*args[6] = {NORTH, SOUTH, WEAST, EAST, CELLING, FLOOR};
-	char				*value;
-	int					i;
-
-	if (!(*values))
-		return (0);
-	i = 0;
-	while (values[i])
-	{
-		value = values[i];
-		if (ft_strarr_has_str(args, value, 6))
-		{
-			// TODO: interpret TEXTURES and COLORS
-		}
-		printf("value: {%s}\n", value);
-		i++;
-	}
-	return (0);
-}
-
-static int	data_parser(t_map_data *map_data, t_list *lines)
-{
-	t_list	*tmp;
-	char	**split;
-
-	(void)map_data;
-	tmp = lines;
-	while(tmp)
-	{
-		ft_printf("lines: %s", tmp->content);
-		split = ft_split(tmp->content, ' ');
-		if (!split)
-			return (1);
-		values_parser(split);
-		ft_free_map((void**) split, -1);
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
-int	map_parser(int fd, t_map_data *map_data)
-{
-	t_list	*lines;
-
 	if (fd < 0)
 		return (-1);
-	lines = get_lines_from_file(fd);
+	//loop line
 	close(fd);
-	if (!lines)
-		return (1);
-	data_parser(map_data, lines);
-	ft_lstclear(&lines, free);
 	return (0);
 }
+
+//loopline
+//get line *line
+//flag
+//verif 3 cases (color, texture, grid)
+static int	map_parser(int fd, t_map_data *map_data)
+{
+	char			*line;
+	unsigned char	flag;
+
+	flag = 0;
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		if (flag & 0b00111111)
+		{
+			// Check the grid
+		}
+		else
+		{
+			// Still check header
+		}
+		line = get_next_line(fd);
+	}
+}
+
+static unsigned char	get_prefix(char *line)
+{
+	static const char	*args[6] = {"NO", "SO", "EA", "WE", "C", "F"};
+	char	*tmp;
+	int		size;
+	int		i;
+
+	if (!line[0])
+		return (0);
+	tmp = ft_strskip(line, " \f\r\t");
+	size = 0;
+	while (tmp[size] != " " && tmp[size])
+		size++;
+	i = -1;
+	while (args[++i])
+	{
+		if (ft_strncmp(tmp, args[i], size) == 0)
+			break ;
+	}
+	if (i >= 6)
+		return (0);
+	return (1 << i);
+}
+
+static char	*ft_strskip(char *line, char *charset)
+{
+	int		i;
+
+	if (!charset)
+		return (line);
+	i = -1;
+	while (line[++i])
+	{
+		if (!ft_strchr(charset, line[i]))
+			break ;
+	}
+	return (line + i);
+}
+
+//texture case
+//verif if already ok
+
+//color case
+
+//grid case
+
+//error case

@@ -3,6 +3,6 @@
 
 # include "map.h"
 
-int	map_parser(int fd, t_map_data *map_data);
+int	get_map(int fd, t_map_data *map_data);
 
 #endif
