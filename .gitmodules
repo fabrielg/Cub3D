@@ -1,6 +1,3 @@
 [submodule "minilibx-linux"]
 	path = minilibx-linux
 	url = https://github.com/42paris/minilibx-linux
-[submodule "libft"]
-	path = libft
-	url = https://github.com/fabrielg/libft
