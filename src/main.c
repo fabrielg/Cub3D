@@ -11,7 +11,7 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		return (1);
 	fd = open(argv[1], O_RDONLY);
-	if (map_parser(fd, &data))
+	if (get_map(fd, &data))
 		return (1);
 	return (0);
 }

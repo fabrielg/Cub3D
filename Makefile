@@ -2,7 +2,7 @@
 
 NAME			= cub3D
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -lm
 LIBFT			= ./libft/libft.a
 MINILIBX		= ./minilibx-linux/libmlx.a
 

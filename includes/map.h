@@ -10,9 +10,8 @@
 
 typedef struct s_map_data
 {
-	char			textures[4];
-	unsigned int	celling_color;
-	unsigned int	floor_color;
+	char			*textures[4];
+	unsigned int	colors[2];
 	char			**grid;
 	int				*widths;
 	int				max_height;
