@@ -104,11 +104,15 @@ static int	map_parser(int fd, t_map_data *map_data)
 	char			*line;
 	unsigned char	current_flag;
 	unsigned char	flags;
+	size_t			line_size;
 
 	flags = 0;
 	line = get_next_line(fd);
 	while (line)
 	{
+		line_size = ft_strlen(line);
+		if (line_size && line[line_size - 1] == '\n')
+			line[line_size - 1] = 0;
 		if (flags & 0b00111111)
 		{
 			// Check the grid
@@ -117,6 +121,7 @@ static int	map_parser(int fd, t_map_data *map_data)
 		{
 			current_flag = get_prefix(line);
 			printf("current_flag: %d\n", current_flag);
+			printf("flags: %d\n", flags);
 			if (current_flag & flags)
 				return (1); // ERROR: can't have 2 times the same data
 			flags &= current_flag;
