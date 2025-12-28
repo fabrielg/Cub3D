@@ -23,6 +23,7 @@ SRCS = \
 	char/ft_isprint.c\
 	char/ft_tolower.c\
 	char/ft_toupper.c\
+	char/ft_putbits.c\
 	gnl/get_next_line_utils.c\
 	gnl/get_next_line.c\
 	lst/ft_lstnew.c\

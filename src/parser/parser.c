@@ -69,6 +69,7 @@ static int	color_parser(t_map_data *data, char *line, unsigned char flag)
 
 static void	header_parser(t_map_data *data, char *line, unsigned char flag)
 {
+	printf("test\n");
 	if (flag & 0b00001111)
 		texture_parser(data, line, flag);
 	else if (flag & 0b00110000)
@@ -113,18 +114,20 @@ static int	map_parser(int fd, t_map_data *map_data)
 		line_size = ft_strlen(line);
 		if (line_size && line[line_size - 1] == '\n')
 			line[line_size - 1] = 0;
-		if (flags & 0b00111111)
+		if (flags == (unsigned char)0b00111111)
 		{
-			// Check the grid
+			//TODO
 		}
 		else if (line[0])
 		{
 			current_flag = get_prefix(line);
 			printf("current_flag: %d\n", current_flag);
 			printf("flags: %d\n", flags);
+			ft_putbits(current_flag);
 			if (current_flag & flags)
-				return (1); // ERROR: can't have 2 times the same data
-			flags &= current_flag;
+				return (printf("error\n"), 1); // ERROR: can't have 2 times the same data
+			flags |= current_flag;
+			ft_putbits(flags);
 			header_parser(map_data, line, current_flag);
 		}
 		free(line);

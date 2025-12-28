@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char.h                                             :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfrancoi <gfrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 15:48:34 by gfrancoi          #+#    #+#             */
-/*   Updated: 2025/02/03 15:49:03 by gfrancoi         ###   ########.fr       */
+/*   Created: 2024/11/12 18:00:56 by gfrancoi          #+#    #+#             */
+/*   Updated: 2024/11/18 15:57:11 by gfrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHAR_H
-# define CHAR_H
+#include "libft.h"
 
-int		ft_has_char(const char *s, int c);
-int		ft_isalnum(int c);
-int		ft_isalpha(int c);
-int		ft_isascii(int c);
-int		ft_isdigit(int c);
-int		ft_isprint(int c);
-int		ft_tolower(int c);
-int		ft_toupper(int c);
-void	ft_putbits(unsigned char bits);
+/**
+ * @brief Print the given bits (char size).
+ */
+void	ft_putbits(unsigned char bits)
+{
+	int				i;
+	unsigned char	mask;
 
-#endif
+	i = -1;
+	mask = 0b10000000;
+	while (++i < (int)(sizeof(unsigned char) * 8))
+	{
+		ft_putchar_fd((!!(mask & bits)) + '0', STDOUT_FILENO);
+		mask >>= 1;
+	}
+	write(STDOUT_FILENO, "\n", 1);
+}
