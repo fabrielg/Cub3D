@@ -1,59 +1,74 @@
 .PHONY: all clean fclean re
 
-NAME			= cub3D
-CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -lm
-LIBFT			= ./libft/libft.a
-MINILIBX		= ./minilibx-linux/libmlx.a
+NAME = Cube3D
+NAME_BONUS = Cube3D_bonus
+CC = cc
+CFLAGS = -g3 -Wall -Wextra -Werror
+MLXFLAGS = -lXext -lX11 -lm -Lminilibx-linux -lmlx_Linux
 
-CUB3D_DIR		= src/
-CUB3D_BONUS_DIR	= src_bonus/
+LIB = ./libft/libft.a
+MLX = ./minilibx-linux/libmlx_Linux.a
 
-OBJ_DIR			= obj
-OBJ_DIR_MANDA	= $(OBJ_DIR)/manda/
-OBJ_DIR_BONUS	= $(OBJ_DIR)/bonus/
-OBJ_DIR_TARGET	= $(OBJ_DIR_MANDA)
+SRC = \
+	main.c \
+	parser/parser.c
 
+SRC_BONUS = \
+	main_bonus.c
 
+INCLUDES = -Iincludes/ -Iminilibx/ -Ilibft
 
-MAIN			= $(CUB3D_DIR)main.c
-SRCS_COMMUN		= \
-	$(CUB3D_DIR)parser/parser.c
-INCLUDES = \
-	-Iincludes\
-	-Ilibft
+SRC_DIR = src/
+BONUS_DIR = src_bonus/
+OBJ_DIR = obj/
 
-SRCS			= $(MAIN) $(SRCS_COMMUN)
+OBJ			= $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
+OBJ_BONUS	= $(addprefix $(OBJ_DIR), $(SRC_BONUS:.c=.o))
 
-OBJS = $(SRCS:$(CUB3D_DIR)%.c=$(OBJ_DIR_TARGET)%.o)
+# ========================= RULES ========================= #
 
+all: $(NAME) $(OBJ_DIR)
 
+bonus: $(NAME_BONUS) $(OBJ_DIR)
 
-all: $(NAME)
+#Construction des libs
+$(LIB):
+	make -C libft/
 
-$(NAME): $(LIBFT) $(MINILIBX) $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(OBJS) $(LIBFT) $(MINILIBX) -lX11 -lXext -lm
-	@echo "\033[32m[OK]\033[0m Build $(NAME)"
+$(MLX):
+	make -C minilibx-linux/
 
-$(LIBFT):
-	make -C ./libft/
+#Création du dossier OBJ_DIR
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-$(MINILIBX):
-	make -C ./minilibx-linux/
-
-$(OBJ_DIR_TARGET)%.o: $(CUB3D_DIR)%.c
+#Compilation des fichiers .c en .o
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
+$(OBJ_DIR)%.o: $(BONUS_DIR)%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
+#Création du programme
+$(NAME): $(MLX) $(LIB) $(OBJ_DIR) $(OBJ)
+	$(CC) -o $(NAME) $(OBJ) $(MLX) -Llibft -lXext -lX11 -lft -lm
+	@echo "\033[32m[OK]\033[0m Build $(NAME)"
+
+$(NAME_BONUS): $(MLX) $(LIB) $(OBJ_DIR) $(OBJ)
+	$(CC) -o $(NAME_BONUS) $(OBJ) $(MLX) -Llibft -lXext -lX11 -lft -lm
+	@echo "\033[32m[OK]\033[0m Build $(NAME_BONUS)"
+
+# ========================= CLEAN ========================= #
 
 clean:
-	@make clean -C ./libft/
-	@make clean -C ./minilibx-linux/
 	rm -rf $(OBJ_DIR)
+	make clean -C libft
+	make clean -C minilibx-linux
 
 fclean: clean
-	@make fclean -C ./libft/
-	rm -f $(NAME)
+	rm -f $(NAME) $(NAME_BONUS)
+	make fclean -C libft
 
 re: fclean all
