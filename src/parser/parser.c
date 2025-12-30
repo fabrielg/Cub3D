@@ -2,6 +2,10 @@
 #include "map.h"
 #include <math.h>
 
+/**
+ * @brief Skip leading characters from charset and return new line pointer.
+ * @return Pointer to first character not in charset
+ */
 static char	*ft_strskip(char *line, char *charset)
 {
 	int		i;
@@ -17,6 +21,10 @@ static char	*ft_strskip(char *line, char *charset)
 	return (line + i);
 }
 
+/**
+ * @brief Parse a texture (NO, SO, EA, WE) and store its path in map data.
+ * @return 0 on success, 1 on error
+ */
 static int	texture_parser(t_map_data *data, char *line, unsigned char flag)
 {
 	char	*texture;
@@ -33,6 +41,10 @@ static int	texture_parser(t_map_data *data, char *line, unsigned char flag)
 	return (0);
 }
 
+/**
+ * @brief Convert an RGB array of strings to a packed 24-bit color.
+ * @return Integer representing the RGB color
+ */
 static unsigned int	rgb_from_split(char **split)
 {
 	int	r;
@@ -49,6 +61,10 @@ static unsigned int	rgb_from_split(char **split)
 	return ((r << 16) | (g << 8) | b);
 }
 
+/**
+ * @brief Parse a color line and store it in the map data structure.
+ * @return 0 on success, 1 on error
+ */
 static int	color_parser(t_map_data *data, char *line, unsigned char flag)
 {
 	char	*color_str;
@@ -67,6 +83,9 @@ static int	color_parser(t_map_data *data, char *line, unsigned char flag)
 	return (0);
 }
 
+/**
+ * @brief Call the correct parser depending on the line flag type.
+ */
 static void	header_parser(t_map_data *data, char *line, unsigned char flag)
 {
 	printf("test\n");
@@ -76,6 +95,10 @@ static void	header_parser(t_map_data *data, char *line, unsigned char flag)
 		color_parser(data, line, flag);
 }
 
+/**
+ * @brief Identify the prefix of a line and return its corresponding flag.
+ * @return Bit flag corresponding to the line prefix
+ */
 static unsigned char	get_prefix(char *line)
 {
 	static const char	*args[6] = {"NO", "SO", "EA", "WE", "C", "F"};
@@ -100,6 +123,10 @@ static unsigned char	get_prefix(char *line)
 	return (1 << i);
 }
 
+/**
+ * @brief Parse the header lines of the map file and update map data.
+ * @return 0 on success, 1 on error
+ */
 static int	map_parser(int fd, t_map_data *map_data)
 {
 	char			*line;
@@ -136,6 +163,10 @@ static int	map_parser(int fd, t_map_data *map_data)
 	return (0);
 }
 
+/**
+ * @brief Main function to parse the map file and fill the map data.
+ * @return 0 on success, -1 on error
+ */
 int	get_map(int fd, t_map_data *map_data)
 {
 	if (fd < 0)
