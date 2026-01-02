@@ -11,7 +11,9 @@ MLX = ./minilibx-linux/libmlx_Linux.a
 
 SRC = \
 	main.c \
-	parser/parser.c
+	parser/parser.c \
+	parser/checker.c \
+	parser/debug.c
 
 SRC_BONUS = \
 	main_bonus.c

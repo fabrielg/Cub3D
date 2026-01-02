@@ -173,16 +173,5 @@ int	get_map(int fd, t_map_data *map_data)
 		return (-1);
 	map_parser(fd, map_data);
 	close(fd);
-	// DEBUG
-	printf("--- DEBUG ---\n");
-	for (int i = 0; i < 4; i++)
-	{
-		printf("%i %s\n", i, map_data->textures[i]);
-		free(map_data->textures[i]);
-	}
-	for (int i = 0; i < 2; i++)
-	{
-		printf("%i %i\n", i, map_data->colors[i]);
-	}
 	return (0);
 }
