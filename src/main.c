@@ -14,7 +14,6 @@ int	main(int argc, char *argv[])
 	fd = open(argv[1], O_RDONLY);
 	if (get_map(fd, &map))
 		return (1);
-	fill_map(&map);
 	debug_map(&map);
 	check_textures(&map);
 	return (0);

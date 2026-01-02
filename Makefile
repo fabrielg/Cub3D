@@ -13,7 +13,10 @@ SRC = \
 	main.c \
 	parser/parser.c \
 	parser/checker.c \
-	parser/debug.c
+	parser/debug.c \
+	parser/header_parser.c \
+	parser/header_parser_utils.c \
+	parser/grid_parser.c
 
 SRC_BONUS = \
 	main_bonus.c
