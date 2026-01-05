@@ -7,9 +7,10 @@
  * @brief Parse the header lines of the map file and update map data.
  * @return 0 on success, 1 on error
  */
-static int	map_parser(int fd, t_map_data *map_data)
+static int	map_parser(int fd, t_map *map)
 {
 	char			*line;
+	char			*raw_grid;
 	unsigned char	flags;
 	size_t			line_size;
 
@@ -22,18 +23,18 @@ static int	map_parser(int fd, t_map_data *map_data)
 			line[line_size - 1] = 0;
 		if (flags == (unsigned char)0b00111111)
 		{
-			//TODO
+			raw_grid_parser(line, &raw_grid);
 		}
 		else if (line[0])
 		{
-			flags = header_parser(map_data, line, flags);
-			ft_putbits(flags);
+			flags = header_parser(map, line, flags);
 			if (!flags)
 				return (free(line), 1);
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
+	create_grid(map, raw_grid);
 	return (0);
 }
 
@@ -41,11 +42,11 @@ static int	map_parser(int fd, t_map_data *map_data)
  * @brief Main function to parse the map file and fill the map data.
  * @return 0 on success, -1 on error
  */
-int	get_map(int fd, t_map_data *map_data)
+int	get_map(int fd, t_map *map)
 {
 	if (fd < 0)
 		return (-1);
-	map_parser(fd, map_data);
+	map_parser(fd, map);
 	close(fd);
 	return (0);
 }

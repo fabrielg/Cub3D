@@ -18,7 +18,7 @@ static int	check_flag_repetition(char *line, unsigned char *flags)
  * @brief Parse a texture (NO, SO, EA, WE) and store its path in map data.
  * @return 0 on success, 1 on error
  */
-static int	texture_parser(t_map_data *data, char *line, unsigned char flag)
+static int	texture_parser(t_map *data, char *line, unsigned char flag)
 {
 	char	*texture;
 	int		texture_id;
@@ -36,7 +36,7 @@ static int	texture_parser(t_map_data *data, char *line, unsigned char flag)
  * @brief Parse a color line and store it in the map data structure.
  * @return 0 on success, 1 on error
  */
-static int	color_parser(t_map_data *data, char *line, unsigned char flag)
+static int	color_parser(t_map *data, char *line, unsigned char flag)
 {
 	char	*color_str;
 	char	**split;
@@ -57,7 +57,7 @@ static int	color_parser(t_map_data *data, char *line, unsigned char flag)
 /**
  * @brief Call the correct parser depending on the line flag type.
  */
-int	header_parser(t_map_data *data, char *line, unsigned char flag)
+int	header_parser(t_map *data, char *line, unsigned char flag)
 {
 	unsigned char	current_flag;
 

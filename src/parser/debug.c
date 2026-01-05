@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "map.h"
 
-static void	debug_texture(t_map_data *map)
+static void	debug_texture(t_map *map)
 {
 	int	i;
 
@@ -14,7 +14,7 @@ static void	debug_texture(t_map_data *map)
 	}
 }
 
-static void	debug_color(t_map_data *map)
+static void	debug_color(t_map *map)
 {
 	int	i;
 
@@ -26,11 +26,23 @@ static void	debug_color(t_map_data *map)
 	}
 }
 
-void	debug_map(t_map_data *map)
+static void	debug_grid(t_map *map)
 {
-	write(1, "===DEBUG MAP===\n\n", 17);
+	int	i;
+
+	i = -1;
+	write(1, "//Grid//\n", 9);
+	while(++i  < map->max_height)
+		printf("%3i.(%3i) | %s\n", i, map->widths[i], map->grid[i]);
+}
+
+void	debug_map(t_map *map)
+{
+	write(1, "\n===DEBUG MAP===\n\n", 18);
 	debug_texture(map);
 	write(1, "\n", 1);
 	debug_color(map);
+	write(1, "\n", 1);
+	debug_grid(map);
 }
 

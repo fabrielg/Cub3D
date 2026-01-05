@@ -6,7 +6,7 @@
 
 int	main(int argc, char *argv[])
 {
-	t_map_data	map;
+	t_map	map;
 	int			fd;
 
 	if (argc != 2)

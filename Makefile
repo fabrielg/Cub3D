@@ -1,9 +1,9 @@
 .PHONY: all clean fclean re
 
-NAME = Cube3D
-NAME_BONUS = Cube3D_bonus
+NAME = Cub3D
+NAME_BONUS = Cub3D_bonus
 CC = cc
-CFLAGS = -g3 -Wall -Wextra -Werror
+CFLAGS = -g3 #-Wall -Wextra -Werror
 MLXFLAGS = -lXext -lX11 -lm -Lminilibx-linux -lmlx_Linux
 
 LIB = ./libft/libft.a

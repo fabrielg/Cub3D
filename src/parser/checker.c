@@ -3,12 +3,13 @@
 #include <math.h>
 #include <fcntl.h>
 
-int	check_textures(t_map_data *map)
+int	check_textures(t_map *map)
 {
 	int	i;
 	int	fd;
 
 	i = -1;
+	return (0); //TODO
 	while (++i < 4)
 	{
 		fd = open(map->textures[i], O_RDONLY);
