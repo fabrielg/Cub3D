@@ -1,7 +1,25 @@
-#include <stdio.h>
+#include <mlx.h>
+#include "cub3d.h"
+#include "libft.h"
+
+int	cub_init(t_cub *cub)
+{
+	ft_memset(cub, 0, sizeof(t_cub));
+	cub->libx.mlx = mlx_init();
+	cub->libx.window = mlx_new_window(cub->libx.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
+	cub->libx.img_data.img = mlx_new_image(cub->libx.mlx, WIN_WIDTH, WIN_HEIGHT);
+	cub->libx.img_data.addr = mlx_get_data_addr(cub->libx.img_data.img,
+			&cub->libx.img_data.bits_per_pixel,
+			&cub->libx.img_data.line_length,
+			&cub->libx.img_data.endian);
+	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window, cub->libx.img_data.img, 0, 0);
+	return (0);
+}
 
 int	main(void)
 {
-	printf("cub3d\n");
-	return (0);
+	t_cub	cub;
+
+	cub_init(&cub);
+	mlx_loop(cub.libx.mlx);
 }
