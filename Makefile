@@ -21,12 +21,13 @@ OBJ_DIR_TARGET	= $(OBJ_DIR_MANDA)
 
 
 MAIN			= $(CUB3D_DIR)main.c
-SRCS_COMMUN		=
+SRCS_COMMUN		= \
+	$(CUB3D_DIR)mlx_utils/mlx_events.c \
+	$(CUB3D_DIR)mlx_utils/mlx_utils.c
 
 SRCS			= $(MAIN) $(SRCS_COMMUN)
 
-SRC_FILES		= $(notdir $(SRCS))
-OBJS			= $(addprefix $(OBJ_DIR_TARGET),$(SRC_FILES:.c=.o))
+OBJS			= $(SRCS:$(CUB3D_DIR)%.c=$(OBJ_DIR_TARGET)%.o)
 
 
 
@@ -42,8 +43,8 @@ $(LIBFT):
 $(MINILIBX):
 	make -C $(MINILIBX_DIR)
 
-$(OBJ_DIR_MANDA)%.o: $(CUB3D_DIR)%.c
-	@mkdir -p $(OBJ_DIR_MANDA)
+$(OBJ_DIR_TARGET)%.o: $(CUB3D_DIR)%.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -O3 -c $< -o $@
 
 
