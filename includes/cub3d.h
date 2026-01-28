@@ -53,4 +53,6 @@ typedef struct s_cub
 	t_player	player;
 }	t_cub;
 
+void	init_player(t_map *map, t_player *player);
+
 #endif
