@@ -21,9 +21,36 @@ typedef struct s_libx
 	t_img_data	img_data;
 }	t_libx;
 
+typedef enum e_direction
+{
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+}   t_direction;
+
+typedef struct s_map
+{
+	char			*textures[4];
+	unsigned int	colors[2];
+	char			**grid;
+	int				*widths;
+	int				max_height;
+	int				default_position[2];
+	t_direction		default_direction;
+}	t_map;
+
+typedef struct s_player
+{
+	float	position[2];
+	float	angle_view;
+}	t_player;
+
 typedef struct s_cub
 {
-	t_libx	libx;
+	t_libx		libx;
+	t_map		map;
+	t_player	player;
 }	t_cub;
 
 #endif
