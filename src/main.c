@@ -35,5 +35,6 @@ int	main(void)
 	t_cub	cub;
 
 	cub_init(&cub);
+	render_frame(&cub.libx, &cub.player);
 	mlx_loop(cub.libx.mlx);
 }
