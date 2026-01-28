@@ -24,7 +24,8 @@ MAIN			= $(CUB3D_DIR)main.c
 SRCS_COMMUN		= \
 	$(CUB3D_DIR)mlx_utils/mlx_events.c \
 	$(CUB3D_DIR)mlx_utils/mlx_utils.c \
-	$(CUB3D_DIR)player/player_init.c
+	$(CUB3D_DIR)player/player_init.c \
+	$(CUB3D_DIR)render/draw.c
 
 SRCS			= $(MAIN) $(SRCS_COMMUN)
 
