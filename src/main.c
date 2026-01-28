@@ -37,6 +37,9 @@ int	cub_init(t_cub *cub)
 	ft_memset(cub, 0, sizeof(t_cub));
 
 	force_load_map(&cub->map);
+	init_player(&cub->map, &cub->player);
+	/*printf("player info: position x:%f y:%f angle view:%f \n",
+		cub->player.position[0], cub->player.position[1], cub->player.angle_view);*/
 
 	cub->libx.mlx = mlx_init();
 	cub->libx.window = mlx_new_window(
