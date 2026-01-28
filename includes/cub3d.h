@@ -55,6 +55,6 @@ typedef struct s_cub
 
 void	init_player(t_map *map, t_player *player);
 void	draw_vertical_line(t_img_data *img, int x, int y_start, int y_end, int color);
-void	render_frame(t_libx *libx, t_player *p);
+void	render_frame(t_libx *libx, t_map *map, t_player *p);
 
 #endif

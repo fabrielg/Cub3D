@@ -1,16 +1,15 @@
 #include "cub3d.h"
 #include <math.h>
 #include <mlx.h>
+#include <stdio.h>
 
-#define COLOR_CEILING	0x87CEEB
 #define COLOR_WALL		0x808080
-#define COLOR_FLOOR		0x8B4513
 
 #define FOV			M_PI / 3
 #define TILE_SIZE	1.0
 #define DIST_PROJ	(WIN_WIDTH / 2) / tan(FOV / 2)
 
-void	render_frame(t_libx *libx, t_player *p)
+void	render_frame(t_libx *libx, t_map *map, t_player *p)
 {
 	int		x;
 	float	angle;
@@ -30,11 +29,11 @@ void	render_frame(t_libx *libx, t_player *p)
 		y_start = (WIN_HEIGHT / 2) - (wall_height / 2);
 		y_end = (WIN_HEIGHT / 2) + (wall_height / 2);
 
-		draw_vertical_line(&libx->img_data, x, 0, y_start - 1, COLOR_CEILING);
+		draw_vertical_line(&libx->img_data, x, 0, y_start - 1, map->colors[0]);
 		
 		draw_vertical_line(&libx->img_data, x, y_start, y_end, COLOR_WALL);
 	
-		draw_vertical_line(&libx->img_data, x, y_end + 1, WIN_HEIGHT - 1, COLOR_FLOOR);
+		draw_vertical_line(&libx->img_data, x, y_end + 1, WIN_HEIGHT - 1, map->colors[1]);
 
 		x++;
 	}
