@@ -1,7 +1,7 @@
 #include "cub3d.h"
 #include <math.h>
 
-static void	init_player_direction(t_map *map, t_player *player)
+float	get_cardinal_angle(t_direction direction)
 {
 	static const float	angles[4] = {
 		3.0f * M_PI_2,
@@ -10,7 +10,12 @@ static void	init_player_direction(t_map *map, t_player *player)
 		M_PI
 	};
 
-	player->angle_view = angles[map->default_direction];
+	return (angles[direction]);
+}
+
+static void	init_player_direction(t_map *map, t_player *player)
+{
+	player->angle_view = get_cardinal_angle(map->default_direction);
 }
 
 static void	init_player_position(t_map *map, t_player *player)

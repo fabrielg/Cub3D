@@ -21,6 +21,8 @@ int	key_press(int k, t_cub *cub)
 		move_backward(cub);
 	else if (k == KEY_D || k == KEY_RIGHT)
 		rotate_right(cub);
+	else if (k == KEY_R)
+		respawn(cub);
 	else
 		return (1);
 	render_frame(&cub->libx, &cub->map, &cub->player);

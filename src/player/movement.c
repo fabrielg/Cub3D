@@ -47,3 +47,11 @@ int	rotate_right(t_cub *cub)
 	cub->player.angle_view += ROT_SPEED;
 	return (0);
 }
+
+int	respawn(t_cub *cub)
+{
+	cub->player.position[0] = cub->map.default_position[0];
+	cub->player.position[1] = cub->map.default_position[1];
+	cub->player.angle_view = get_cardinal_angle(cub->map.default_direction);
+	return (0);
+}
