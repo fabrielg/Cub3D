@@ -62,6 +62,8 @@ float	dda(char **grid, float p_position[2], float ray_angle);
 float	get_cardinal_angle(t_direction direction);
 int		move_forward(t_cub *cub);
 int		move_backward(t_cub *cub);
+int		move_left(t_cub *cub);
+int		move_right(t_cub *cub);
 int		rotate_left(t_cub *cub);
 int		rotate_right(t_cub *cub);
 int		respawn(t_cub *cub);

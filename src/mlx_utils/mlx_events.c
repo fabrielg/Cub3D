@@ -13,13 +13,17 @@ int	key_press(int k, t_cub *cub)
 {
 	if (k == KEY_ESC)
 		close_window(cub);
-	else if (k == KEY_W || k == KEY_UP)
+	else if (k == KEY_W)
 		move_forward(cub);
-	else if (k == KEY_A || k == KEY_LEFT)
-		rotate_left(cub);
-	else if (k == KEY_S || k == KEY_DOWN)
+	else if (k == KEY_A)
+		move_left(cub);
+	else if (k == KEY_S)
 		move_backward(cub);
-	else if (k == KEY_D || k == KEY_RIGHT)
+	else if (k == KEY_D)
+		move_right(cub);
+	else if (k == KEY_LEFT)
+		rotate_left(cub);
+	else if (k == KEY_RIGHT)
 		rotate_right(cub);
 	else if (k == KEY_R)
 		respawn(cub);
