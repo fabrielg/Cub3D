@@ -29,7 +29,8 @@ void	render_frame(t_libx *libx, t_map *map, t_player *p)
 
 		// 2. cast ray with dda to get the distance
 		distance = dda(map->grid, p->position, angle);
-		
+		distance *= cosf(angle - p->angle_view);
+
 		// 3. get wall height
 		wall_height = (int)((TILE_SIZE / distance) * DIST_PROJ);
 
