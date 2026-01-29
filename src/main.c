@@ -38,8 +38,6 @@ int	cub_init(t_cub *cub)
 
 	force_load_map(&cub->map);
 	init_player(&cub->map, &cub->player);
-	/*printf("player info: position x:%f y:%f angle view:%f \n",
-		cub->player.position[0], cub->player.position[1], cub->player.angle_view);*/
 
 	cub->libx.mlx = mlx_init();
 	cub->libx.window = mlx_new_window(
@@ -62,6 +60,7 @@ int	cub_init(t_cub *cub)
 			cub->libx.img_data.img,
 			0, 0);
 	register_hooks(cub);
+	mlx_mouse_hide(cub->libx.mlx, cub->libx.window);
 	return (0);
 }
 

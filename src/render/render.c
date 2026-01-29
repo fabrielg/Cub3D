@@ -66,7 +66,7 @@ void	render_frame(t_libx *libx, t_map *map, t_player *p)
 		draw_column(libx, map, x, &col);
 		x++;
 	}
-	
+
 	mlx_put_image_to_window(libx->mlx, libx->window, 
 		libx->img_data.img, 0, 0);
 }
