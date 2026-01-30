@@ -59,6 +59,22 @@ int	cub_init(t_cub *cub)
 			cub->libx.window,
 			cub->libx.img_data.img,
 			0, 0);
+	cub->libx.compass_bar.img = mlx_new_image(
+			cub->libx.mlx,
+			(int)(WIN_WIDTH / 1.5),
+			50
+	);
+	cub->libx.compass_bar.addr = mlx_get_data_addr(
+		cub->libx.compass_bar.img,
+		&cub->libx.compass_bar.bits_per_pixel,
+		&cub->libx.compass_bar.line_length,
+		&cub->libx.compass_bar.endian);
+	mlx_put_image_to_window(
+		cub->libx.mlx,
+		cub->libx.window,
+		cub->libx.compass_bar.img,
+		0, 0
+	);
 	register_hooks(cub);
 	mlx_mouse_hide(cub->libx.mlx, cub->libx.window);
 	return (0);

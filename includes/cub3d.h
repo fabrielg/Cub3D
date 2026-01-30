@@ -19,6 +19,7 @@ typedef struct s_libx
 	void		*mlx;
 	void		*window;
 	t_img_data	img_data;
+	t_img_data	compass_bar;
 }	t_libx;
 
 typedef enum e_direction

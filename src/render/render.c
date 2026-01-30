@@ -52,6 +52,21 @@ static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 		WIN_HEIGHT - 1, map->colors[1]);
 }
 
+static void	render_compass(t_libx *libx)
+{
+	int	x;
+
+	x = 0;
+	while (x < WIN_WIDTH)
+	{
+		draw_vertical_line(&libx->compass_bar, x, 0, WIN_HEIGHT - 1, 0x000000);
+		x++;
+	}
+
+	mlx_put_image_to_window(libx->mlx, libx->window, 
+		libx->compass_bar.img, 0, 0);
+}
+
 void	render_frame(t_libx *libx, t_map *map, t_player *p)
 {
 	t_column	col;
@@ -69,4 +84,5 @@ void	render_frame(t_libx *libx, t_map *map, t_player *p)
 
 	mlx_put_image_to_window(libx->mlx, libx->window, 
 		libx->img_data.img, 0, 0);
+	render_compass(libx);
 }
