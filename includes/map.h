@@ -8,13 +8,13 @@
 # define B_CELLING	0b00010000
 # define B_FLOOR	0b00100000
 
-typedef struct s_map_data
+typedef struct s_map
 {
 	char			*textures[4];
 	unsigned int	colors[2];
 	char			**grid;
 	int				*widths;
 	int				max_height;
-}	t_map_data;
+}	t_map;
 
 #endif

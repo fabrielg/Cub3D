@@ -1,9 +1,9 @@
 .PHONY: all clean fclean re
 
-NAME = Cube3D
-NAME_BONUS = Cube3D_bonus
+NAME = Cub3D
+NAME_BONUS = Cub3D_bonus
 CC = cc
-CFLAGS = -g3 -Wall -Wextra -Werror
+CFLAGS = -g3 #-Wall -Wextra -Werror
 MLXFLAGS = -lXext -lX11 -lm -Lminilibx-linux -lmlx_Linux
 
 LIB = ./libft/libft.a
@@ -11,7 +11,12 @@ MLX = ./minilibx-linux/libmlx_Linux.a
 
 SRC = \
 	main.c \
-	parser/parser.c
+	parser/parser.c \
+	parser/checker.c \
+	parser/debug.c \
+	parser/header_parser.c \
+	parser/header_parser_utils.c \
+	parser/grid_parser.c
 
 SRC_BONUS = \
 	main_bonus.c
