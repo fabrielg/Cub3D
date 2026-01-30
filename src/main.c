@@ -60,7 +60,6 @@ int	cub_init(t_cub *cub)
 			cub->libx.img_data.img,
 			0, 0);
 	register_hooks(cub);
-	mlx_mouse_hide(cub->libx.mlx, cub->libx.window);
 	return (0);
 }
 
