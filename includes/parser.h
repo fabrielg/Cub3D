@@ -1,7 +1,14 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "map.h"
+# include "cub3d.h"
+
+# define B_NORTH	0b00000001
+# define B_SOUTH	0b00000010
+# define B_EAST		0b00000100
+# define B_WEST		0b00001000
+# define B_CELLING	0b00010000
+# define B_FLOOR	0b00100000
 
 // ============== MAP PARSING ============== //
 

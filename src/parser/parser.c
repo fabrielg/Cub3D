@@ -1,5 +1,5 @@
 #include "libft.h"
-#include "map.h"
+#include "cub3d.h"
 #include "parser.h"
 #include <math.h>
 

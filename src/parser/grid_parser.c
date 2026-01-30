@@ -1,5 +1,5 @@
 #include "libft.h"
-#include "map.h"
+#include "cub3d.h"
 #include <math.h>
 
 int	formated_line_len(char *line, char *f_line, const char *valid_charset)
@@ -52,7 +52,7 @@ char	*format_line(char *line)
 	char	*f_line;
 	int		f_len;
 
-	f_len = formated_line_len(line, f_line, " 10NSOE");
+	f_len = formated_line_len(line, f_line, " 10NSWE");
 	if (f_len == -1)
 		return (NULL);//ERROR ILLEGAL CHAR USED
 	f_line = get_formated_line(line, f_len);

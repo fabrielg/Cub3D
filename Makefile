@@ -1,79 +1,72 @@
 .PHONY: all clean fclean re
 
-NAME = Cub3D
-NAME_BONUS = Cub3D_bonus
-CC = cc
-CFLAGS = -g3 #-Wall -Wextra -Werror
-MLXFLAGS = -lXext -lX11 -lm -Lminilibx-linux -lmlx_Linux
+NAME			= cub3d
+CC				= cc
+CFLAGS			= #-Wall -Wextra -Werror
 
-LIB = ./libft/libft.a
-MLX = ./minilibx-linux/libmlx_Linux.a
+LIBFT_DIR		= libft/
+MINILIBX_DIR	= minilibx-linux/
+LIBFT			= $(LIBFT_DIR)libft.a
+MINILIBX		= $(MINILIBX_DIR)libmlx.a
+INCLUDES		= -I includes/ -I $(LIBFT_DIR) -I $(MINILIBX_DIR)
 
-SRC = \
-	main.c \
-	parser/parser.c \
-	parser/checker.c \
-	parser/debug.c \
-	parser/header_parser.c \
-	parser/header_parser_utils.c \
-	parser/grid_parser.c
+CUB3D_DIR		= src/
+CUB3D_BONUS_DIR	= src_bonus/
 
-SRC_BONUS = \
-	main_bonus.c
+OBJ_DIR			= obj
+OBJ_DIR_MANDA	= $(OBJ_DIR)/manda/
+OBJ_DIR_BONUS	= $(OBJ_DIR)/bonus/
+OBJ_DIR_TARGET	= $(OBJ_DIR_MANDA)
 
-INCLUDES = -Iincludes/ -Iminilibx/ -Ilibft
 
-SRC_DIR = src/
-BONUS_DIR = src_bonus/
-OBJ_DIR = obj/
 
-OBJ			= $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
-OBJ_BONUS	= $(addprefix $(OBJ_DIR), $(SRC_BONUS:.c=.o))
+MAIN			= $(CUB3D_DIR)main.c
+SRCS_COMMUN		= \
+	$(CUB3D_DIR)mlx_utils/mlx_events.c \
+	$(CUB3D_DIR)mlx_utils/mlx_utils.c \
+	$(CUB3D_DIR)parser/checker.c \
+	$(CUB3D_DIR)parser/debug.c \
+	$(CUB3D_DIR)parser/grid_parser.c \
+	$(CUB3D_DIR)parser/header_parser_utils.c \
+	$(CUB3D_DIR)parser/header_parser.c \
+	$(CUB3D_DIR)parser/parser.c \
+	$(CUB3D_DIR)player/movement.c \
+	$(CUB3D_DIR)player/player_init.c \
+	$(CUB3D_DIR)render/dda_algo.c \
+	$(CUB3D_DIR)render/draw.c \
+	$(CUB3D_DIR)render/render.c
 
-# ========================= RULES ========================= #
+SRCS			= $(MAIN) $(SRCS_COMMUN)
 
-all: $(NAME) $(OBJ_DIR)
+OBJS			= $(SRCS:$(CUB3D_DIR)%.c=$(OBJ_DIR_TARGET)%.o)
 
-bonus: $(NAME_BONUS) $(OBJ_DIR)
 
-#Construction des libs
-$(LIB):
-	make -C libft/
 
-$(MLX):
-	make -C minilibx-linux/
+all: $(NAME)
 
-#Création du dossier OBJ_DIR
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-
-#Compilation des fichiers .c en .o
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(OBJ_DIR)%.o: $(BONUS_DIR)%.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-#Création du programme
-$(NAME): $(MLX) $(LIB) $(OBJ_DIR) $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(MLX) -Llibft -lXext -lX11 -lft -lm
+$(NAME): $(LIBFT) $(MINILIBX) $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(OBJS) $(LIBFT) $(MINILIBX) -lX11 -lXext -lm
 	@echo "\033[32m[OK]\033[0m Build $(NAME)"
 
-$(NAME_BONUS): $(MLX) $(LIB) $(OBJ_DIR) $(OBJ)
-	$(CC) -o $(NAME_BONUS) $(OBJ) $(MLX) -Llibft -lXext -lX11 -lft -lm
-	@echo "\033[32m[OK]\033[0m Build $(NAME_BONUS)"
+$(LIBFT):
+	make -C $(LIBFT_DIR)
 
-# ========================= CLEAN ========================= #
+$(MINILIBX):
+	make -C $(MINILIBX_DIR)
+
+$(OBJ_DIR_TARGET)%.o: $(CUB3D_DIR)%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -O3 -c $< -o $@
+
+
 
 clean:
+	@make clean -C $(LIBFT_DIR)
+	@make clean -C $(MINILIBX_DIR)
 	rm -rf $(OBJ_DIR)
-	make clean -C libft
-	make clean -C minilibx-linux
 
 fclean: clean
-	rm -f $(NAME) $(NAME_BONUS)
-	make fclean -C libft
+	@make fclean -C $(LIBFT_DIR)
+	rm -f $(NAME)
 
 re: fclean all

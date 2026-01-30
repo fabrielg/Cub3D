@@ -1,5 +1,4 @@
 #include "libft.h"
-#include "map.h"
 #include "parser.h"
 #include <math.h>
 
