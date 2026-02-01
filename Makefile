@@ -2,7 +2,7 @@
 
 NAME			= cub3d
 CC				= cc
-CFLAGS			= #-Wall -Wextra -Werror
+CFLAGS			= -g3 #-Wall -Wextra -Werror
 
 LIBFT_DIR		= libft/
 MINILIBX_DIR	= minilibx-linux/
@@ -27,6 +27,7 @@ SRCS_COMMUN		= \
 	$(CUB3D_DIR)parser/checker.c \
 	$(CUB3D_DIR)parser/debug.c \
 	$(CUB3D_DIR)parser/grid_parser.c \
+	$(CUB3D_DIR)parser/grid_checker.c \
 	$(CUB3D_DIR)parser/header_parser_utils.c \
 	$(CUB3D_DIR)parser/header_parser.c \
 	$(CUB3D_DIR)parser/parser.c \

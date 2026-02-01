@@ -1,5 +1,4 @@
 #include "libft.h"
-#include <math.h>
 
 /**
  * @brief Skip leading characters from charset and return new line pointer.

@@ -26,6 +26,7 @@ unsigned char	get_prefix(char *line);
 // ============== MAP CHECKER ============== //
 
 int		check_textures(t_map *map);
+int		check_grid(char **grid, int *widths);
 
 // ============== DEBUG ============== //
 

@@ -1,7 +1,6 @@
 #include "libft.h"
 #include "cub3d.h"
 #include "parser.h"
-#include <math.h>
 
 /**
  * @brief Parse the header lines of the map file and update map data.
@@ -16,6 +15,9 @@ static int	map_parser(int fd, t_map *map)
 
 	flags = 0;
 	line = get_next_line(fd);
+	raw_grid = ft_calloc(1, sizeof(char));
+	if (!raw_grid)
+		return (1);
 	while (line)
 	{
 		line_size = ft_strlen(line);
@@ -46,7 +48,11 @@ int	get_map(int fd, t_map *map)
 {
 	if (fd < 0)
 		return (-1);
-	map_parser(fd, map);
+	if (map_parser(fd, map) == 1)
+		return (close(fd), 1);
 	close(fd);
+	if (check_grid(map->grid, map->widths) == 1)
+		return (1);
+	return (1); //DEBUG
 	return (0);
 }

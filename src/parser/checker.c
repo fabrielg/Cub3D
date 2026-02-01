@@ -1,6 +1,5 @@
 #include "libft.h"
 #include "cub3d.h"
-#include <math.h>
 #include <fcntl.h>
 
 int	check_textures(t_map *map)

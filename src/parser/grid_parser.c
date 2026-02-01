@@ -1,6 +1,5 @@
 #include "libft.h"
 #include "cub3d.h"
-#include <math.h>
 
 int	formated_line_len(char *line, char *f_line, const char *valid_charset)
 {
@@ -54,7 +53,7 @@ char	*format_line(char *line)
 
 	f_len = formated_line_len(line, f_line, " 10NSWE");
 	if (f_len == -1)
-		return (NULL);//ERROR ILLEGAL CHAR USED
+		return (printf("Error: illegal char used") ,NULL);//ERROR ILLEGAL CHAR USED
 	f_line = get_formated_line(line, f_len);
 	return (f_line);
 }
@@ -62,23 +61,16 @@ char	*format_line(char *line)
 int	raw_grid_parser(char *line, char **raw_grid)
 {
 	char	*f_line;
-	char	*buff;
 
-	buff = *raw_grid;
 	if (!line || !line[0])
 		return (0);
-	if (!*raw_grid)
-	{
-		*raw_grid = ft_calloc(1, sizeof(char));
-		if (!*raw_grid)
-			return (1);
-	}
 	f_line = format_line(line);
+	if (!f_line)
+		return (1);
 	*raw_grid = ft_strjoin(*raw_grid, f_line);
 	if (!*raw_grid)
 		return (1);
-	free(f_line);
-	return (1);
+	return (free(f_line), 1);
 }
 
 int	create_grid(t_map *map, char *raw_grid)
