@@ -34,11 +34,31 @@ static void	get_wall_slice(t_column *col, float distance)
 
 static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 {
+	t_img_data	*texture;
+	float		step;
+	float		tex_pos;
+	int			tex_y;
+	int			color;
+	int			y;
+
 	draw_vertical_line(&libx->img_data, x, 0, 
 		col->y_start - 1, map->colors[0]);
 	
-	draw_vertical_line(&libx->img_data, x, col->y_start, 
-		col->y_end, COLOR_WALL);
+	texture = &map->textures[col->raycast.hit_side];
+	step = (float)TEXTURE_HEIGHT / (float)col->wall_height;
+	tex_pos = (col->y_start - WIN_HEIGHT / 2 + col->wall_height / 2) * step;
+	
+	y = col->y_start;
+	while (y <= col->y_end)
+	{
+		tex_y = (int)tex_pos % TEXTURE_HEIGHT;
+		tex_pos += step;
+		
+		color = get_texture_pixel(texture, col->texture_x, tex_y);
+		put_pixel(&libx->img_data, x, y, color);
+		
+		y++;
+	}
 	
 	draw_vertical_line(&libx->img_data, x, col->y_end + 1, 
 		WIN_HEIGHT - 1, map->colors[1]);
@@ -65,9 +85,9 @@ void	render_frame(t_libx *libx, t_map *map, t_player *p)
 		// get texture x
 		col.texture_x = (int)(col.wall_x * TEXTURE_WIDTH);
 
-		/*if ((col.raycast.side == 0 && col.raycast.dir_x > 0) 
+		if ((col.raycast.side == 0 && col.raycast.dir_x > 0) 
 			|| (col.raycast.side == 1 && col.raycast.dir_y < 0))
-			col.texture_x = TEXTURE_WIDTH - col.texture_x - 1;*/
+			col.texture_x = TEXTURE_WIDTH - col.texture_x - 1;
 
 		get_wall_slice(&col, col.raycast.distance);
 		draw_column(libx, map, x, &col);

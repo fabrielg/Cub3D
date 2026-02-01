@@ -31,7 +31,8 @@ typedef enum e_direction
 
 typedef struct s_map
 {
-	char			*textures[4];
+	char			*raw_textures[4];
+	t_img_data		textures[4];
 	unsigned int	colors[2];
 	char			**grid;
 	int				*widths;
@@ -84,6 +85,8 @@ typedef struct s_column
 #pragma endregion
 
 void		init_player(t_map *map, t_player *player);
+void		put_pixel(t_img_data *data, int x, int y, int color);
+int			get_texture_pixel(t_img_data *texture, int tex_x, int tex_y);
 void		draw_vertical_line(t_img_data *img, int x, int y_start, int y_end, int color);
 void		render_frame(t_libx *libx, t_map *map, t_player *p);
 t_ray_data	dda(char **grid, float p_position[2], float ray_angle);

@@ -5,10 +5,10 @@
 
 static void	force_load_map(t_map *map)
 {
-	map->textures[0] = "./path_to_the_north_texture";
-	map->textures[1] = "./path_to_the_south_texture";
-	map->textures[2] = "./path_to_the_west_texture";
-	map->textures[3] = "./path_to_the_east_texture";
+	map->raw_textures[0] = "./textures/cobblestone.xpm";
+	map->raw_textures[1] = "./textures/deepslate.xpm";
+	map->raw_textures[2] = "./textures/diamond_ore.xpm";
+	map->raw_textures[3] = "./textures/spruce_log.xpm";
 
 	map->colors[0] = 0x90DAFC;
 	map->colors[1] = 0x4D3F30;
@@ -32,19 +32,36 @@ static void	force_load_map(t_map *map)
 	map->grid[10] = "11111111111";
 }
 
-/*static void	load_texture(t_libx *libx, t_img_data *texture, char *path)
+static int	load_textures(t_libx *libx, t_map *map)
 {
+	int	i;
 	int	width;
 	int	height;
 
-	texture->img = mlx_xpm_file_to_image(libx->mlx, path, &width, &height);
-	if (!texture->img)
-		return ;
-	texture->addr = mlx_get_data_addr(texture->img,
-			&texture->bits_per_pixel,
-			&texture->line_length,
-			&texture->endian);
-}*/
+	i = 0;
+	while (i < 4)
+	{
+		map->textures[i].img = mlx_xpm_file_to_image(
+			libx->mlx, 
+			map->raw_textures[i], 
+			&width, 
+			&height
+		);
+		
+		if (!map->textures[i].img)
+			return (1);
+		
+		map->textures[i].addr = mlx_get_data_addr(
+			map->textures[i].img,
+			&map->textures[i].bits_per_pixel,
+			&map->textures[i].line_length,
+			&map->textures[i].endian
+		);
+		
+		i++;
+	}
+	return (0);
+}
 
 int	cub_init(t_cub *cub)
 {
@@ -74,14 +91,15 @@ int	cub_init(t_cub *cub)
 			cub->libx.img_data.img,
 			0, 0);
 	register_hooks(cub);
-	return (0);
+	return (load_textures(&cub->libx, &cub->map));
 }
 
 int	main(void)
 {
 	t_cub	cub;
 
-	cub_init(&cub);
+	if (cub_init(&cub))
+		return (1);
 	render_frame(&cub.libx, &cub.map, &cub.player);
 	mlx_loop(cub.libx.mlx);
 }
