@@ -21,7 +21,6 @@ static t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle)
 	t_ray_data	raycast;
 
 	raycast = dda(map->grid, p->position, angle);
-	raycast.distance *= cosf(angle - p->angle_view);
 	return (raycast);
 }
 
@@ -89,6 +88,7 @@ void	render_frame(t_libx *libx, t_map *map, t_player *p)
 			|| (col.raycast.side == 1 && col.raycast.dir_y < 0))
 			col.texture_x = TEXTURE_WIDTH - col.texture_x - 1;
 
+		col.raycast.distance *= cosf(col.angle - p->angle_view);
 		get_wall_slice(&col, col.raycast.distance);
 		draw_column(libx, map, x, &col);
 		x++;
