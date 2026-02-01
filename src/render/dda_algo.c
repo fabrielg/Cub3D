@@ -1,19 +1,5 @@
 #include <math.h>
-
-typedef struct s_ray_data
-{
-	float	dir_x;
-	float	dir_y;
-	int		map_x;
-	int		map_y;
-	float	delta_dist_x;
-	float	delta_dist_y;
-	float	side_dist_x;
-	float	side_dist_y;
-	int		step_x;
-	int		step_y;
-	int		side;
-}	t_ray_data;
+#include "cub3d.h"
 
 static void	init_ray_direction(t_ray_data *ray, float angle, float pos[2])
 {
@@ -64,12 +50,20 @@ static int	perform_dda_loop(t_ray_data *ray, char **grid)
 			ray->side_dist_x += ray->delta_dist_x;
 			ray->map_x += ray->step_x;
 			ray->side = 0;
+			if (ray->step_x > 0)
+				ray->hit_side = EAST;
+			else
+				ray->hit_side = WEST;
 		}
 		else
 		{
 			ray->side_dist_y += ray->delta_dist_y;
 			ray->map_y += ray->step_y;
 			ray->side = 1;
+			if (ray->step_y > 0)
+				ray->hit_side = SOUTH;
+			else
+				ray->hit_side = NORTH;
 		}
 		
 		if (ray->map_y < 0 || ray->map_x < 0
@@ -82,25 +76,23 @@ static int	perform_dda_loop(t_ray_data *ray, char **grid)
 }
 
 // 7. get distance
-static float	get_distance(t_ray_data *ray, float pos[2])
+static void	get_distance(t_ray_data *ray, float pos[2])
 {
-	float	distance;
-
 	if (ray->side == 0)
-		distance = (ray->map_x - pos[0] + (1 - ray->step_x) / 2) / ray->dir_x;
+		ray->distance = (ray->map_x - pos[0] + (1 - ray->step_x) / 2) / ray->dir_x;
 	else
-		distance = (ray->map_y - pos[1] + (1 - ray->step_y) / 2) / ray->dir_y;
-	return (distance);
+		ray->distance = (ray->map_y - pos[1] + (1 - ray->step_y) / 2) / ray->dir_y;
 }
 
-float	dda(char **grid, float p_position[2], float ray_angle)
+t_ray_data	dda(char **grid, float p_position[2], float ray_angle)
 {
 	t_ray_data	ray;
 
 	init_ray_direction(&ray, ray_angle, p_position);
 	init_ray_step(&ray, p_position);
 
-	if (!perform_dda_loop(&ray, grid))
-		return (1000.0f);
-	return (get_distance(&ray, p_position));
+	ray.distance = 1000.0f;
+	if (perform_dda_loop(&ray, grid))
+		get_distance(&ray, p_position);
+	return (ray);
 }

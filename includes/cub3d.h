@@ -53,19 +53,49 @@ typedef struct s_cub
 	t_player	player;
 }	t_cub;
 
-void	init_player(t_map *map, t_player *player);
-void	draw_vertical_line(t_img_data *img, int x, int y_start, int y_end, int color);
-void	render_frame(t_libx *libx, t_map *map, t_player *p);
-float	dda(char **grid, float p_position[2], float ray_angle);
+#pragma region // data structures for ray casting
+typedef struct s_ray_data
+{
+	float		dir_x;
+	float		dir_y;
+	int			map_x;
+	int			map_y;
+	float		delta_dist_x;
+	float		delta_dist_y;
+	float		side_dist_x;
+	float		side_dist_y;
+	int			step_x;
+	int			step_y;
+	int			side;
+	t_direction	hit_side;
+	float		distance;
+}	t_ray_data;
+
+typedef struct s_column
+{
+	float		angle;
+	int			wall_height;
+	int			y_start;
+	int			y_end;
+	float		wall_x;
+	int			texture_x;
+	t_ray_data	raycast;
+}	t_column;
+#pragma endregion
+
+void		init_player(t_map *map, t_player *player);
+void		draw_vertical_line(t_img_data *img, int x, int y_start, int y_end, int color);
+void		render_frame(t_libx *libx, t_map *map, t_player *p);
+t_ray_data	dda(char **grid, float p_position[2], float ray_angle);
 
 /* Player */
-float	get_cardinal_angle(t_direction direction);
-int		move_forward(t_cub *cub);
-int		move_backward(t_cub *cub);
-int		move_left(t_cub *cub);
-int		move_right(t_cub *cub);
-int		rotate_left(t_cub *cub);
-int		rotate_right(t_cub *cub);
-int		respawn(t_cub *cub);
+float		get_cardinal_angle(t_direction direction);
+int			move_forward(t_cub *cub);
+int			move_backward(t_cub *cub);
+int			move_left(t_cub *cub);
+int			move_right(t_cub *cub);
+int			rotate_left(t_cub *cub);
+int			rotate_right(t_cub *cub);
+int			respawn(t_cub *cub);
 
 #endif

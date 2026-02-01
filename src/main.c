@@ -32,6 +32,20 @@ static void	force_load_map(t_map *map)
 	map->grid[10] = "11111111111";
 }
 
+/*static void	load_texture(t_libx *libx, t_img_data *texture, char *path)
+{
+	int	width;
+	int	height;
+
+	texture->img = mlx_xpm_file_to_image(libx->mlx, path, &width, &height);
+	if (!texture->img)
+		return ;
+	texture->addr = mlx_get_data_addr(texture->img,
+			&texture->bits_per_pixel,
+			&texture->line_length,
+			&texture->endian);
+}*/
+
 int	cub_init(t_cub *cub)
 {
 	ft_memset(cub, 0, sizeof(t_cub));

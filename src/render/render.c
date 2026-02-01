@@ -5,32 +5,24 @@
 #include <stdio.h>
 
 #define COLOR_WALL		0x808080
-
-#define FOV			M_PI / 3
-#define TILE_SIZE	1.0
-#define DIST_PROJ	(WIN_WIDTH / 2) / tan(FOV / 2)
-
-typedef struct s_column
-{
-	float	angle;
-	float	distance;
-	int		wall_height;
-	int		y_start;
-	int		y_end;
-}	t_column;
+#define FOV				M_PI / 3
+#define TILE_SIZE		1.0
+#define TEXTURE_WIDTH	64
+#define TEXTURE_HEIGHT	64
+#define DIST_PROJ		(WIN_WIDTH / 2) / tan(FOV / 2)
 
 static float	get_ray_angle(t_player *p, int x)
 {
 	return (p->angle_view - (FOV / 2.0f) + ((float)x * FOV / WIN_WIDTH));
 }
 
-static float	get_wall_distance(t_map *map, t_player *p, float angle)
+static t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle)
 {
-	float	distance;
+	t_ray_data	raycast;
 
-	distance = dda(map->grid, p->position, angle);
-	distance *= cosf(angle - p->angle_view);
-	return (distance);
+	raycast = dda(map->grid, p->position, angle);
+	raycast.distance *= cosf(angle - p->angle_view);
+	return (raycast);
 }
 
 static void	get_wall_slice(t_column *col, float distance)
@@ -61,8 +53,23 @@ void	render_frame(t_libx *libx, t_map *map, t_player *p)
 	while (x < WIN_WIDTH)
 	{
 		col.angle = get_ray_angle(p, x);
-		col.distance = get_wall_distance(map, p, col.angle);
-		get_wall_slice(&col, col.distance);
+		col.raycast = get_wall_distance(map, p, col.angle);
+
+		// get wall x
+		if (col.raycast.side == 0)
+			col.wall_x = p->position[1] + col.raycast.distance * col.raycast.dir_y;
+		else
+			col.wall_x = p->position[0] + col.raycast.distance * col.raycast.dir_x;
+		col.wall_x -= floorf(col.wall_x);
+
+		// get texture x
+		col.texture_x = (int)(col.wall_x * TEXTURE_WIDTH);
+
+		/*if ((col.raycast.side == 0 && col.raycast.dir_x > 0) 
+			|| (col.raycast.side == 1 && col.raycast.dir_y < 0))
+			col.texture_x = TEXTURE_WIDTH - col.texture_x - 1;*/
+
+		get_wall_slice(&col, col.raycast.distance);
 		draw_column(libx, map, x, &col);
 		x++;
 	}
