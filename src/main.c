@@ -8,10 +8,10 @@
 int	cub_init(t_cub *cub, int fd)
 {
 	ft_memset(cub, 0, sizeof(t_cub));
-	
+
 	if (get_map(fd, &cub->map))
-		return (1);
-	debug_map(&cub->map);
+		return (free_map(&cub->map), 1);
+	// debug_map(&cub->map);
 	check_textures(&cub->map);
 
 	init_player(&cub->map, &cub->player);

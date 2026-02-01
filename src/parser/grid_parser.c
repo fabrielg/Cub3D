@@ -1,6 +1,10 @@
 #include "libft.h"
 #include "cub3d.h"
 
+#define VALID_CHARSET " 10NSWE"
+#define ERR_INVALID_CHAR "Error: Invalid char used in grid '%c'\n"
+#define ERR_EMPTY_GRID_LINE "Error: Empty line in grid\n"
+
 int	formated_line_len(char *line, char *f_line, const char *valid_charset)
 {
 	int	i;
@@ -13,7 +17,7 @@ int	formated_line_len(char *line, char *f_line, const char *valid_charset)
 		if (line[i] == 9)
 			extra_space += 3;
 		else if (!ft_strchr(valid_charset, line[i]))
-			return (-1);//ERROR ILLEGAL CHAR USED
+			return (printf(ERR_INVALID_CHAR, line[i]), -1);
 	}
 	return (i + extra_space);
 }
@@ -51,9 +55,9 @@ char	*format_line(char *line)
 	char	*f_line;
 	int		f_len;
 
-	f_len = formated_line_len(line, f_line, " 10NSWE");
+	f_len = formated_line_len(line, f_line, VALID_CHARSET);
 	if (f_len == -1)
-		return (printf("Error: illegal char used") ,NULL);//ERROR ILLEGAL CHAR USED
+		return (NULL);
 	f_line = get_formated_line(line, f_len);
 	return (f_line);
 }
@@ -61,16 +65,18 @@ char	*format_line(char *line)
 int	raw_grid_parser(char *line, char **raw_grid)
 {
 	char	*f_line;
+	char	*tmp;
 
+	tmp = *raw_grid;
 	if (!line || !line[0])
-		return (0);
+		return (!!*raw_grid[0] && printf(ERR_EMPTY_GRID_LINE));
 	f_line = format_line(line);
 	if (!f_line)
 		return (1);
-	*raw_grid = ft_strjoin(*raw_grid, f_line);
+	*raw_grid = ft_strjoin(tmp, f_line);
 	if (!*raw_grid)
-		return (1);
-	return (free(f_line), 1);
+		return (free(f_line), free(tmp), 1);
+	return (free(f_line), free(tmp), 0);
 }
 
 int	create_grid(t_map *map, char *raw_grid)

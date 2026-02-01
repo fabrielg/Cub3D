@@ -32,4 +32,7 @@ int		check_grid(char **grid, int *widths);
 
 int		debug_map(t_map *map);
 
+//Autre
+void	free_map(t_map *map);
+
 #endif

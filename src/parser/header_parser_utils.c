@@ -1,5 +1,7 @@
 #include "libft.h"
 
+#define ERR_INVALID_HEADER_CHAR "Error: Invalid line in header \"%s\"\n"
+
 /**
  * @brief Skip leading characters from charset and return new line pointer.
  * @return Pointer to first character not in charset
@@ -45,7 +47,7 @@ unsigned int	rgb_from_split(char **split)
  */
 unsigned char	get_prefix(char *line)
 {
-	static const char	*args[6] = {"NO", "SO", "EA", "WE", "C", "F"};
+	static const char	*args[7] = {"NO", "SO", "EA", "WE", "C", "F"};
 	char	*tmp;
 	int		size;
 	int		i;
@@ -63,6 +65,6 @@ unsigned char	get_prefix(char *line)
 			break ;
 	}
 	if (i >= 6)
-		return (0);
+		return (printf(ERR_INVALID_HEADER_CHAR, tmp), 0);
 	return (1 << i);
 }

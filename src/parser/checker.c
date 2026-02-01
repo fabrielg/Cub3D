@@ -20,8 +20,3 @@ int	check_textures(t_map *map)
 	}
 	return (0);
 }
-
-// int	check_map(t_map_data *map)
-// {
-// 	while (map->grid[])
-// }
