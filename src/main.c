@@ -58,7 +58,6 @@ static int	load_textures(t_libx *libx, t_map *map)
 			&map->textures[i].img_data.endian
 		);
 		map->textures[i].size = width;
-		printf("test: %d\n", width);
 		
 		i++;
 	}
