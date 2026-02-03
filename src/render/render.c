@@ -63,6 +63,25 @@ static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 		WIN_HEIGHT - 1, map->colors[1]);
 }
 
+static int	get_texture_x(t_ray_data *raycast, float pos[2])
+{
+	float	wall_x_hit;
+	int		texture_x;
+
+	if (raycast->side == 0)
+		wall_x_hit = pos[1] + raycast->distance * raycast->dir_y;
+	else
+		wall_x_hit = pos[0] + raycast->distance * raycast->dir_x;
+	wall_x_hit -= floorf(wall_x_hit);
+
+	texture_x = (int)(wall_x_hit * TEXTURE_WIDTH);
+
+	if ((raycast->side == 0 && raycast->dir_x > 0) 
+		|| (raycast->side == 1 && raycast->dir_y < 0))
+		texture_x = TEXTURE_WIDTH - texture_x - 1;
+	return (texture_x);
+}
+
 void	render_frame(t_libx *libx, t_map *map, t_player *p)
 {
 	t_column	col;
@@ -73,21 +92,7 @@ void	render_frame(t_libx *libx, t_map *map, t_player *p)
 	{
 		col.angle = get_ray_angle(p, x);
 		col.raycast = get_wall_distance(map, p, col.angle);
-
-		// get wall x
-		if (col.raycast.side == 0)
-			col.wall_x = p->position[1] + col.raycast.distance * col.raycast.dir_y;
-		else
-			col.wall_x = p->position[0] + col.raycast.distance * col.raycast.dir_x;
-		col.wall_x -= floorf(col.wall_x);
-
-		// get texture x
-		col.texture_x = (int)(col.wall_x * TEXTURE_WIDTH);
-
-		if ((col.raycast.side == 0 && col.raycast.dir_x > 0) 
-			|| (col.raycast.side == 1 && col.raycast.dir_y < 0))
-			col.texture_x = TEXTURE_WIDTH - col.texture_x - 1;
-
+		col.texture_x = get_texture_x(&col.raycast, p->position);
 		col.raycast.distance *= cosf(col.angle - p->angle_view);
 		get_wall_slice(&col, col.raycast.distance);
 		draw_column(libx, map, x, &col);

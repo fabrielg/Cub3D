@@ -78,7 +78,6 @@ typedef struct s_column
 	int			wall_height;
 	int			y_start;
 	int			y_end;
-	float		wall_x;
 	int			texture_x;
 	t_ray_data	raycast;
 }	t_column;

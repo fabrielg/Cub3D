@@ -50,26 +50,18 @@ static int	perform_dda_loop(t_ray_data *ray, char **grid)
 			ray->side_dist_x += ray->delta_dist_x;
 			ray->map_x += ray->step_x;
 			ray->side = 0;
-			if (ray->step_x > 0)
-				ray->hit_side = EAST;
-			else
-				ray->hit_side = WEST;
+			ray->hit_side = WEST + ((EAST - WEST) * (ray->step_x > 0));
 		}
 		else
 		{
 			ray->side_dist_y += ray->delta_dist_y;
 			ray->map_y += ray->step_y;
 			ray->side = 1;
-			if (ray->step_y > 0)
-				ray->hit_side = SOUTH;
-			else
-				ray->hit_side = NORTH;
+			ray->hit_side = NORTH + ((SOUTH - NORTH) * (ray->step_y > 0));
 		}
-		
 		if (ray->map_y < 0 || ray->map_x < 0
 			|| !grid[ray->map_y] || !grid[ray->map_y][ray->map_x])
 			return (0);
-		
 		if (grid[ray->map_y][ray->map_x] == '1')
 			return (1);
 	}
@@ -90,7 +82,6 @@ t_ray_data	dda(char **grid, float p_position[2], float ray_angle)
 
 	init_ray_direction(&ray, ray_angle, p_position);
 	init_ray_step(&ray, p_position);
-
 	ray.distance = 1000.0f;
 	if (perform_dda_loop(&ray, grid))
 		get_distance(&ray, p_position);
