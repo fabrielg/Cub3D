@@ -10,16 +10,16 @@ void	put_pixel(t_img_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	get_texture_pixel(t_img_data *texture, int tex_x, int tex_y)
+int	get_texture_pixel(t_texture *texture, int tex_x, int tex_y)
 {
 	char	*pixel;
 
-	if (tex_x < 0 || tex_x >= 64 
-		|| tex_y < 0 || tex_y >= 64)
+	if (tex_x < 0 || tex_x >= texture->size 
+		|| tex_y < 0 || tex_y >= texture->size)
 		return (0x000000);
 	
-	pixel = texture->addr + (tex_y * texture->line_length 
-		+ tex_x * (texture->bits_per_pixel / 8));
+	pixel = texture->img_data.addr + (tex_y * texture->img_data.line_length 
+		+ tex_x * (texture->img_data.bits_per_pixel / 8));
 	
 	return (*(int *)pixel);
 }

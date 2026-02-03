@@ -41,22 +41,24 @@ static int	load_textures(t_libx *libx, t_map *map)
 	i = 0;
 	while (i < 4)
 	{
-		map->textures[i].img = mlx_xpm_file_to_image(
+		map->textures[i].img_data.img = mlx_xpm_file_to_image(
 			libx->mlx, 
 			map->raw_textures[i], 
 			&width, 
 			&height
 		);
 		
-		if (!map->textures[i].img)
+		if (!map->textures[i].img_data.img || width != height || width <= 0 || height <= 0)
 			return (1);
 		
-		map->textures[i].addr = mlx_get_data_addr(
-			map->textures[i].img,
-			&map->textures[i].bits_per_pixel,
-			&map->textures[i].line_length,
-			&map->textures[i].endian
+		map->textures[i].img_data.addr = mlx_get_data_addr(
+			map->textures[i].img_data.img,
+			&map->textures[i].img_data.bits_per_pixel,
+			&map->textures[i].img_data.line_length,
+			&map->textures[i].img_data.endian
 		);
+		map->textures[i].size = width;
+		printf("test: %d\n", width);
 		
 		i++;
 	}

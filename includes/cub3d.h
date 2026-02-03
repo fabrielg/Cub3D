@@ -9,8 +9,6 @@
 
 # define FOV			M_PI / 3
 # define TILE_SIZE		1.0
-# define TEXTURE_WIDTH	64
-# define TEXTURE_HEIGHT	64
 # define DIST_PROJ		(WIN_WIDTH / 2) / tan(FOV / 2)
 
 typedef struct s_img_data
@@ -21,6 +19,12 @@ typedef struct s_img_data
 	int		line_length;
 	int		endian;
 }	t_img_data;
+
+typedef struct s_texture
+{
+	t_img_data	img_data;
+	int			size;
+}	t_texture;
 
 typedef struct s_libx
 {
@@ -40,7 +44,7 @@ typedef enum e_direction
 typedef struct s_map
 {
 	char			*raw_textures[4];
-	t_img_data		textures[4];
+	t_texture		textures[4];
 	unsigned int	colors[2];
 	char			**grid;
 	int				*widths;
@@ -93,14 +97,14 @@ typedef struct s_column
 
 /* Drawing */
 void		put_pixel(t_img_data *data, int x, int y, int color);
-int			get_texture_pixel(t_img_data *texture, int tex_x, int tex_y);
+int			get_texture_pixel(t_texture *texture, int tex_x, int tex_y);
 
 /* Rendering */
 float		get_ray_angle(t_player *p, int x);
 void		init_ray_direction(t_ray_data *ray, float angle, float pos[2]);
 t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle);
 void		get_wall_slice(t_column *col, float distance);
-int			get_texture_x(t_ray_data *raycast, float pos[2]);
+int			get_texture_x(t_ray_data *raycast, float pos[2], t_texture textures[4]);
 void		draw_vertical_line(t_img_data *img, int x, int y_start, int y_end, int color);
 void		render_frame(t_libx *libx, t_map *map, t_player *p);
 t_ray_data	dda(char **grid, float p_position[2], float ray_angle);
