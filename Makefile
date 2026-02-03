@@ -28,6 +28,7 @@ SRCS_COMMUN		= \
 	$(CUB3D_DIR)player/player_init.c \
 	$(CUB3D_DIR)render/dda_algo.c \
 	$(CUB3D_DIR)render/draw.c \
+	$(CUB3D_DIR)render/render_utils.c \
 	$(CUB3D_DIR)render/render.c
 
 SRCS			= $(MAIN) $(SRCS_COMMUN)

@@ -1,35 +1,5 @@
 #include "cub3d.h"
-#include "libft.h"
-#include <math.h>
 #include <mlx.h>
-#include <stdio.h>
-
-#define COLOR_WALL		0x808080
-#define FOV				M_PI / 3
-#define TILE_SIZE		1.0
-#define TEXTURE_WIDTH	64
-#define TEXTURE_HEIGHT	64
-#define DIST_PROJ		(WIN_WIDTH / 2) / tan(FOV / 2)
-
-static float	get_ray_angle(t_player *p, int x)
-{
-	return (p->angle_view - (FOV / 2.0f) + ((float)x * FOV / WIN_WIDTH));
-}
-
-static t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle)
-{
-	t_ray_data	raycast;
-
-	raycast = dda(map->grid, p->position, angle);
-	return (raycast);
-}
-
-static void	get_wall_slice(t_column *col, float distance)
-{
-	col->wall_height = (int)((TILE_SIZE / distance) * DIST_PROJ);
-	col->y_start = (WIN_HEIGHT / 2) - (col->wall_height / 2);
-	col->y_end = (WIN_HEIGHT / 2) + (col->wall_height / 2);
-}
 
 static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 {
@@ -61,25 +31,6 @@ static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 	
 	draw_vertical_line(&libx->img_data, x, col->y_end + 1, 
 		WIN_HEIGHT - 1, map->colors[1]);
-}
-
-static int	get_texture_x(t_ray_data *raycast, float pos[2])
-{
-	float	wall_x_hit;
-	int		texture_x;
-
-	if (raycast->side == 0)
-		wall_x_hit = pos[1] + raycast->distance * raycast->dir_y;
-	else
-		wall_x_hit = pos[0] + raycast->distance * raycast->dir_x;
-	wall_x_hit -= floorf(wall_x_hit);
-
-	texture_x = (int)(wall_x_hit * TEXTURE_WIDTH);
-
-	if ((raycast->side == 0 && raycast->dir_x > 0) 
-		|| (raycast->side == 1 && raycast->dir_y < 0))
-		texture_x = TEXTURE_WIDTH - texture_x - 1;
-	return (texture_x);
 }
 
 void	render_frame(t_libx *libx, t_map *map, t_player *p)

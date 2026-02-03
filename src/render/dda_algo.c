@@ -1,39 +1,17 @@
-#include <math.h>
 #include "cub3d.h"
 
-static void	init_ray_direction(t_ray_data *ray, float angle, float pos[2])
-{
-	// 1. ray distance
-	ray->dir_x = cosf(angle);
-	ray->dir_y = sinf(angle);
-
-	// 2. current grid player position
-	ray->map_x = (int)pos[0];
-	ray->map_y = (int)pos[1];
-
-	// 3. deltas : distance to the next line
-	if (ray->dir_x == 0)
-		ray->delta_dist_x = 1e30f;
-	else
-		ray->delta_dist_x = fabsf(1.0f / ray->dir_x);
-	if (ray->dir_y == 0)
-		ray->delta_dist_y = 1e30f;
-	else
-		ray->delta_dist_y = fabsf(1.0f / ray->dir_y);
-}
-
+/*
+4. +1 or -1 steps
+5. first side distance
+*/
 static void	init_ray_step(t_ray_data *ray, float pos[2])
 {
-	// 4. +1 or -1 steps
 	ray->step_x = 1 - (ray->dir_x < 0) * 2;
 	ray->step_y = 1 - (ray->dir_y < 0) * 2;
-
-	// 5. first side distance
 	if (ray->dir_x < 0)
 		ray->side_dist_x = (pos[0] - ray->map_x) * ray->delta_dist_x;
 	else
 		ray->side_dist_x = (ray->map_x + 1.0f - pos[0]) * ray->delta_dist_x;
-
 	if (ray->dir_y < 0)
 		ray->side_dist_y = (pos[1] - ray->map_y) * ray->delta_dist_y;
 	else
