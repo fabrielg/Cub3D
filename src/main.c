@@ -1,9 +1,11 @@
 #include <mlx.h>
+#include <fcntl.h>
 #include "cub3d.h"
+#include "parser.h"
 #include "libft.h"
 #include "mlx_utils.h"
 
-static void	force_load_map(t_map *map)
+/*static void	force_load_map(t_map *map)
 {
 	map->raw_textures[0] = "./textures/cobblestone.xpm";
 	map->raw_textures[1] = "./textures/deepslate.xpm";
@@ -30,7 +32,7 @@ static void	force_load_map(t_map *map)
 	map->grid[8] = "10000000111";
 	map->grid[9] = "10001000001";
 	map->grid[10] = "11111111111";
-}
+}*/
 
 static int	load_textures(t_libx *libx, t_map *map)
 {
@@ -42,15 +44,15 @@ static int	load_textures(t_libx *libx, t_map *map)
 	while (i < 4)
 	{
 		map->textures[i].img_data.img = mlx_xpm_file_to_image(
-			libx->mlx, 
-			map->raw_textures[i], 
-			&width, 
+			libx->mlx,
+			map->raw_textures[i],
+			&width,
 			&height
 		);
-		
+
 		if (!map->textures[i].img_data.img || width != height || width <= 0 || height <= 0)
 			return (1);
-		
+
 		map->textures[i].img_data.addr = mlx_get_data_addr(
 			map->textures[i].img_data.img,
 			&map->textures[i].img_data.bits_per_pixel,
@@ -58,17 +60,21 @@ static int	load_textures(t_libx *libx, t_map *map)
 			&map->textures[i].img_data.endian
 		);
 		map->textures[i].size = width;
-		
+
 		i++;
 	}
 	return (0);
 }
 
-int	cub_init(t_cub *cub)
+int	cub_init(t_cub *cub, int fd)
 {
 	ft_memset(cub, 0, sizeof(t_cub));
 
-	force_load_map(&cub->map);
+	if (get_map(fd, &cub->map))
+		return (free_map(&cub->map), 1);
+	// debug_map(&cub->map);
+	check_textures(&cub->map);
+
 	init_player(&cub->map, &cub->player);
 
 	cub->libx.mlx = mlx_init();
@@ -95,12 +101,18 @@ int	cub_init(t_cub *cub)
 	return (load_textures(&cub->libx, &cub->map));
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	t_cub	cub;
+	int		fd;
 
-	if (cub_init(&cub))
+	if (argc != 2)
+		return (1);
+	fd = open(argv[1], O_RDONLY);
+
+	if (cub_init(&cub, fd))
 		return (1);
 	render_frame(&cub.libx, &cub.map, &cub.player);
 	mlx_loop(cub.libx.mlx);
+	return (0);
 }

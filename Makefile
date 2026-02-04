@@ -2,7 +2,7 @@
 
 NAME			= cub3d
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -g3 -Wall -Wextra -Werror
 
 LIBFT_DIR		= libft/
 MINILIBX_DIR	= minilibx-linux/
@@ -24,6 +24,14 @@ MAIN			= $(CUB3D_DIR)main.c
 SRCS_COMMUN		= \
 	$(CUB3D_DIR)mlx_utils/mlx_events.c \
 	$(CUB3D_DIR)mlx_utils/mlx_utils.c \
+	$(CUB3D_DIR)parser/checker.c \
+	$(CUB3D_DIR)parser/debug.c \
+	$(CUB3D_DIR)parser/map_utils.c \
+	$(CUB3D_DIR)parser/grid_parser.c \
+	$(CUB3D_DIR)parser/grid_checker.c \
+	$(CUB3D_DIR)parser/header_parser_utils.c \
+	$(CUB3D_DIR)parser/header_parser.c \
+	$(CUB3D_DIR)parser/parser.c \
 	$(CUB3D_DIR)player/movement.c \
 	$(CUB3D_DIR)player/player_init.c \
 	$(CUB3D_DIR)render/dda_algo.c \
