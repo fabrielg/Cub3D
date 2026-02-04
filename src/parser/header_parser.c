@@ -29,7 +29,7 @@ static int	texture_parser(t_map *map, char *line, unsigned char flag)
 		return (1);
 	texture = ft_strskip(texture + 2, " \f\r\t");
 	texture_id = log2(flag);
-	map->textures[texture_id] = ft_strdup(texture);
+	map->raw_textures[texture_id] = ft_strdup(texture);
 	return (0);
 }
 
