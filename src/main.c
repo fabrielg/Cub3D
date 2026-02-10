@@ -81,7 +81,7 @@ int	main(int argc, char *argv[])
 	fd = open(argv[1], O_RDONLY);
 
 	if (cub_init(&cub, fd))
-		return (1);
+		return (cub_clear(&cub), 1);
 	render_frame(&cub.libx, &cub.map, &cub.player);
 	mlx_loop(cub.libx.mlx);
 	return (0);

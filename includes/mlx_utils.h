@@ -4,7 +4,7 @@
 # include "cub3d.h"
 
 /* Utils */
-void	mlx_clear(t_libx *libx);
+void	cub_clear(t_cub *cub);
 int		close_window(t_cub *cub);
 
 /* Events */
