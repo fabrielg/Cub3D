@@ -13,14 +13,23 @@ void	mlx_clear(t_libx *libx)
 		free(libx->mlx);
 }
 
+static void	textures_clear(void *mlx_ptr, t_texture textures[4])
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+		mlx_destroy_image(mlx_ptr, textures[i].img_data.img);
+}
+
 int	close_window(t_cub *cub)
 {
 	if (!cub)
 		return (exit(0), 0);
 	if (cub->libx.img_data.img)
 		mlx_destroy_image(cub->libx.mlx, cub->libx.img_data.img);
+	textures_clear(cub->libx.mlx, cub->map.textures);
 	mlx_clear(&cub->libx);
-	free(cub->map.grid);
 	exit(0);
 	return (1);
 }
