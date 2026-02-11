@@ -39,7 +39,7 @@ typedef enum e_direction
 	SOUTH,
 	EAST,
 	WEST
-}   t_direction;
+}	t_direction;
 
 typedef struct s_map
 {
@@ -66,7 +66,6 @@ typedef struct s_cub
 	t_player	player;
 }	t_cub;
 
-#pragma region // data structures for ray casting
 typedef struct s_ray_data
 {
 	float		dir_x;
@@ -93,7 +92,6 @@ typedef struct s_column
 	int			texture_x;
 	t_ray_data	raycast;
 }	t_column;
-#pragma endregion
 
 /* Drawing */
 void		put_pixel(t_img_data *data, int x, int y, int color);

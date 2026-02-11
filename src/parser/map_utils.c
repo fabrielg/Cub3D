@@ -43,9 +43,6 @@ void	free_widths(t_map *map)
 
 void	free_map(t_map *map)
 {
-	int	i;
-
-	i = -1;
 	if (!map)
 		return ;
 	free_textures(map);
