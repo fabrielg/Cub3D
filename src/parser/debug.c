@@ -9,8 +9,8 @@ static void	debug_texture(t_map *map)
 	printf("//Texture//\n");
 	while (++i < 4)
 	{
-		if (map->textures[i])
-			printf("[%i] %s\n", i, map->textures[i]);
+		if (map->raw_textures[i])
+			printf("[%i] %s\n", i, map->raw_textures[i]);
 	}
 }
 

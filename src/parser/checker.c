@@ -11,10 +11,10 @@ int	check_textures(t_map *map)
 	return (0); //TODO
 	while (++i < 4)
 	{
-		fd = open(map->textures[i], O_RDONLY);
+		fd = open(map->raw_textures[i], O_RDONLY);
 		if (fd == -1)
 		{
-			printf("Error: invalid texture file [%s]\n", map->textures[i]);
+			printf("Error: invalid texture file [%s]\n", map->raw_textures[i]);
 			return (1);
 		}
 	}

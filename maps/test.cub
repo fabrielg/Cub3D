@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 NO ./cobblestone.XPM
 SO ./deepslate.XPM
 WE ./diamond_ore.XPM
 EA ./spruce_log.XPM
+=======
+NO ./textures/cobblestone.XPM
+SO ./textures/deepslate.XPM
+WE ./textures/diamond_ore.XPM
+EA ./textures/spruce_log.XPM
+>>>>>>> origin/main
 
 F 220,100,0
 C 225,30,0

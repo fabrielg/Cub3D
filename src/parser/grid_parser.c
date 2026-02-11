@@ -5,7 +5,7 @@
 #define ERR_INVALID_CHAR "Error: Invalid char used in grid '%c'\n"
 #define ERR_EMPTY_GRID_LINE "Error: Empty line in grid\n"
 
-int	formated_line_len(char *line, char *f_line, const char *valid_charset)
+int	formated_line_len(char *line, const char *valid_charset)
 {
 	int	i;
 	int	extra_space;
@@ -55,7 +55,7 @@ char	*format_line(char *line)
 	char	*f_line;
 	int		f_len;
 
-	f_len = formated_line_len(line, f_line, VALID_CHARSET);
+	f_len = formated_line_len(line, VALID_CHARSET);
 	if (f_len == -1)
 		return (NULL);
 	f_line = get_formated_line(line, f_len);

@@ -6,13 +6,12 @@ void	free_textures(t_map *map)
 	int	i;
 
 	i = -1;
-	if (map->textures)
+	while (++i < 4)
 	{
-		while (++i < 4)
-		{
-			free(map->textures[i]);
-			map->textures[i] = NULL;
-		}
+		if (!map->raw_textures[i])
+			continue ;
+		free(map->raw_textures[i]);
+		map->raw_textures[i] = NULL;
 	}
 }
 
@@ -44,9 +43,6 @@ void	free_widths(t_map *map)
 
 void	free_map(t_map *map)
 {
-	int	i;
-
-	i = -1;
 	if (!map)
 		return ;
 	free_textures(map);
