@@ -4,7 +4,7 @@
 
 #define HEADER_ERROR "Error: parsing error (invalid header)\n"
 
-int	free_map_parser(char *line, char *raw_grid, int fd)
+static int	free_map_parser(char *line, char *raw_grid, int fd)
 {
 	if (raw_grid)
 	{
@@ -21,7 +21,7 @@ int	free_map_parser(char *line, char *raw_grid, int fd)
 	return (1);
 }
 
-void	nullset_last_char(char *str)
+static void	nullset_last_char(char *str)
 {
 	size_t	str_size;
 
@@ -30,7 +30,7 @@ void	nullset_last_char(char *str)
 		str[str_size - 1] = '\0';
 }
 
-int	get_map_content(t_map *map, char *line, unsigned char *flags, char **raw_grid)
+static int	get_map_content(t_map *map, char *line, unsigned char *flags, char **raw_grid)
 {
 	if (*flags == (unsigned char)0b00111111)
 	{

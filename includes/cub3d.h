@@ -93,11 +93,17 @@ typedef struct s_column
 	t_ray_data	raycast;
 }	t_column;
 
+/* Init */
+
+int			cub_init(t_cub *cub, int fd);
+
 /* Drawing */
+
 void		put_pixel(t_img_data *data, int x, int y, int color);
 int			get_texture_pixel(t_texture *texture, int tex_x, int tex_y);
 
 /* Rendering */
+
 float		get_ray_angle(t_player *p, int x);
 void		init_ray_direction(t_ray_data *ray, float angle, float pos[2]);
 t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle);
@@ -108,6 +114,7 @@ void		render_frame(t_libx *libx, t_map *map, t_player *p);
 t_ray_data	dda(char **grid, float p_position[2], float ray_angle);
 
 /* Player */
+
 void		init_player(t_map *map, t_player *player);
 float		get_cardinal_angle(t_direction direction);
 int			move_forward(t_cub *cub);

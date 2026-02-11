@@ -10,22 +10,26 @@
 # define B_CELLING	0b00010000
 # define B_FLOOR	0b00100000
 
-// ============== MAP PARSING ============== //
+// ============== MAP_PARSING ============== //
 
 int		get_map(int fd, t_map *map_data);
 int		header_parser(t_map *data, char *line, unsigned char flag);
 int		raw_grid_parser(char *line, char **raw_grid);
 int		create_grid(t_map *map, char *raw_grid);
 
-// ============== PARSING UTILS ============== //
+// ============== PARSING_UTILS ============== //
 
 char			*ft_strskip(char *line, char *charset);
 unsigned int	rgb_from_split(char **split);
 unsigned char	get_prefix(char *line);
 
-// ============== MAP CHECKER ============== //
+// ============== TEXTURES_UTILS ============== //
 
 int		check_textures(t_map *map);
+int		load_textures(t_libx *libx, t_map *map);
+
+// ============== MAP_CHECKER ============== //
+
 int		check_grid(char **grid, int *widths);
 
 // ============== DEBUG ============== //
