@@ -4,7 +4,12 @@
 #define VALID_CHARSET " 10NSWE"
 #define ERR_INVALID_CHAR "Error: Invalid char used in grid '%c'\n"
 #define ERR_EMPTY_GRID_LINE "Error: Empty line in grid\n"
+#define ERR_EMPTY_GRID "Error: Map cannot be empty\n"
 
+/**
+ * @brief Compute formatted line length and validate characters.
+ * @return Formatted length or -1 on invalid character
+ */
 int	formated_line_len(char *line, const char *valid_charset)
 {
 	int	i;
@@ -22,6 +27,10 @@ int	formated_line_len(char *line, const char *valid_charset)
 	return (i + extra_space);
 }
 
+/**
+ * @brief Create a formatted line replacing tabs with 4 spaces.
+ * @return Newly allocated formatted line or NULL
+ */
 char	*get_formated_line(char *line, int f_len)
 {
 	char	*f_line;
@@ -50,6 +59,10 @@ char	*get_formated_line(char *line, int f_len)
 	return (f_line);
 }
 
+/**
+ * @brief Format a line and validate its characters.
+ * @return Formatted line or NULL on error
+ */
 char	*format_line(char *line)
 {
 	char	*f_line;
@@ -62,6 +75,10 @@ char	*format_line(char *line)
 	return (f_line);
 }
 
+/**
+ * @brief Append a formatted line to the raw grid buffer.
+ * @return 0 on success, 1 on error
+ */
 int	raw_grid_parser(char *line, char **raw_grid)
 {
 	char	*f_line;
@@ -79,17 +96,23 @@ int	raw_grid_parser(char *line, char **raw_grid)
 	return (free(f_line), free(tmp), 0);
 }
 
+/**
+ * @brief Build the grid and widths array from raw grid string.
+ * @return 0 on success, 1 on error
+ */
 int	create_grid(t_map *map, char *raw_grid)
 {
 	int	i;
 
 	i = -1;
+	if (!raw_grid || !raw_grid[0])
+		return (printf(ERR_EMPTY_GRID), 1);
 	map->grid = ft_split(raw_grid, ',');
 	map->max_height = ft_strarrlen(map->grid);
 	map->widths = ft_calloc(map->max_height, sizeof(int));
 	if (!map->widths)
 		return (1);
-	while(++i  < map->max_height)
+	while (++i < map->max_height)
 		map->widths[i] = ft_strlen(map->grid[i]);
 	return (0);
 }

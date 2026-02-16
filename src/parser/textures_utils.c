@@ -3,6 +3,8 @@
 #include "mlx_utils.h"
 #include <fcntl.h>
 
+#define ERR_TEXTURE "Error: invalid texture file \"%s\"\n"
+
 int	check_textures(t_map *map)
 {
 	int	i;
@@ -14,7 +16,7 @@ int	check_textures(t_map *map)
 		fd = open(map->raw_textures[i], O_RDONLY);
 		if (fd == -1)
 		{
-			printf("Error: invalid texture file [%s]\n", map->raw_textures[i]);
+			printf(ERR_TEXTURE, map->raw_textures[i]);
 			return (1);
 		}
 	}
@@ -31,19 +33,20 @@ int	load_textures(t_libx *libx, t_map *map)
 	while (++i < 4)
 	{
 		map->textures[i].img_data.img = mlx_xpm_file_to_image(
-			libx->mlx,
-			map->raw_textures[i],
-			&width,
-			&height
-		);
-		if (!map->textures[i].img_data.img || width != height || width <= 0 || height <= 0)
+				libx->mlx,
+				map->raw_textures[i],
+				&width,
+				&height
+				);
+		if (!map->textures[i].img_data.img || width != height
+			|| width <= 0 || height <= 0)
 			return (1);
 		map->textures[i].img_data.addr = mlx_get_data_addr(
-			map->textures[i].img_data.img,
-			&map->textures[i].img_data.bits_per_pixel,
-			&map->textures[i].img_data.line_length,
-			&map->textures[i].img_data.endian
-		);
+				map->textures[i].img_data.img,
+				&map->textures[i].img_data.bits_per_pixel,
+				&map->textures[i].img_data.line_length,
+				&map->textures[i].img_data.endian
+				);
 		map->textures[i].size = width;
 	}
 	return (0);

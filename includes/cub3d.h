@@ -3,6 +3,7 @@
 
 # include <math.h>
 
+
 # define WIN_WIDTH		1600
 # define WIN_HEIGHT		900
 # define WIN_TITLE		"Cub3D"
@@ -10,6 +11,9 @@
 # define FOV			M_PI / 3
 # define TILE_SIZE		1.0
 # define DIST_PROJ		(WIN_WIDTH / 2) / tan(FOV / 2)
+
+typedef unsigned char uint32_t;
+typedef unsigned int _int32_t;
 
 typedef struct s_img_data
 {
@@ -95,7 +99,7 @@ typedef struct s_column
 
 /* Init */
 
-int			cub_init(t_cub *cub, int fd);
+int			cub_init(t_cub *cub, char *map_name);
 
 /* Drawing */
 

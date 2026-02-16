@@ -28,6 +28,7 @@ SRCS_COMMUN		= \
 	$(CUB3D_DIR)parser/textures_utils.c \
 	$(CUB3D_DIR)parser/debug.c \
 	$(CUB3D_DIR)parser/free_map.c \
+	$(CUB3D_DIR)parser/check_extension.c \
 	$(CUB3D_DIR)parser/grid_parser.c \
 	$(CUB3D_DIR)parser/grid_checker.c \
 	$(CUB3D_DIR)parser/header_parser_utils.c \
