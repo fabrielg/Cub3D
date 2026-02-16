@@ -24,9 +24,11 @@ MAIN			= $(CUB3D_DIR)main.c
 SRCS_COMMUN		= \
 	$(CUB3D_DIR)mlx_utils/mlx_events.c \
 	$(CUB3D_DIR)mlx_utils/mlx_utils.c \
-	$(CUB3D_DIR)parser/checker.c \
+	$(CUB3D_DIR)init/cub_init.c \
+	$(CUB3D_DIR)parser/textures_utils.c \
 	$(CUB3D_DIR)parser/debug.c \
-	$(CUB3D_DIR)parser/map_utils.c \
+	$(CUB3D_DIR)parser/free_map.c \
+	$(CUB3D_DIR)parser/check_extension.c \
 	$(CUB3D_DIR)parser/grid_parser.c \
 	$(CUB3D_DIR)parser/grid_checker.c \
 	$(CUB3D_DIR)parser/header_parser_utils.c \
@@ -38,6 +40,7 @@ SRCS_COMMUN		= \
 	$(CUB3D_DIR)render/draw.c \
 	$(CUB3D_DIR)render/render_utils.c \
 	$(CUB3D_DIR)render/render.c
+
 
 SRCS			= $(MAIN) $(SRCS_COMMUN)
 

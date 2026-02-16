@@ -3,6 +3,7 @@
 
 # include <math.h>
 
+
 # define WIN_WIDTH		1600
 # define WIN_HEIGHT		900
 # define WIN_TITLE		"Cub3D"
@@ -10,6 +11,9 @@
 # define FOV			M_PI / 3
 # define TILE_SIZE		1.0
 # define DIST_PROJ		(WIN_WIDTH / 2) / tan(FOV / 2)
+
+typedef unsigned char uint32_t;
+typedef unsigned int _int32_t;
 
 typedef struct s_img_data
 {
@@ -93,11 +97,17 @@ typedef struct s_column
 	t_ray_data	raycast;
 }	t_column;
 
+/* Init */
+
+int			cub_init(t_cub *cub, char *map_name);
+
 /* Drawing */
+
 void		put_pixel(t_img_data *data, int x, int y, int color);
 int			get_texture_pixel(t_texture *texture, int tex_x, int tex_y);
 
 /* Rendering */
+
 float		get_ray_angle(t_player *p, int x);
 void		init_ray_direction(t_ray_data *ray, float angle, float pos[2]);
 t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle);
@@ -108,6 +118,7 @@ void		render_frame(t_libx *libx, t_map *map, t_player *p);
 t_ray_data	dda(char **grid, float p_position[2], float ray_angle);
 
 /* Player */
+
 void		init_player(t_map *map, t_player *player);
 float		get_cardinal_angle(t_direction direction);
 int			move_forward(t_cub *cub);
