@@ -20,8 +20,8 @@ int			create_grid(t_map *map, char *raw_grid);
 // ============== PARSING_UTILS ============== //
 
 char		*ft_strskip(char *line, char *charset);
-int			is_str_digit(char *str);
-_int32_t	rgb_from_split(char **split);
+int			ft_atoi_rgb(char *str, int *out);
+int			rgb_from_split(char **split, _int32_t *out);
 uint32_t	get_prefix(char *line);
 int			check_extension(char *str, char *ext);
 

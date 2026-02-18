@@ -58,11 +58,9 @@ _int32_t	color_parser(t_map *map, char *line, uint32_t flag)
 	split = ft_split(color_str, ',');
 	if (!split || ft_strarrlen(split) != 3)
 		return (ft_free_map((void **)split, -1), 1);
-	if (!is_str_digit(split[0]) || !is_str_digit(split[1])
-		|| !is_str_digit(split[2]))
-		return (ft_free_map((void **)split, -1), 1);
 	color_id = log2(flag) - 4;
-	map->colors[color_id] = rgb_from_split(split);
+	if (rgb_from_split(split, &map->colors[color_id]) == 1)
+		return (ft_free_map((void **)split, -1), 1);
 	ft_free_map((void **)split, -1);
 	return (0);
 }

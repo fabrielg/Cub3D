@@ -2,7 +2,7 @@
 #include "cub3d.h"
 
 #define ERR_INVALID_HEADER_CHAR "Error: Invalid line in header \"%s\"\n"
-#define ERR_INVALID_COLOR "Error: Invalid color value \"%s\"\n"
+#define ERR_INVALID_COLOR "Error: Invalid color values \"%s,%s,%s\"\n"
 
 /**
  * @brief Skip leading characters from charset and return new line pointer.
@@ -24,38 +24,46 @@ char	*ft_strskip(char *line, char *charset)
 }
 
 /**
- * @brief Check if a string contains only digit characters.
- * @return 1 if numeric string, 0 on invalid character
+ * @brief Get the digits from a RGB string.
+ * @return 0 if valid, 1 otherwise.
  */
-int	is_str_digit(char *str)
+int	ft_atoi_rgb(char *str, int *out)
 {
 	int	i;
+	int	result;
 
 	i = -1;
+	result = 0;
 	while (str[++i])
 	{
-		if (!ft_isdigit(str[i]))
-			return (printf(ERR_INVALID_COLOR, str), 0);
+		if (ft_strchr(" \t\r\f", str[i]))
+			continue ;
+		if (result > 255 || !ft_isdigit(str[i]))
+			return (1);
+		result = result * 10 + (str[i] - '0');
 	}
-	return (1);
+	if (result > 255)
+		return (1);
+	*out = result;
+	return (0);
 }
 
 /**
- * @brief Convert an RGB array of strings to a packed 24-bit color.
+ * @brief Convert an RGB array of strings to a packed 24-bit color,
+ * out the RGB int color.
  * @return Integer representing the RGB color
  */
-_int32_t	rgb_from_split(char **split)
+int	rgb_from_split(char **split, _int32_t *out)
 {
 	int	r;
 	int	g;
 	int	b;
 
-	r = ft_atoi(split[0]);
-	g = ft_atoi(split[1]);
-	b = ft_atoi(split[2]);
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		return (0);
-	return ((r << 16) | (g << 8) | b);
+	if (ft_atoi_rgb(split[0], &r) || ft_atoi_rgb(split[1], &g)
+		|| ft_atoi_rgb(split[2], &b))
+		return (printf(ERR_INVALID_COLOR, split[0], split[1], split[2]), 1);
+	*out = (_int32_t)((r << 16) | (g << 8) | b);
+	return (0);
 }
 
 /**
