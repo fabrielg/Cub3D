@@ -1,5 +1,5 @@
 #include "cub3d.h"
-#include <mlx.h>
+#include <mlx_utils.h>
 
 static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 {
@@ -33,23 +33,27 @@ static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 		WIN_HEIGHT - 1, map->colors[1]);
 }
 
-void	render_frame(t_libx *libx, t_map *map, t_player *p)
+void	render_frame(t_cub *cub)
 {
 	t_column	col;
+	t_player	*p;
+	t_map		*map;
 	int			x;
 
+	p = &cub->player;
+	map = &cub->map;
 	x = 0;
 	while (x < WIN_WIDTH)
 	{
 		col.angle = get_ray_angle(p, x);
-		col.raycast = get_wall_distance(map, p, col.angle);
+		col.raycast = get_wall_distance(&cub->map, p, col.angle);
 		col.texture_x = get_texture_x(&col.raycast, p->position, map->textures);
 		col.raycast.distance *= cosf(col.angle - p->angle_view);
 		get_wall_slice(&col, col.raycast.distance);
-		draw_column(libx, map, x, &col);
+		draw_column(&cub->libx, map, x, &col);
 		x++;
 	}
-
-	mlx_put_image_to_window(libx->mlx, libx->window, 
-		libx->img_data.img, 0, 0);
+	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window, 
+		cub->libx.img_data.img, 0, 0);
+	show_fps(cub);
 }

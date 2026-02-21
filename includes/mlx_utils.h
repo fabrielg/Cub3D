@@ -8,6 +8,7 @@
 
 void	mlx_clear(t_libx *libx);
 int		close_window(t_cub *cub);
+void	draw_text(t_libx *libx, char *str, int x, int y);
 
 /* Events */
 

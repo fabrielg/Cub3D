@@ -24,6 +24,7 @@ MAIN			= $(CUB3D_DIR)main.c
 SRCS_COMMUN		= \
 	$(CUB3D_DIR)mlx_utils/mlx_events.c \
 	$(CUB3D_DIR)mlx_utils/mlx_utils.c \
+	$(CUB3D_DIR)mlx_utils/mlx_draw_text.c \
 	$(CUB3D_DIR)init/cub_init.c \
 	$(CUB3D_DIR)parser/textures_utils.c \
 	$(CUB3D_DIR)parser/debug.c \
@@ -38,6 +39,7 @@ SRCS_COMMUN		= \
 	$(CUB3D_DIR)player/player_init.c \
 	$(CUB3D_DIR)render/dda_algo.c \
 	$(CUB3D_DIR)render/draw.c \
+	$(CUB3D_DIR)render/update_fps.c \
 	$(CUB3D_DIR)render/render_utils.c \
 	$(CUB3D_DIR)render/render.c
 
