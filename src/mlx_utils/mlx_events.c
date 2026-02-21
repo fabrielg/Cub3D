@@ -23,7 +23,7 @@ static int	key_press(int k, t_cub *cub)
 		respawn(cub);
 	else
 		return (1);
-	render_frame(&cub->libx, &cub->map, &cub->player);
+	render_frame(cub);
 	return (0);
 }
 
@@ -41,7 +41,7 @@ static int	mouse_move_handler(int x, int y, t_cub *cub)
 	else if (x > prev_x)
 		rotate_right(cub);
 	prev_x = x;
-	render_frame(&cub->libx, &cub->map, &cub->player);
+	render_frame(cub);
 	return (0);
 }
 
