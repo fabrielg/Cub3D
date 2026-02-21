@@ -1,7 +1,7 @@
-NO ./textures/cobblestone.xpm
-SO ./textures/deepslate.xpm
-WE ./textures/diamond_ore.xpm
-EA ./textures/spruce_log.xpm
+NO ./textures/cobblestone.XPM
+SO ./textures/deepslate.XPM
+WE ./textures/diamond_ore.XPM
+EA ./textures/spruce_log.XPM
 
 F 220,100,0
 C 225,30,0

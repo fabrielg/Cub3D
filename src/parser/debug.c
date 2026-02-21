@@ -1,6 +1,9 @@
 #include "libft.h"
 #include "cub3d.h"
 
+/**
+ * @brief Print all loaded texture paths.
+ */
 static void	debug_texture(t_map *map)
 {
 	int	i;
@@ -14,6 +17,9 @@ static void	debug_texture(t_map *map)
 	}
 }
 
+/**
+ * @brief Print stored floor and ceiling colors.
+ */
 static void	debug_color(t_map *map)
 {
 	int	i;
@@ -26,16 +32,22 @@ static void	debug_color(t_map *map)
 	}
 }
 
+/**
+ * @brief Print grid content with dimensions.
+ */
 static void	debug_grid(t_map *map)
 {
 	int	i;
 
 	i = -1;
 	printf("//Grid//\n");
-	while(++i  < map->max_height)
+	while (++i < map->max_height)
 		printf("%3i.(%3i) | %s\n", i, map->widths[i], map->grid[i]);
 }
 
+/**
+ * @brief Display full map debug information.
+ */
 void	debug_map(t_map *map)
 {
 	printf("\n===DEBUG MAP===\n\n");
@@ -45,4 +57,3 @@ void	debug_map(t_map *map)
 	printf("\n");
 	debug_grid(map);
 }
-
