@@ -40,6 +40,6 @@ int			debug_map(t_map *map);
 
 // ============== OTHER ============== //
 
-void		free_map(t_map *map);
+void		free_map(t_libx *libx, t_map *map);
 
 #endif

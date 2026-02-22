@@ -47,9 +47,11 @@ int	cub_init(t_cub *cub, char *map_name)
 		return (printf(ERR_FILE), 1);
 	ft_memset(cub, 0, sizeof(t_cub));
 	if (get_map(fd, &cub->map) || check_textures(&cub->map))
-		return (free_map(&cub->map), close(fd), 1);
+		return (free_map(&cub->libx, &cub->map), close(fd), 1);
 	close(fd);
 	init_player(&cub->map, &cub->player);
 	init_window(cub);
-	return (load_textures(&cub->libx, &cub->map));
+	if (load_textures(&cub->libx, &cub->map))
+		return (free_map(&cub->libx, &cub->map), close(fd), 1);
+	return (0);
 }
