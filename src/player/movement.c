@@ -3,6 +3,20 @@
 
 #define MOVE_SPEED 0.1f
 #define ROT_SPEED 0.05f
+#define COLLISION_MARGIN 0.2f
+
+static int	check_collision(t_map *map, float x, float y)
+{
+	if (map->grid[(int)(y - COLLISION_MARGIN)][(int)(x - COLLISION_MARGIN)] == '1')
+		return (1);
+	if (map->grid[(int)(y - COLLISION_MARGIN)][(int)(x + COLLISION_MARGIN)] == '1')
+		return (1);
+	if (map->grid[(int)(y + COLLISION_MARGIN)][(int)(x - COLLISION_MARGIN)] == '1')
+		return (1);
+	if (map->grid[(int)(y + COLLISION_MARGIN)][(int)(x + COLLISION_MARGIN)] == '1')
+		return (1);
+	return (0);
+}
 
 int	move_forward(t_cub *cub)
 {
@@ -12,7 +26,7 @@ int	move_forward(t_cub *cub)
 	new_x = cub->player.position[0] + cosf(cub->player.angle_view) * MOVE_SPEED;
 	new_y = cub->player.position[1] + sinf(cub->player.angle_view) * MOVE_SPEED;
 	
-	if (cub->map.grid[(int)new_y][(int)new_x] != '1')
+	if (check_collision(&cub->map, new_x, new_y) == 0)
 	{
 		cub->player.position[0] = new_x;
 		cub->player.position[1] = new_y;
@@ -28,7 +42,7 @@ int	move_backward(t_cub *cub)
 	new_x = cub->player.position[0] - cosf(cub->player.angle_view) * MOVE_SPEED;
 	new_y = cub->player.position[1] - sinf(cub->player.angle_view) * MOVE_SPEED;
 	
-	if (cub->map.grid[(int)new_y][(int)new_x] != '1')
+	if (check_collision(&cub->map, new_x, new_y) == 0)
 	{
 		cub->player.position[0] = new_x;
 		cub->player.position[1] = new_y;
@@ -44,7 +58,7 @@ int	move_left(t_cub *cub)
 	new_x = cub->player.position[0] + cosf(cub->player.angle_view - M_PI_2) * MOVE_SPEED;
 	new_y = cub->player.position[1] + sinf(cub->player.angle_view - M_PI_2) * MOVE_SPEED;
 	
-	if (cub->map.grid[(int)new_y][(int)new_x] != '1')
+	if (check_collision(&cub->map, new_x, new_y) == 0)
 	{
 		cub->player.position[0] = new_x;
 		cub->player.position[1] = new_y;
@@ -60,7 +74,7 @@ int	move_right(t_cub *cub)
 	new_x = cub->player.position[0] + cosf(cub->player.angle_view + M_PI_2) * MOVE_SPEED;
 	new_y = cub->player.position[1] + sinf(cub->player.angle_view + M_PI_2) * MOVE_SPEED;
 	
-	if (cub->map.grid[(int)new_y][(int)new_x] != '1')
+	if (check_collision(&cub->map, new_x, new_y) == 0)
 	{
 		cub->player.position[0] = new_x;
 		cub->player.position[1] = new_y;
