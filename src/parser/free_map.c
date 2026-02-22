@@ -1,20 +1,24 @@
 #include "libft.h"
 #include "cub3d.h"
+#include <mlx.h>
 
 /**
- * @brief Free all raw texture paths stored in the map structure.
+ * @brief Free all raw texture paths and texture img stored in the map structure.
  */
-static void	free_textures(t_map *map)
+static void	free_textures(t_libx *libx, t_map *map)
 {
 	int	i;
 
 	i = -1;
 	while (++i < 4)
 	{
-		if (!map->raw_textures[i])
-			continue ;
-		free(map->raw_textures[i]);
-		map->raw_textures[i] = NULL;
+		if (map->raw_textures[i])
+		{
+			free(map->raw_textures[i]);
+			map->raw_textures[i] = NULL;
+		}
+		if (map->textures[i].img_data.img)
+			mlx_destroy_image(libx->mlx, map->textures[i].img_data.img);
 	}
 }
 
@@ -53,11 +57,11 @@ static void	free_widths(t_map *map)
 /**
  * @brief Free all allocated resources inside the map structure.
  */
-void	free_map(t_map *map)
+void	free_map(t_libx *libx, t_map *map)
 {
 	if (!map)
 		return ;
-	free_textures(map);
+	free_textures(libx, map);
 	free_grid(map);
 	free_widths(map);
 }

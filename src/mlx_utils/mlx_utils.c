@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include "parser.h"
 #include <mlx.h>
 #include <stdlib.h>
 
@@ -17,10 +18,10 @@ int	close_window(t_cub *cub)
 {
 	if (!cub)
 		return (exit(0), 0);
+	free_map(&cub->libx, &cub->map);
 	if (cub->libx.img_data.img)
 		mlx_destroy_image(cub->libx.mlx, cub->libx.img_data.img);
 	mlx_clear(&cub->libx);
-	free(cub->map.grid);
 	exit(0);
 	return (1);
 }
