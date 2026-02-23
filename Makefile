@@ -25,6 +25,7 @@ SRCS_COMMUN		= \
 	$(CUB3D_DIR)mlx_utils/mlx_events.c \
 	$(CUB3D_DIR)mlx_utils/mlx_utils.c \
 	$(CUB3D_DIR)mlx_utils/mlx_draw_text.c \
+	$(CUB3D_DIR)mlx_utils/mlx_draw.c \
 	$(CUB3D_DIR)init/cub_init.c \
 	$(CUB3D_DIR)minimap/init_minimap.c \
 	$(CUB3D_DIR)parser/textures_utils.c \

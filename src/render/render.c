@@ -1,5 +1,5 @@
 #include "cub3d.h"
-#include <mlx_utils.h>
+#include "mlx_utils.h"
 
 static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 {
@@ -54,6 +54,7 @@ void	render_frame(t_cub *cub)
 		x++;
 	}
 	show_fps(cub);
+	render_minimap(&cub->libx);
 	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window, 
 		cub->libx.game_img.img, 0, 0);
 	
