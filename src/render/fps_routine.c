@@ -85,7 +85,9 @@ int	fps_routine(t_cub *cub)
 	if (!update_fps_counter(&cub->fps, time))
 		return (0);
 	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window,
-		cub->libx.img_data.img, 0, 0);
+		cub->libx.game_img.img, 0, 0);
+	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window, 
+		cub->libx.minimap_img.img, WIN_WIDTH - MINIMAP_SIZE - 10, 10);
 	show_fps(cub);
 	return (0);
 }

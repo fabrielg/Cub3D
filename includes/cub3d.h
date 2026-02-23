@@ -8,6 +8,8 @@
 # define WIN_HEIGHT		900
 # define WIN_TITLE		"Cub3D"
 
+# define MINIMAP_SIZE	WIN_HEIGHT / 4
+
 # define FOV			M_PI / 3
 # define TILE_SIZE		1.0
 # define DIST_PROJ		(WIN_WIDTH / 2) / tan(FOV / 2)
@@ -36,7 +38,8 @@ typedef struct s_libx
 {
 	void		*mlx;
 	void		*window;
-	t_img_data	img_data;
+	t_img_data	game_img;
+	t_img_data	minimap_img;
 }	t_libx;
 
 typedef struct s_fps
@@ -139,5 +142,9 @@ float		get_cardinal_angle(t_direction direction);
 int			move_player(t_cub *cub, float dir_x, float dir_y);
 int			rotate_player(t_cub *cub, float delta);
 int			respawn(t_cub *cub);
+
+/* Minimap */
+
+void		init_minimap(t_libx *libx);
 
 #endif

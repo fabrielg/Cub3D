@@ -17,22 +17,23 @@ static void	init_window(t_cub *cub)
 			WIN_WIDTH,
 			WIN_HEIGHT,
 			WIN_TITLE);
-	cub->libx.img_data.img = mlx_new_image(
+	cub->libx.game_img.img = mlx_new_image(
 			cub->libx.mlx,
 			WIN_WIDTH,
 			WIN_HEIGHT);
-	cub->libx.img_data.addr = mlx_get_data_addr(
-			cub->libx.img_data.img,
-			&cub->libx.img_data.bits_per_pixel,
-			&cub->libx.img_data.line_length,
-			&cub->libx.img_data.endian);
+	cub->libx.game_img.addr = mlx_get_data_addr(
+			cub->libx.game_img.img,
+			&cub->libx.game_img.bits_per_pixel,
+			&cub->libx.game_img.line_length,
+			&cub->libx.game_img.endian);
 	mlx_put_image_to_window(
 			cub->libx.mlx,
 			cub->libx.window,
-			cub->libx.img_data.img,
+			cub->libx.game_img.img,
 			0, 0);
 	if (HIDE_MOUSE)
 		mlx_mouse_hide(cub->libx.mlx, cub->libx.window);
+	init_minimap(&cub->libx);
 	register_hooks(cub);
 }
 
