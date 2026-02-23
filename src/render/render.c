@@ -54,7 +54,7 @@ void	render_frame(t_cub *cub)
 		x++;
 	}
 	show_fps(cub);
-	render_minimap(&cub->libx);
+	render_minimap(&cub->libx, &cub->player, &cub->map);
 	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window, 
 		cub->libx.game_img.img, 0, 0);
 	

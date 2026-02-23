@@ -146,6 +146,6 @@ int			respawn(t_cub *cub);
 /* Minimap */
 
 void		init_minimap(t_libx *libx);
-void		render_minimap(t_libx *libx);
+void		render_minimap(t_libx *libx, t_player *p, t_map *map);
 
 #endif
