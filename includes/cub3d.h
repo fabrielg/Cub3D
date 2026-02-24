@@ -56,6 +56,7 @@ typedef struct s_map
 {
 	char			*raw_textures[4];
 	t_texture		textures[4];
+	t_texture		sprite_textures[8];
 	unsigned int	colors[2];
 	char			**grid;
 	int				*widths;
@@ -93,6 +94,7 @@ typedef struct s_ray_data
 	int			side;
 	t_direction	hit_side;
 	float		distance;
+	char		hit_char;
 }	t_ray_data;
 
 typedef struct s_column
@@ -137,5 +139,9 @@ float		get_cardinal_angle(t_direction direction);
 int			move_player(t_cub *cub, float dir_x, float dir_y);
 int			rotate_player(t_cub *cub, float delta);
 int			respawn(t_cub *cub);
+
+/* Sprite */
+int			init_sprite(t_libx *libx, t_map *map);
+int			get_sprite_texture_x(t_ray_data *raycast, float p_pos[2], int sprite_size);
 
 #endif

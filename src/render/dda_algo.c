@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include "libft.h"
 
 /*
 4. +1 or -1 steps
@@ -40,8 +41,11 @@ static int	perform_dda_loop(t_ray_data *ray, char **grid)
 		if (ray->map_y < 0 || ray->map_x < 0
 			|| !grid[ray->map_y] || !grid[ray->map_y][ray->map_x])
 			return (0);
-		if (grid[ray->map_y][ray->map_x] == '1')
+		if (ft_strchr("1c", grid[ray->map_y][ray->map_x]))
+		{
+			ray->hit_char = grid[ray->map_y][ray->map_x];
 			return (1);
+		}
 	}
 }
 

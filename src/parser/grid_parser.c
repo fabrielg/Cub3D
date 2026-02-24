@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "cub3d.h"
 
-#define VALID_CHARSET " 10NSWE"
+#define VALID_CHARSET " 10NSWEc"
 #define ERR_INVALID_CHAR "Error: Invalid char used in grid '%c'\n"
 #define ERR_EMPTY_GRID_LINE "Error: Empty line in grid\n"
 #define ERR_EMPTY_GRID "Error: Map cannot be empty\n"

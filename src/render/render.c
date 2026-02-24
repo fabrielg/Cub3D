@@ -1,5 +1,6 @@
 #include "cub3d.h"
 #include <mlx_utils.h>
+#include <stdio.h>
 
 static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 {
@@ -13,7 +14,10 @@ static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 	draw_vertical_line(&libx->img_data, x, 0,
 		col->y_start - 1, map->colors[0]);
 
-	texture = map->textures[col->raycast.hit_side];
+	if (col->raycast.hit_char == 'c')
+		texture = map->sprite_textures[0];
+	else
+		texture = map->textures[col->raycast.hit_side];
 	step = (float)(texture.size) / (float)col->wall_height;
 	tex_pos = (col->y_start - WIN_HEIGHT / 2 + col->wall_height / 2) * step;
 
@@ -47,7 +51,10 @@ void	render_frame(t_cub *cub)
 	{
 		col.angle = get_ray_angle(p, x);
 		col.raycast = get_wall_distance(&cub->map, p, col.angle);
-		col.texture_x = get_texture_x(&col.raycast, p->position, map->textures);
+		if (col.raycast.hit_char == 'c')
+			col.texture_x = get_sprite_texture_x(&col.raycast, p->position, 200);
+		else
+			col.texture_x = get_texture_x(&col.raycast, p->position, map->textures);
 		col.raycast.distance *= cosf(col.angle - p->angle_view);
 		get_wall_slice(&col, col.raycast.distance);
 		draw_column(&cub->libx, map, x, &col);

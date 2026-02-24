@@ -49,5 +49,7 @@ int	load_textures(t_libx *libx, t_map *map)
 				);
 		map->textures[i].size = width;
 	}
+	if (init_sprite(libx, map))
+		return (1);
 	return (0);
 }

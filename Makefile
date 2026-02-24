@@ -22,6 +22,7 @@ OBJ_DIR_TARGET	= $(OBJ_DIR_MANDA)
 
 MAIN			= $(CUB3D_DIR)main.c
 SRCS_COMMUN		= \
+	$(CUB3D_DIR)animation/sprite.c \
 	$(CUB3D_DIR)mlx_utils/mlx_events.c \
 	$(CUB3D_DIR)mlx_utils/mlx_utils.c \
 	$(CUB3D_DIR)mlx_utils/mlx_draw_text.c \
