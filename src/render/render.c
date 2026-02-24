@@ -10,26 +10,26 @@ static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 	int			color;
 	int			y;
 
-	draw_vertical_line(&libx->img_data, x, 0, 
+	draw_vertical_line(&libx->img_data, x, 0,
 		col->y_start - 1, map->colors[0]);
-	
+
 	texture = map->textures[col->raycast.hit_side];
 	step = (float)(texture.size) / (float)col->wall_height;
 	tex_pos = (col->y_start - WIN_HEIGHT / 2 + col->wall_height / 2) * step;
-	
+
 	y = col->y_start;
 	while (y <= col->y_end)
 	{
 		tex_y = (int)tex_pos % texture.size;
 		tex_pos += step;
-		
+
 		color = get_texture_pixel(&texture, col->texture_x, tex_y);
 		put_pixel(&libx->img_data, x, y, color);
-		
+
 		y++;
 	}
-	
-	draw_vertical_line(&libx->img_data, x, col->y_end + 1, 
+
+	draw_vertical_line(&libx->img_data, x, col->y_end + 1,
 		WIN_HEIGHT - 1, map->colors[1]);
 }
 
@@ -53,7 +53,7 @@ void	render_frame(t_cub *cub)
 		draw_column(&cub->libx, map, x, &col);
 		x++;
 	}
-	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window, 
+	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window,
 		cub->libx.img_data.img, 0, 0);
 	show_fps(cub);
 }

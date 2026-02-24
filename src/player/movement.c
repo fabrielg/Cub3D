@@ -23,9 +23,9 @@ int	move_forward(t_cub *cub)
 	float	new_x;
 	float	new_y;
 
-	new_x = cub->player.position[0] + cosf(cub->player.angle_view) * MOVE_SPEED;
-	new_y = cub->player.position[1] + sinf(cub->player.angle_view) * MOVE_SPEED;
-	
+	new_x = cub->player.position[0] + cosf(cub->player.angle_view) * MOVE_SPEED * cub->fps.delta_time;
+	new_y = cub->player.position[1] + sinf(cub->player.angle_view) * MOVE_SPEED * cub->fps.delta_time;
+
 	if (check_collision(&cub->map, new_x, new_y) == 0)
 	{
 		cub->player.position[0] = new_x;
@@ -39,9 +39,9 @@ int	move_backward(t_cub *cub)
 	float	new_x;
 	float	new_y;
 
-	new_x = cub->player.position[0] - cosf(cub->player.angle_view) * MOVE_SPEED;
-	new_y = cub->player.position[1] - sinf(cub->player.angle_view) * MOVE_SPEED;
-	
+	new_x = cub->player.position[0] - cosf(cub->player.angle_view) * MOVE_SPEED * cub->fps.delta_time;
+	new_y = cub->player.position[1] - sinf(cub->player.angle_view) * MOVE_SPEED * cub->fps.delta_time;
+
 	if (check_collision(&cub->map, new_x, new_y) == 0)
 	{
 		cub->player.position[0] = new_x;
@@ -55,9 +55,9 @@ int	move_left(t_cub *cub)
 	float	new_x;
 	float	new_y;
 
-	new_x = cub->player.position[0] + cosf(cub->player.angle_view - M_PI_2) * MOVE_SPEED;
-	new_y = cub->player.position[1] + sinf(cub->player.angle_view - M_PI_2) * MOVE_SPEED;
-	
+	new_x = cub->player.position[0] + cosf(cub->player.angle_view - M_PI_2) * MOVE_SPEED * cub->fps.delta_time;
+	new_y = cub->player.position[1] + sinf(cub->player.angle_view - M_PI_2) * MOVE_SPEED * cub->fps.delta_time;
+
 	if (check_collision(&cub->map, new_x, new_y) == 0)
 	{
 		cub->player.position[0] = new_x;
@@ -71,9 +71,9 @@ int	move_right(t_cub *cub)
 	float	new_x;
 	float	new_y;
 
-	new_x = cub->player.position[0] + cosf(cub->player.angle_view + M_PI_2) * MOVE_SPEED;
-	new_y = cub->player.position[1] + sinf(cub->player.angle_view + M_PI_2) * MOVE_SPEED;
-	
+	new_x = cub->player.position[0] + cosf(cub->player.angle_view + M_PI_2) * MOVE_SPEED * cub->fps.delta_time;
+	new_y = cub->player.position[1] + sinf(cub->player.angle_view + M_PI_2) * MOVE_SPEED * cub->fps.delta_time;
+
 	if (check_collision(&cub->map, new_x, new_y) == 0)
 	{
 		cub->player.position[0] = new_x;
@@ -84,13 +84,13 @@ int	move_right(t_cub *cub)
 
 int	rotate_left(t_cub *cub)
 {
-	cub->player.angle_view -= ROT_SPEED;
+	cub->player.angle_view -= ROT_SPEED * cub->fps.delta_time;
 	return (0);
 }
 
 int	rotate_right(t_cub *cub)
 {
-	cub->player.angle_view += ROT_SPEED;
+	cub->player.angle_view += ROT_SPEED * cub->fps.delta_time;
 	return (0);
 }
 

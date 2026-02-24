@@ -12,7 +12,7 @@ int	main(int argc, char *argv[])
 	if (cub_init(&cub, argv[1]))
 		return (1);
 	render_frame(&cub);
-	mlx_loop_hook(cub.libx.mlx, update_fps, &cub);
+	mlx_loop_hook(cub.libx.mlx, fps_routine, &cub);
 	mlx_loop(cub.libx.mlx);
 	return (0);
 }
