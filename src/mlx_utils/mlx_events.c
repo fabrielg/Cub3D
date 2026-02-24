@@ -5,20 +5,23 @@
 
 static int	key_press(int k, t_cub *cub)
 {
+	float	angle;
+
+	angle = cub->player.angle_view;
 	if (k == KEY_ESC)
 		close_window(cub);
 	else if (k == KEY_W)
-		move_forward(cub);
-	else if (k == KEY_A)
-		move_left(cub);
+		move_player(cub, cosf(angle), sinf(angle));
 	else if (k == KEY_S)
-		move_backward(cub);
+		move_player(cub, -cosf(angle), -sinf(angle));
+	else if (k == KEY_A)
+		move_player(cub, cosf(angle - M_PI_2), sinf(angle - M_PI_2));
 	else if (k == KEY_D)
-		move_right(cub);
+		move_player(cub, cosf(angle + M_PI_2), sinf(angle + M_PI_2));
 	else if (k == KEY_LEFT)
-		rotate_left(cub);
+		rotate_player(cub, -1.0f);
 	else if (k == KEY_RIGHT)
-		rotate_right(cub);
+		rotate_player(cub, 1.0f);
 	else if (k == KEY_R)
 		respawn(cub);
 	else
@@ -37,9 +40,9 @@ static int	mouse_move_handler(int x, int y, t_cub *cub)
 	if (0 <= x || x <= WIN_WIDTH)
 		mlx_mouse_move(cub->libx.mlx, cub->libx.window, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	if (x < prev_x)
-		rotate_left(cub);
+		rotate_player(cub, -0.01f);
 	else if (x > prev_x)
-		rotate_right(cub);
+		rotate_player(cub, 0.01f);
 	prev_x = x;
 	render_frame(cub);
 	return (0);

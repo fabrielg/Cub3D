@@ -39,8 +39,7 @@ typedef struct s_libx
 
 typedef struct s_fps
 {
-	long	time;
-	long	old_time;
+	float	delta_time;
 	int		frame_count;
 	int		fps;
 }	t_fps;
@@ -126,19 +125,17 @@ void		draw_vertical_line(t_img_data *img, int x, int y_start, int y_end, int col
 void		render_frame(t_cub *cub);
 t_ray_data	dda(char **grid, float p_position[2], float ray_angle);
 
-int			update_fps(t_cub *cub);
-int			show_fps(t_cub *cub);
+/* FPS */
+
+int			fps_routine(t_cub *cub);
+void		show_fps(t_cub *cub);
 
 /* Player */
 
 void		init_player(t_map *map, t_player *player);
 float		get_cardinal_angle(t_direction direction);
-int			move_forward(t_cub *cub);
-int			move_backward(t_cub *cub);
-int			move_left(t_cub *cub);
-int			move_right(t_cub *cub);
-int			rotate_left(t_cub *cub);
-int			rotate_right(t_cub *cub);
+int			move_player(t_cub *cub, float dir_x, float dir_y);
+int			rotate_player(t_cub *cub, float delta);
 int			respawn(t_cub *cub);
 
 #endif

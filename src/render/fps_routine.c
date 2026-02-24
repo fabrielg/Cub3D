@@ -3,33 +3,34 @@
 #include <sys/time.h>
 #include <mlx_utils.h>
 
-#define UPDATE_TIME 500
+#define UPDATE_FPS_INTERVAL 500
+#define UPDATE_DTIME_INTERVAL 1000
 
 /**
- * @brief Get current time in milliseconds.
- * @return Time in milliseconds since epoch
+ * @brief Get current time in microseconds.
+ * @return Time in microseconds since epoch
  */
 static long get_ticks(void)
 {
-	struct timeval	tv;
+	struct timeval tv;
 
 	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
+	return (tv.tv_sec * (long)1e6 + tv.tv_usec);
 }
 
-/**
- * @brief Compute delta time between frames in seconds.
- * @return Delta time in seconds, capped at 0.1
- */
-static float	get_delta_time(long time)
+static float get_delta_time(long time)
 {
-	static long	last_frame_time = 0;
+	static long	last_time = 0;
+	long		diff;
 	float		delta;
 
-	if (last_frame_time == 0)
-		last_frame_time = time;
-	delta = (time - last_frame_time) / 1000.0f;
-	last_frame_time = time;
+	diff = time - last_time;
+	if (last_time == 0)
+		last_time = time;
+	if (diff < UPDATE_DTIME_INTERVAL)
+		diff = UPDATE_DTIME_INTERVAL;
+	delta = (float)diff / (float)1e6;
+	last_time = time;
 	if (delta > 0.1f)
 		delta = 0.1f;
 	return (delta);
@@ -46,9 +47,9 @@ static int	update_fps_counter(t_fps *fps, long time)
 	if (last_fps_time == 0)
 		last_fps_time = time;
 	fps->frame_count++;
-	if (time - last_fps_time >= UPDATE_TIME)
+	if ((time - last_fps_time) / 1000L >= UPDATE_FPS_INTERVAL)
 	{
-		fps->fps = (fps->frame_count * 1000 / UPDATE_TIME);
+		fps->fps = fps->frame_count * 1000 / UPDATE_FPS_INTERVAL;
 		fps->frame_count = 0;
 		last_fps_time = time;
 		return (1);
