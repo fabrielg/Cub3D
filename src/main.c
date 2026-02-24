@@ -11,7 +11,8 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (cub_init(&cub, argv[1]))
 		return (1);
-	render_frame(&cub.libx, &cub.map, &cub.player);
+	render_frame(&cub);
+	mlx_loop_hook(cub.libx.mlx, fps_routine, &cub);
 	mlx_loop(cub.libx.mlx);
 	return (0);
 }

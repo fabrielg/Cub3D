@@ -37,6 +37,13 @@ typedef struct s_libx
 	t_img_data	img_data;
 }	t_libx;
 
+typedef struct s_fps
+{
+	float	delta_time;
+	int		frame_count;
+	int		fps;
+}	t_fps;
+
 typedef enum e_direction
 {
 	NORTH,
@@ -66,6 +73,7 @@ typedef struct s_player
 typedef struct s_cub
 {
 	t_libx		libx;
+	t_fps		fps;
 	t_map		map;
 	t_player	player;
 }	t_cub;
@@ -114,19 +122,20 @@ t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle);
 void		get_wall_slice(t_column *col, float distance);
 int			get_texture_x(t_ray_data *raycast, float pos[2], t_texture textures[4]);
 void		draw_vertical_line(t_img_data *img, int x, int y_start, int y_end, int color);
-void		render_frame(t_libx *libx, t_map *map, t_player *p);
+void		render_frame(t_cub *cub);
 t_ray_data	dda(char **grid, float p_position[2], float ray_angle);
+
+/* FPS */
+
+int			fps_routine(t_cub *cub);
+void		show_fps(t_cub *cub);
 
 /* Player */
 
 void		init_player(t_map *map, t_player *player);
 float		get_cardinal_angle(t_direction direction);
-int			move_forward(t_cub *cub);
-int			move_backward(t_cub *cub);
-int			move_left(t_cub *cub);
-int			move_right(t_cub *cub);
-int			rotate_left(t_cub *cub);
-int			rotate_right(t_cub *cub);
+int			move_player(t_cub *cub, float dir_x, float dir_y);
+int			rotate_player(t_cub *cub, float delta);
 int			respawn(t_cub *cub);
 
 #endif
