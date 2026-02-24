@@ -31,7 +31,6 @@ int	move_player(t_cub *cub, float dir_x, float dir_y)
 	{
 		cub->player.position[0] = new_x;
 		cub->player.position[1] = new_y;
-		printf("delta time : %f\n", cub->fps.delta_time);
 	}
 	return 0;
 }
