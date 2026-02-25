@@ -2,6 +2,9 @@
 #include "keycodes.h"
 #include "mlx_utils.h"
 #include <mlx.h>
+#include "libft.h"
+
+#define MOUSE_SENSITIVITY 0.02f
 
 static int	key_press(int k, t_cub *cub)
 {
@@ -33,17 +36,23 @@ static int	key_press(int k, t_cub *cub)
 static int	mouse_move_handler(int x, int y, t_cub *cub)
 {
 	static int	prev_x = WIN_WIDTH / 2;
+	int			delta_x;
 
 	(void)y;
 	if (x == prev_x)
 		return (0);
-	if (0 <= x || x <= WIN_WIDTH)
-		mlx_mouse_move(cub->libx.mlx, cub->libx.window, WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	if (x < prev_x)
-		rotate_player(cub, -0.01f);
-	else if (x > prev_x)
-		rotate_player(cub, 0.01f);
-	prev_x = x;
+	delta_x = (int)((x - prev_x) * MOUSE_SENSITIVITY);
+	if (ft_abs(delta_x) < 1)
+		return (0);
+	rotate_player(cub, delta_x);
+	if (x < (WIN_WIDTH / 2) - 20 || x > (WIN_WIDTH / 2) + 20)
+	{
+		mlx_mouse_move(cub->libx.mlx, cub->libx.window, 
+			WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		prev_x = WIN_WIDTH / 2;
+	}
+	else
+		prev_x = x;
 	render_frame(cub);
 	return (0);
 }

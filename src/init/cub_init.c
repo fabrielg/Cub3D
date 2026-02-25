@@ -31,6 +31,8 @@ static void	init_window(t_cub *cub)
 			cub->libx.window,
 			cub->libx.img_data.img,
 			0, 0);
+	if (HIDE_MOUSE)
+		mlx_mouse_hide(cub->libx.mlx, cub->libx.window);
 	register_hooks(cub);
 }
 

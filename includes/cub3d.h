@@ -12,6 +12,8 @@
 # define TILE_SIZE		1.0
 # define DIST_PROJ		(WIN_WIDTH / 2) / tan(FOV / 2)
 
+# define HIDE_MOUSE		1
+
 typedef unsigned char uint32_t;
 typedef unsigned int _int32_t;
 
