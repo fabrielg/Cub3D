@@ -81,6 +81,7 @@ int	fps_routine(t_cub *cub)
 	long	time;
 
 	time = get_ticks();
+	update_frame(cub);
 	cub->fps.delta_time = get_delta_time(time);
 	if (!update_fps_counter(&cub->fps, time))
 		return (0);

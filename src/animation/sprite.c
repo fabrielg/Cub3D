@@ -2,6 +2,8 @@
 #include "libft.h"
 #include <mlx.h>
 
+#define MAX_FRAMES 5000
+
 static char	*get_texture_path(int i)
 {
 	static char	*textures[8] = {
@@ -65,4 +67,15 @@ int	get_sprite_texture_x(t_ray_data *raycast, float p_pos[2], int sprite_size)
 	if (texture_x >= sprite_size)
 		texture_x = sprite_size - 1;
 	return (texture_x);
+}
+
+void	update_frame(t_cub *cub)
+{
+	cub->sprite.sprite_frame_counter++;
+	if (cub->sprite.sprite_frame_counter >= MAX_FRAMES)
+	{
+		cub->sprite.sprite_frame_counter = 0;
+		cub->sprite.sprite_id = (cub->sprite.sprite_id + 1) % 8;
+		render_frame(cub);
+	}
 }

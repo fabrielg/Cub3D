@@ -71,12 +71,19 @@ typedef struct s_player
 	float	angle_view;
 }	t_player;
 
+typedef struct s_sprite
+{
+	int	sprite_id;
+	int	sprite_frame_counter;
+}	t_sprite;
+
 typedef struct s_cub
 {
 	t_libx		libx;
 	t_fps		fps;
 	t_map		map;
 	t_player	player;
+	t_sprite	sprite;
 }	t_cub;
 
 typedef struct s_ray_data
@@ -143,5 +150,6 @@ int			respawn(t_cub *cub);
 /* Sprite */
 int			init_sprite(t_libx *libx, t_map *map);
 int			get_sprite_texture_x(t_ray_data *raycast, float p_pos[2], int sprite_size);
+void		update_frame(t_cub *cub);
 
 #endif
