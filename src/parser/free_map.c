@@ -20,6 +20,12 @@ static void	free_textures(t_libx *libx, t_map *map)
 		if (map->textures[i].img_data.img)
 			mlx_destroy_image(libx->mlx, map->textures[i].img_data.img);
 	}
+	i = -1;
+	while (++i < 8)
+	{
+		if (map->sprite_textures[i].img_data.img)
+			mlx_destroy_image(libx->mlx, map->sprite_textures[i].img_data.img);
+	}
 }
 
 /**
