@@ -1,5 +1,6 @@
 #include "cub3d.h"
 #include "mlx_utils.h"
+#include "minimap.h"
 
 static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 {
@@ -10,7 +11,7 @@ static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 	int			color;
 	int			y;
 
-	draw_vertical_line(&libx->game_img, x, 0, 
+	draw_vertical_line(&libx->game_img, x, 0,
 		col->y_start - 1, map->colors[0]);
 
 	texture = map->textures[col->raycast.hit_side];
@@ -25,11 +26,11 @@ static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 
 		color = get_texture_pixel(&texture, col->texture_x, tex_y);
 		put_pixel(&libx->game_img, x, y, color);
-		
+
 		y++;
 	}
-	
-	draw_vertical_line(&libx->game_img, x, col->y_end + 1, 
+
+	draw_vertical_line(&libx->game_img, x, col->y_end + 1,
 		WIN_HEIGHT - 1, map->colors[1]);
 }
 
@@ -57,7 +58,6 @@ void	render_frame(t_cub *cub)
 	render_minimap(&cub->libx, &cub->player, &cub->map);
 	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window, 
 		cub->libx.game_img.img, 0, 0);
-	
-	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window, 
-		cub->libx.minimap_img.img, WIN_WIDTH - MINIMAP_SIZE - 10, 10);
+	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window,
+		cub->libx.minimap_img.img, WIN_WIDTH - cub->libx.minimap_size - 10, 10);
 }

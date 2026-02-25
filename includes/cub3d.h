@@ -8,8 +8,6 @@
 # define WIN_HEIGHT		900
 # define WIN_TITLE		"Cub3D"
 
-# define MINIMAP_SIZE	WIN_HEIGHT / 4
-
 # define FOV			M_PI / 3
 # define TILE_SIZE		1.0
 # define DIST_PROJ		(WIN_WIDTH / 2) / tan(FOV / 2)
@@ -40,6 +38,7 @@ typedef struct s_libx
 	void		*window;
 	t_img_data	game_img;
 	t_img_data	minimap_img;
+	int			minimap_size;
 }	t_libx;
 
 typedef struct s_fps
@@ -112,6 +111,7 @@ typedef struct s_column
 
 /* Init */
 
+void		init_window(t_cub *cub);
 int			cub_init(t_cub *cub, char *map_name);
 
 /* Drawing */
@@ -127,6 +127,7 @@ t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle);
 void		get_wall_slice(t_column *col, float distance);
 int			get_texture_x(t_ray_data *raycast, float pos[2], t_texture textures[4]);
 void		draw_vertical_line(t_img_data *img, int x, int y_start, int y_end, int color);
+void		draw_horizontal_line(t_img_data *img, int x_start, int y, int x_end, int color);
 void		render_frame(t_cub *cub);
 t_ray_data	dda(char **grid, float p_position[2], float ray_angle);
 
@@ -142,10 +143,5 @@ float		get_cardinal_angle(t_direction direction);
 int			move_player(t_cub *cub, float dir_x, float dir_y);
 int			rotate_player(t_cub *cub, float delta);
 int			respawn(t_cub *cub);
-
-/* Minimap */
-
-void		init_minimap(t_libx *libx);
-void		render_minimap(t_libx *libx, t_player *p, t_map *map);
 
 #endif
