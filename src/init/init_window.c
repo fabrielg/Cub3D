@@ -60,5 +60,7 @@ void	init_window(t_cub *cub)
 			WIN_TITLE);
 	init_game_img(&cub->libx);
 	init_minimap_img(&cub->libx);
+	if (HIDE_MOUSE)
+		mlx_mouse_hide(cub->libx.mlx, cub->libx.window);
 	register_hooks(cub);
 }
