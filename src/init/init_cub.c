@@ -7,36 +7,6 @@
 #define ERR_FILE "Error: Invalid file name\n"
 
 /**
- * @brief Initialize MLX, window, image buffer and hooks.
- */
-static void	init_window(t_cub *cub)
-{
-	cub->libx.mlx = mlx_init();
-	cub->libx.window = mlx_new_window(
-			cub->libx.mlx,
-			WIN_WIDTH,
-			WIN_HEIGHT,
-			WIN_TITLE);
-	cub->libx.img_data.img = mlx_new_image(
-			cub->libx.mlx,
-			WIN_WIDTH,
-			WIN_HEIGHT);
-	cub->libx.img_data.addr = mlx_get_data_addr(
-			cub->libx.img_data.img,
-			&cub->libx.img_data.bits_per_pixel,
-			&cub->libx.img_data.line_length,
-			&cub->libx.img_data.endian);
-	mlx_put_image_to_window(
-			cub->libx.mlx,
-			cub->libx.window,
-			cub->libx.img_data.img,
-			0, 0);
-	if (HIDE_MOUSE)
-		mlx_mouse_hide(cub->libx.mlx, cub->libx.window);
-	register_hooks(cub);
-}
-
-/**
  * @brief Initialize cub structure, map, player and window.
  * @return 0 on success, 1 on init error
  */

@@ -5,6 +5,8 @@
 
 #define UPDATE_FPS_INTERVAL 500
 #define UPDATE_DTIME_INTERVAL 1000
+#define FPS_X WIN_WIDTH - 50
+#define FPS_Y 250
 
 /**
  * @brief Get current time in microseconds.
@@ -64,11 +66,11 @@ void	show_fps(t_cub *cub)
 {
 	char	*fps_s;
 
-	draw_text(&cub->libx, "FPS :", WIN_WIDTH - 100, 15);
+	draw_text(&cub->libx, "FPS :", FPS_X - 50, FPS_Y);
 	fps_s = ft_itoa(cub->fps.fps);
 	if (!fps_s)
 		return ;
-	draw_text(&cub->libx, fps_s, WIN_WIDTH - 50, 15);
+	draw_text(&cub->libx, fps_s, FPS_X, FPS_Y);
 	free (fps_s);
 }
 
@@ -85,7 +87,9 @@ int	fps_routine(t_cub *cub)
 	if (!update_fps_counter(&cub->fps, time))
 		return (0);
 	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window,
-		cub->libx.img_data.img, 0, 0);
+		cub->libx.game_img.img, 0, 0);
+	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window, 
+		cub->libx.minimap_img.img, WIN_WIDTH - cub->libx.minimap_size - 10, 10);
 	show_fps(cub);
 	return (0);
 }

@@ -14,4 +14,8 @@ void	draw_text(t_libx *libx, char *str, int x, int y);
 
 void	register_hooks(t_cub *cub);
 
+/* Draw */
+
+void	draw_square(t_img_data *img, int x, int y, int size, int color);
+
 #endif

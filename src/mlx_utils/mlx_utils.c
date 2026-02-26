@@ -19,8 +19,8 @@ int	close_window(t_cub *cub)
 	if (!cub)
 		return (exit(0), 0);
 	free_map(&cub->libx, &cub->map);
-	if (cub->libx.img_data.img)
-		mlx_destroy_image(cub->libx.mlx, cub->libx.img_data.img);
+	if (cub->libx.game_img.img)
+		mlx_destroy_image(cub->libx.mlx, cub->libx.game_img.img);
 	mlx_clear(&cub->libx);
 	exit(0);
 	return (1);
