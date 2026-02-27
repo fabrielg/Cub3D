@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include "stdio.h"
 
 float	get_ray_angle(t_player *p, int x)
 {
@@ -41,7 +42,14 @@ void	get_wall_slice(t_column *col, float distance)
 	col->y_end = (WIN_HEIGHT / 2) + (col->wall_height / 2);
 }
 
-int	get_texture_x(t_ray_data *raycast, float pos[2], t_texture textures[4])
+t_texture	select_texture(t_ray_data *raycast, t_map *map)
+{
+	if (raycast->tile_type == 'C')
+		return (map->door_texture);
+	return (map->textures[raycast->hit_side]);
+}
+
+int	get_texture_x(t_ray_data *raycast, float pos[2], t_map *map)
 {
 	t_texture	texture;
 	float		wall_x_hit;
@@ -52,9 +60,9 @@ int	get_texture_x(t_ray_data *raycast, float pos[2], t_texture textures[4])
 	else
 		wall_x_hit = pos[0] + raycast->distance * raycast->dir_x;
 	wall_x_hit -= floorf(wall_x_hit);
-	texture = textures[raycast->hit_side];
+	texture = select_texture(raycast, map);
 	texture_x = (int)(wall_x_hit * texture.size);
-	if ((raycast->side == 0 && raycast->dir_x > 0) 
+	if ((raycast->side == 0 && raycast->dir_x > 0)
 		|| (raycast->side == 1 && raycast->dir_y < 0))
 		texture_x = texture.size - texture_x - 1;
 	return (texture_x);

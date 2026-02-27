@@ -59,7 +59,9 @@ typedef enum e_direction
 typedef struct s_map
 {
 	char			*raw_textures[4];
+	char			*raw_door_texture;
 	t_texture		textures[4];
+	t_texture		door_texture;
 	unsigned int	colors[2];
 	char			**grid;
 	int				*widths;
@@ -96,6 +98,7 @@ typedef struct s_ray_data
 	int			step_y;
 	int			side;
 	t_direction	hit_side;
+	char		tile_type;
 	float		distance;
 }	t_ray_data;
 
@@ -125,7 +128,8 @@ float		get_ray_angle(t_player *p, int x);
 void		init_ray_direction(t_ray_data *ray, float angle, float pos[2]);
 t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle);
 void		get_wall_slice(t_column *col, float distance);
-int			get_texture_x(t_ray_data *raycast, float pos[2], t_texture textures[4]);
+int			get_texture_x(t_ray_data *raycast, float pos[2], t_map *map);
+t_texture	select_texture(t_ray_data *raycast, t_map *map);
 void		draw_vertical_line(t_img_data *img, int x, int y_start, int y_end, int color);
 void		draw_horizontal_line(t_img_data *img, int x_start, int y, int x_end, int color);
 void		render_frame(t_cub *cub);

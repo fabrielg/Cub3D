@@ -17,37 +17,44 @@ int	check_textures(t_map *map)
 		if (fd == -1)
 		{
 			printf(ERR_TEXTURE, map->raw_textures[i]);
-			return (1);
+			return (close(fd), 1);
 		}
+		close(fd);
 	}
+	return (0);
+}
+
+static int	get_texture_data(t_libx *libx, t_texture *texture, char *raw)
+{
+	int	width;
+	int	height;
+
+	texture->img_data.img = mlx_xpm_file_to_image(
+		libx->mlx, raw, &width, &height);
+	if (!texture->img_data.img || width != height
+			|| width <= 0 || height <= 0)
+		return (1);
+	texture->img_data.addr = mlx_get_data_addr(
+		texture->img_data.img,
+		&texture->img_data.bits_per_pixel,
+		&texture->img_data.line_length,
+		&texture->img_data.endian
+		);
+		texture->size = width;
 	return (0);
 }
 
 int	load_textures(t_libx *libx, t_map *map)
 {
 	int	i;
-	int	width;
-	int	height;
 
 	i = -1;
 	while (++i < 4)
 	{
-		map->textures[i].img_data.img = mlx_xpm_file_to_image(
-				libx->mlx,
-				map->raw_textures[i],
-				&width,
-				&height
-				);
-		if (!map->textures[i].img_data.img || width != height
-			|| width <= 0 || height <= 0)
+		if (get_texture_data(libx, &map->textures[i], map->raw_textures[i]))
 			return (1);
-		map->textures[i].img_data.addr = mlx_get_data_addr(
-				map->textures[i].img_data.img,
-				&map->textures[i].img_data.bits_per_pixel,
-				&map->textures[i].img_data.line_length,
-				&map->textures[i].img_data.endian
-				);
-		map->textures[i].size = width;
 	}
+	if (get_texture_data(libx, &map->door_texture, map->raw_door_texture))
+		return (1);
 	return (0);
 }

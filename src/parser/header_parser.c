@@ -39,6 +39,8 @@ static int	texture_parser(t_map *map, char *line, uint32_t flag)
 		return (printf(ERR_TXTR_EXTENSION, texture), 1);
 	texture_id = log2(flag);
 	map->raw_textures[texture_id] = ft_strdup(texture);
+	if (!map->raw_textures[texture_id])
+		return (1);
 	return (0);
 }
 

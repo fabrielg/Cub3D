@@ -20,6 +20,13 @@ static void	free_textures(t_libx *libx, t_map *map)
 		if (map->textures[i].img_data.img)
 			mlx_destroy_image(libx->mlx, map->textures[i].img_data.img);
 	}
+	if (map->raw_door_texture)
+	{
+		free(map->raw_door_texture);
+		map->raw_door_texture = NULL;
+	}
+	if (map->door_texture.img_data.img)
+			mlx_destroy_image(libx->mlx, map->door_texture.img_data.img);
 }
 
 /**

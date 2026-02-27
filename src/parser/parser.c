@@ -90,6 +90,8 @@ int	get_map(int fd, t_map *map)
 {
 	if (map_parser(fd, map) == 1)
 		return (1);
+	if (parse_door(map) == 1)
+		return (1);
 	if (check_grid(map->grid, map->widths) == 1)
 		return (1);
 	return (0);
