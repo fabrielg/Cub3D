@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include "libft.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -8,13 +9,17 @@
 
 static int	check_collision(t_map *map, float x, float y)
 {
-	if (map->grid[(int)(y - COLLISION_MARGIN)][(int)(x - COLLISION_MARGIN)] == '1')
-		return (1);
-	if (map->grid[(int)(y - COLLISION_MARGIN)][(int)(x + COLLISION_MARGIN)] == '1')
-		return (1);
-	if (map->grid[(int)(y + COLLISION_MARGIN)][(int)(x - COLLISION_MARGIN)] == '1')
-		return (1);
-	if (map->grid[(int)(y + COLLISION_MARGIN)][(int)(x + COLLISION_MARGIN)] == '1')
+	char	up_l;
+	char	up_r;
+	char	dw_l;
+	char	dw_r;
+
+	up_l = map->grid[(int)(y - COLLISION_MARGIN)][(int)(x - COLLISION_MARGIN)];
+	up_r = map->grid[(int)(y - COLLISION_MARGIN)][(int)(x + COLLISION_MARGIN)];
+	dw_l = map->grid[(int)(y + COLLISION_MARGIN)][(int)(x - COLLISION_MARGIN)];
+	dw_r = map->grid[(int)(y + COLLISION_MARGIN)][(int)(x + COLLISION_MARGIN)];
+	if (ft_strchr("1C", up_l) || ft_strchr("1C", up_r) ||ft_strchr("1C", dw_l)
+		|| ft_strchr("1C", dw_r))
 		return (1);
 	return (0);
 }

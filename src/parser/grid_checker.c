@@ -5,7 +5,7 @@
 #define ERR_MULT_PLAYER "Error: [x: %i, y:%i] can't be more than one player\n"
 #define ERR_MISS_PLAYER "Error: missing player in grid\n"
 
-#define VALID_CELLS "NSWE0"
+#define VALID_CELLS "0OCNSWE"
 #define ERR_SURROUND "Error: [x: %i, y:%i] not surrounded (%s)\n"
 
 /**
