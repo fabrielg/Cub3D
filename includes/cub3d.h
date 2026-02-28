@@ -45,6 +45,7 @@ typedef struct s_fps
 {
 	float	delta_time;
 	int		frame_count;
+	long	elapsed;
 	int		fps;
 }	t_fps;
 
