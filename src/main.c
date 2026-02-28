@@ -3,6 +3,13 @@
 #include "libft.h"
 #include "mlx_utils.h"
 
+int	game_loop(t_cub *cub)
+{
+	fps_routine(cub);
+	render_frame(cub);
+	return (0);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_cub	cub;
@@ -11,9 +18,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (cub_init(&cub, argv[1]))
 		return (1);
-	render_frame(&cub);
-	mlx_loop_hook(cub.libx.mlx, fps_routine, &cub);
-	mlx_loop_hook(cub.libx.mlx, fps_routine, &cub);
+	mlx_loop_hook(cub.libx.mlx, game_loop, &cub);
 	mlx_loop(cub.libx.mlx);
 	return (0);
 }

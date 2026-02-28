@@ -31,7 +31,6 @@ static int	key_press(int k, t_cub *cub)
 		open_door(cub);
 	else
 		return (1);
-	render_frame(cub);
 	return (0);
 }
 
@@ -55,7 +54,6 @@ static int	mouse_move_handler(int x, int y, t_cub *cub)
 	}
 	else
 		prev_x = x;
-	render_frame(cub);
 	return (0);
 }
 
