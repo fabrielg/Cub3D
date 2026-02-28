@@ -2,8 +2,6 @@
 #include "mlx_utils.h"
 #include "minimap.h"
 
-#include "stdio.h"
-
 static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 {
 	t_texture	texture;
@@ -55,10 +53,11 @@ void	render_frame(t_cub *cub)
 		draw_column(&cub->libx, map, x, &col);
 		x++;
 	}
-	show_fps(cub);
+	update_door(&map->door, &cub->fps);
 	render_minimap(&cub->libx, &cub->player, &cub->map);
 	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window,
 		cub->libx.game_img.img, 0, 0);
+	show_fps(cub);
 	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window,
 		cub->libx.minimap_img.img, WIN_WIDTH - cub->libx.minimap_size - 10, 10);
 }

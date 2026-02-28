@@ -52,10 +52,31 @@ int	rotate_player(t_cub *cub, float delta)
 	return 0;
 }
 
+static void	close_doors(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < map->max_height)
+	{
+		while(map->grid[i][j])
+		{
+			if (map->grid[i][j] == 'O')
+				map->grid[i][j] = 'C';
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
+
 int	respawn(t_cub *cub)
 {
 	cub->player.position[0] = cub->map.default_position[0];
 	cub->player.position[1] = cub->map.default_position[1];
 	cub->player.angle_view = get_cardinal_angle(cub->map.default_direction);
+	close_doors(&cub->map);
 	return (0);
 }

@@ -48,6 +48,15 @@ typedef struct s_fps
 	int		fps;
 }	t_fps;
 
+typedef struct s_door
+{
+	char		*raw_door_texture[3];
+	t_texture	frames[3];
+	int			current_frame;
+	float		timer;
+	float		frame_duration;
+}	t_door;
+
 typedef enum e_direction
 {
 	NORTH,
@@ -59,9 +68,8 @@ typedef enum e_direction
 typedef struct s_map
 {
 	char			*raw_textures[4];
-	char			*raw_door_texture;
 	t_texture		textures[4];
-	t_texture		door_texture;
+	t_door			door;
 	unsigned int	colors[2];
 	char			**grid;
 	int				*widths;
@@ -134,6 +142,7 @@ void		draw_vertical_line(t_img_data *img, int x, int y_start, int y_end, int col
 void		draw_horizontal_line(t_img_data *img, int x_start, int y, int x_end, int color);
 void		render_frame(t_cub *cub);
 t_ray_data	dda(char **grid, float p_position[2], float ray_angle);
+void		render_routine(t_cub* cub);
 
 /* FPS */
 
@@ -147,5 +156,7 @@ float		get_cardinal_angle(t_direction direction);
 int			move_player(t_cub *cub, float dir_x, float dir_y);
 int			rotate_player(t_cub *cub, float delta);
 int			respawn(t_cub *cub);
+int			open_door(t_cub *cub);
+void		update_door(t_door *door, t_fps *fps);
 
 #endif

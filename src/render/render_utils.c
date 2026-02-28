@@ -45,7 +45,7 @@ void	get_wall_slice(t_column *col, float distance)
 t_texture	select_texture(t_ray_data *raycast, t_map *map)
 {
 	if (raycast->tile_type == 'C')
-		return (map->door_texture);
+		return (map->door.frames[map->door.current_frame]);
 	return (map->textures[raycast->hit_side]);
 }
 
