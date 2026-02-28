@@ -1,17 +1,22 @@
 #include "cub3d.h"
 #include "libft.h"
 
-int	open_door(t_cub *cub)
+int	interact_with_door(t_cub *cub)
 {
 	int	target_x;
 	int	target_y;
 
 	target_x = (int)(cub->player.position[0]
-		+ cosf(cub->player.angle_view) * 1.0f);
+		+ cosf(cub->player.angle_view) * 1.2f);
 	target_y = (int)(cub->player.position[1]
-		+ sinf(cub->player.angle_view) * 1.0f);
+		+ sinf(cub->player.angle_view) * 1.2f);
+	if ((int)(cub->player.position[0]) == target_x
+		&& (int)(cub->player.position[1]) == target_y)
+		return (1);
 	if (cub->map.grid[target_y][target_x] == 'C')
 		cub->map.grid[target_y][target_x] = 'O';
+	else if (cub->map.grid[target_y][target_x] == 'O')
+		cub->map.grid[target_y][target_x] = 'C';
 	return (0);
 }
 

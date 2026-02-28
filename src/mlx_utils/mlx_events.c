@@ -28,7 +28,7 @@ static int	key_press(int k, t_cub *cub)
 	else if (k == KEY_R)
 		respawn(cub);
 	else if (k == KEY_E)
-		open_door(cub);
+		interact_with_door(cub);
 	else
 		return (1);
 	return (0);
