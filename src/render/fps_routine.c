@@ -33,8 +33,8 @@ static float get_delta_time(long time)
 		diff = UPDATE_DTIME_INTERVAL;
 	delta = (float)diff / (float)1e6;
 	last_time = time;
-	if (delta > 0.1f)
-		delta = 0.1f;
+	if (delta > 0.01f)
+		delta = 0.01f;
 	return (delta);
 }
 
