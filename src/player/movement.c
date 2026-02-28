@@ -3,8 +3,8 @@
 #include <math.h>
 #include <stdio.h>
 
-#define MOVE_SPEED			100.0f
-#define ROT_SPEED			50.f
+#define MOVE_SPEED			20.0f
+#define ROT_SPEED			10.0f
 #define COLLISION_MARGIN	0.2f
 
 static int	check_collision(t_map *map, float x, float y)
