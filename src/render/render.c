@@ -2,8 +2,6 @@
 #include "mlx_utils.h"
 #include "minimap.h"
 
-#include "stdio.h"
-
 static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 {
 	t_texture	texture;
