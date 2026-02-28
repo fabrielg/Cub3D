@@ -23,6 +23,6 @@ void	update_door(t_door *door, t_fps *fps)
 	{
 		door->timer = 0.0f;
 		door->current_frame++;
-		door->current_frame %= 3; // boucle 0 1 2
+		door->current_frame %= 3;
 	}
 }
