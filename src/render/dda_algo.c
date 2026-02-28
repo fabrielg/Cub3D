@@ -40,7 +40,8 @@ static int	perform_dda_loop(t_ray_data *ray, char **grid)
 		if (ray->map_y < 0 || ray->map_x < 0
 			|| !grid[ray->map_y] || !grid[ray->map_y][ray->map_x])
 			return (0);
-		if (grid[ray->map_y][ray->map_x] == '1')
+		ray->tile_type = grid[ray->map_y][ray->map_x];
+		if (grid[ray->map_y][ray->map_x] == '1' || grid[ray->map_y][ray->map_x] == 'C')
 			return (1);
 	}
 }

@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include "libft.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -8,13 +9,17 @@
 
 static int	check_collision(t_map *map, float x, float y)
 {
-	if (map->grid[(int)(y - COLLISION_MARGIN)][(int)(x - COLLISION_MARGIN)] == '1')
-		return (1);
-	if (map->grid[(int)(y - COLLISION_MARGIN)][(int)(x + COLLISION_MARGIN)] == '1')
-		return (1);
-	if (map->grid[(int)(y + COLLISION_MARGIN)][(int)(x - COLLISION_MARGIN)] == '1')
-		return (1);
-	if (map->grid[(int)(y + COLLISION_MARGIN)][(int)(x + COLLISION_MARGIN)] == '1')
+	char	up_l;
+	char	up_r;
+	char	dw_l;
+	char	dw_r;
+
+	up_l = map->grid[(int)(y - COLLISION_MARGIN)][(int)(x - COLLISION_MARGIN)];
+	up_r = map->grid[(int)(y - COLLISION_MARGIN)][(int)(x + COLLISION_MARGIN)];
+	dw_l = map->grid[(int)(y + COLLISION_MARGIN)][(int)(x - COLLISION_MARGIN)];
+	dw_r = map->grid[(int)(y + COLLISION_MARGIN)][(int)(x + COLLISION_MARGIN)];
+	if (ft_strchr("1C", up_l) || ft_strchr("1C", up_r) ||ft_strchr("1C", dw_l)
+		|| ft_strchr("1C", dw_r))
 		return (1);
 	return (0);
 }
@@ -47,10 +52,31 @@ int	rotate_player(t_cub *cub, float delta)
 	return 0;
 }
 
+static void	close_doors(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < map->max_height)
+	{
+		while(map->grid[i][j])
+		{
+			if (map->grid[i][j] == 'O')
+				map->grid[i][j] = 'C';
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
+
 int	respawn(t_cub *cub)
 {
 	cub->player.position[0] = cub->map.default_position[0];
 	cub->player.position[1] = cub->map.default_position[1];
 	cub->player.angle_view = get_cardinal_angle(cub->map.default_direction);
+	close_doors(&cub->map);
 	return (0);
 }

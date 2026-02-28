@@ -27,6 +27,8 @@ static int	key_press(int k, t_cub *cub)
 		rotate_player(cub, 1.0f);
 	else if (k == KEY_R)
 		respawn(cub);
+	else if (k == KEY_E)
+		open_door(cub);
 	else
 		return (1);
 	render_frame(cub);
@@ -47,7 +49,7 @@ static int	mouse_move_handler(int x, int y, t_cub *cub)
 	rotate_player(cub, delta_x);
 	if (x < (WIN_WIDTH / 2) - 20 || x > (WIN_WIDTH / 2) + 20)
 	{
-		mlx_mouse_move(cub->libx.mlx, cub->libx.window, 
+		mlx_mouse_move(cub->libx.mlx, cub->libx.window,
 			WIN_WIDTH / 2, WIN_HEIGHT / 2);
 		prev_x = WIN_WIDTH / 2;
 	}

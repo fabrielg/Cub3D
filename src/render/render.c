@@ -14,10 +14,9 @@ static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 	draw_vertical_line(&libx->game_img, x, 0,
 		col->y_start - 1, map->colors[0]);
 
-	texture = map->textures[col->raycast.hit_side];
+	texture = select_texture(&col->raycast, map);
 	step = (float)(texture.size) / (float)col->wall_height;
 	tex_pos = (col->y_start - WIN_HEIGHT / 2 + col->wall_height / 2) * step;
-
 	y = col->y_start;
 	while (y <= col->y_end)
 	{
@@ -48,16 +47,17 @@ void	render_frame(t_cub *cub)
 	{
 		col.angle = get_ray_angle(p, x);
 		col.raycast = get_wall_distance(&cub->map, p, col.angle);
-		col.texture_x = get_texture_x(&col.raycast, p->position, map->textures);
+		col.texture_x = get_texture_x(&col.raycast, p->position, map);
 		col.raycast.distance *= cosf(col.angle - p->angle_view);
 		get_wall_slice(&col, col.raycast.distance);
 		draw_column(&cub->libx, map, x, &col);
 		x++;
 	}
-	show_fps(cub);
+	update_door(&map->door, &cub->fps);
 	render_minimap(&cub->libx, &cub->player, &cub->map);
-	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window, 
+	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window,
 		cub->libx.game_img.img, 0, 0);
+	show_fps(cub);
 	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window,
 		cub->libx.minimap_img.img, WIN_WIDTH - cub->libx.minimap_size - 10, 10);
 }
