@@ -13,7 +13,9 @@ static int	get_cell_color(int x, int y, t_map *map)
 	if (map->grid[y][x] == '1' || map->grid[y][x] == ' ')
 		return (WALL_COLOR);
 	else if (map->grid[y][x] == 'C')
-		return (DOOR_COLOR);
+		return (DOOR_CLOSE_COLOR);
+	else if (map->grid[y][x] == 'O')
+		return (DOOR_OPEN_COLOR);
 	return (FLOOR_COLOR);
 }
 
