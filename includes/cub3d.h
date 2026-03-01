@@ -123,7 +123,7 @@ typedef struct s_column
 
 /* Init */
 
-void		init_window(t_cub *cub);
+int			init_window(t_cub *cub);
 int			cub_init(t_cub *cub, char *map_name);
 
 /* Drawing */
