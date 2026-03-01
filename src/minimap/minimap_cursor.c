@@ -33,20 +33,22 @@ static void	draw_cursor(t_libx *libx, int x, int y, int direction)
 	i = -1;
 	if (direction == 0)
 		while (++i < size)
-			draw_horizontal_line(&libx->minimap_img, x - (size / 2 - i),
-				y + (i - size / 4), x + (size / 2 - i), CURSOR_COLOR);
+			draw_horizontal_line(&libx->minimap_img,
+				(int [2]){x - (size / 2 - i), x + (size / 2 - i)},
+				y + (i - size / 4), CURSOR_COLOR);
 	else if (direction == 1)
 		while (++i < size)
-			draw_horizontal_line(&libx->minimap_img, x - (size / 2 - i),
-				y - (i - size / 4), x + (size / 2 - i), CURSOR_COLOR);
+			draw_horizontal_line(&libx->minimap_img,
+				(int [2]){x - (size / 2 - i), x + (size / 2 - i)},
+				y - (i - size / 4), CURSOR_COLOR);
 	else if (direction == 2)
 		while (++i <= size / 2)
 			draw_vertical_line(&libx->minimap_img, x + (i - size / 4),
-				y - i, y + i, CURSOR_COLOR);
+				(int [2]){y - i, y + i}, CURSOR_COLOR);
 	else if (direction == 3)
 		while (++i <= size / 2)
 			draw_vertical_line(&libx->minimap_img, x - (i - size / 4),
-				y - i, y + i, CURSOR_COLOR);
+				(int [2]){y - i, y + i}, CURSOR_COLOR);
 }
 
 /**

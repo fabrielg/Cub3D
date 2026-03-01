@@ -19,7 +19,7 @@ static long	get_ticks(void)
  * @brief get delta time in seconds between frames.
  * @return Delta time in seconds with safety limits
  */
-static float get_delta_time(long time, int update_dtime_interval)
+static float	get_delta_time(long time, int update_dtime_interval)
 {
 	static long	last_time = 0;
 	long		diff;
@@ -33,7 +33,6 @@ static float get_delta_time(long time, int update_dtime_interval)
 	last_time = time;
 	if (diff < update_dtime_interval)
 		diff = update_dtime_interval;
-
 	if (diff > 10000L)
 		diff = 10000L;
 	return ((float)diff / 1e6f);
@@ -84,7 +83,8 @@ int	fps_routine(t_cub *cub)
 	long	time;
 
 	time = get_ticks();
-	cub->fps.delta_time = get_delta_time(time, cub->config.update_dtime_interval);
+	cub->fps.delta_time = get_delta_time(time,
+			cub->config.update_dtime_interval);
 	if (update_fps_counter(&cub->fps, time, cub->config.update_fps_interval))
 		show_fps(cub);
 	return (0);

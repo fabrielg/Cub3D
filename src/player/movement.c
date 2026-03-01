@@ -18,7 +18,7 @@ static int	check_collision(t_map *map, float x, float y, float margin)
 	up_r = map->grid[(int)(y - margin)][(int)(x + margin)];
 	dw_l = map->grid[(int)(y + margin)][(int)(x - margin)];
 	dw_r = map->grid[(int)(y + margin)][(int)(x + margin)];
-	if (ft_strchr("1C", up_l) || ft_strchr("1C", up_r) ||ft_strchr("1C", dw_l)
+	if (ft_strchr("1C", up_l) || ft_strchr("1C", up_r) || ft_strchr("1C", dw_l)
 		|| ft_strchr("1C", dw_r))
 		return (1);
 	return (0);
@@ -36,11 +36,10 @@ int	move_player(t_cub *cub, float dir_x, float dir_y)
 		+ dir_x * cub->config.move_speed * cub->fps.delta_time;
 	new_y = cub->player.position[1]
 		+ dir_y * cub->config.move_speed * cub->fps.delta_time;
-	if (check_collision(&cub->map, new_x, new_y, cub->config.collision_margin) == 0)
-	{
-		cub->player.position[0] = new_x;
-		cub->player.position[1] = new_y;
-	}
+	if (check_collision(&cub->map, new_x, new_y, cub->config.collision_margin))
+		return (1);
+	cub->player.position[0] = new_x;
+	cub->player.position[1] = new_y;
 	return (0);
 }
 
@@ -49,7 +48,8 @@ int	move_player(t_cub *cub, float dir_x, float dir_y)
  */
 int	rotate_player(t_cub *cub, float delta)
 {
-	cub->player.angle_view += delta * cub->config.rot_speed * cub->fps.delta_time;
+	cub->player.angle_view += delta
+		* cub->config.rot_speed * cub->fps.delta_time;
 	cub->player.angle_view = fmodf(cub->player.angle_view, 2 * M_PI);
 	if (cub->player.angle_view < 0)
 		cub->player.angle_view += 2 * M_PI;

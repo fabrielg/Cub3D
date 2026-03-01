@@ -33,11 +33,12 @@ void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 {
 	t_texture	texture;
 
-	draw_vertical_line(&libx->game_img, x, 0, col->y_start - 1, map->colors[0]);
+	draw_vertical_line(&libx->game_img, x, (int [2]){0, col->y_start - 1},
+		map->colors[0]);
 	texture = select_texture(&col->raycast, map);
 	draw_wall_slice(libx, &texture, x, col);
-	draw_vertical_line(&libx->game_img, x, col->y_end + 1,
-		WIN_HEIGHT - 1, map->colors[1]);
+	draw_vertical_line(&libx->game_img, x,
+		(int [2]){col->y_end + 1, WIN_HEIGHT - 1}, map->colors[1]);
 }
 
 /**
@@ -59,7 +60,7 @@ void	update_frame(t_cub *cub)
 		col.raycast = get_wall_distance(&cub->map, p, col.angle);
 		col.texture_x = get_texture_x(&col.raycast, p->position, map);
 		col.raycast.distance *= cosf(col.angle - p->angle_view);
-		get_wall_slice(&col, col.raycast.distance, cub->config.tile_size, cub->config.dist_proj);
+		get_wall_slice(&col, col.raycast.distance, &cub->config);
 		draw_column(&cub->libx, map, x, &col);
 		x++;
 	}

@@ -43,8 +43,13 @@ t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle)
 /**
  * @brief Get wall slice height and screen bounds.
  */
-void	get_wall_slice(t_column *col, float distance, float tile_size, float dist_proj)
+void	get_wall_slice(t_column *col, float distance, t_cub_config *conf)
 {
+	float	tile_size;
+	float	dist_proj;
+
+	tile_size = conf->tile_size;
+	dist_proj = conf->dist_proj;
 	col->wall_height = (int)((tile_size / distance) * dist_proj);
 	col->y_start = (WIN_HEIGHT / 2) - (col->wall_height / 2);
 	if (col->y_start < 0)

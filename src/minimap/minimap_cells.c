@@ -29,7 +29,8 @@ static void	draw_minimap_cell(t_libx *libx, int x, int y, int color)
 	tmp = x;
 	while (tmp <= (x + size))
 	{
-		draw_vertical_line(&libx->minimap_img, tmp, y, y + size, color);
+		draw_vertical_line(&libx->minimap_img,
+			tmp, (int [2]){y, y + size}, color);
 		tmp++;
 	}
 }

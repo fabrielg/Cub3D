@@ -33,23 +33,23 @@ int	get_texture_pixel(t_texture *texture, int tex_x, int tex_y)
 /**
  * @brief Draw a vertical line in the image buffer.
  */
-void	draw_vertical_line(t_img_data *img, int x, int y_start, int y_end, int color)
+void	draw_vertical_line(t_img_data *img, int x, int y[2], int color)
 {
-	while (y_start <= y_end)
+	while (y[0] <= y[1])
 	{
-		put_pixel(img, x, y_start, color);
-		y_start++;
+		put_pixel(img, x, y[0], color);
+		y[0]++;
 	}
 }
 
 /**
  * @brief Draw a horizontal line in the image buffer.
  */
-void	draw_horizontal_line(t_img_data *img, int x_start, int y, int x_end, int color)
+void	draw_horizontal_line(t_img_data *img, int x[2], int y, int color)
 {
-	while (x_start <= x_end)
+	while (x[0] <= x[1])
 	{
-		put_pixel(img, x_start, y, color);
-		x_start++;
+		put_pixel(img, x[0], y, color);
+		x[0]++;
 	}
 }
