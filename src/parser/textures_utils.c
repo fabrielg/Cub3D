@@ -5,6 +5,10 @@
 
 #define ERR_TEXTURE "Error: invalid texture file \"%s\"\n"
 
+/**
+ * @brief Verify that all texture files can be opened.
+ * @return 0 if all valid, 1 on error
+ */
 int	check_textures(t_map *map)
 {
 	int	i;
@@ -24,6 +28,10 @@ int	check_textures(t_map *map)
 	return (0);
 }
 
+/**
+ * @brief Load XPM texture and fill texture data.
+ * @return 0 on success, 1 on invalid texture
+ */
 static int	get_texture_data(t_libx *libx, t_texture *texture, char *raw)
 {
 	int	width;
@@ -44,6 +52,10 @@ static int	get_texture_data(t_libx *libx, t_texture *texture, char *raw)
 	return (0);
 }
 
+/**
+ * @brief Load wall and door textures into mlx.
+ * @return 0 on success, 1 on loading failure
+ */
 int	load_textures(t_libx *libx, t_map *map)
 {
 	int	i;

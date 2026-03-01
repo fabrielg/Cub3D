@@ -2,6 +2,9 @@
 #include "mlx_utils.h"
 #include "minimap.h"
 
+/**
+ * @brief Draw a textured wall column with ceiling and floor.
+ */
 static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 {
 	t_texture	texture;
@@ -33,6 +36,9 @@ static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 		WIN_HEIGHT - 1, map->colors[1]);
 }
 
+/**
+ * @brief Update 3D scene by casting rays per column.
+ */
 void	update_frame(t_cub *cub)
 {
 	t_column	col;
@@ -55,6 +61,9 @@ void	update_frame(t_cub *cub)
 	}
 }
 
+/**
+ * @brief Render full frame with minimap and FPS.
+ */
 void	render_frame(t_cub *cub)
 {
 	t_libx	*libx;

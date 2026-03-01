@@ -1,16 +1,18 @@
 #include "cub3d.h"
 #include "stdio.h"
 
+/**
+ * @brief Get ray angle for given screen column.
+ * @return Ray angle in radians
+ */
 float	get_ray_angle(t_player *p, int x)
 {
 	return (p->angle_view - (FOV / 2.0f) + ((float)x * FOV / WIN_WIDTH));
 }
 
-/*
-1. ray distance
-2. current grid player position
-3. deltas : distance to the next line
-*/
+/**
+ * @brief Initialize ray direction and delta distances.
+ */
 void	init_ray_direction(t_ray_data *ray, float angle, float pos[2])
 {
 	ray->dir_x = cosf(angle);
@@ -27,6 +29,10 @@ void	init_ray_direction(t_ray_data *ray, float angle, float pos[2])
 		ray->delta_dist_y = fabsf(1.0f / ray->dir_y);
 }
 
+/**
+ * @brief Cast a ray and return wall distance data.
+ * @return Ray data containing hit information
+ */
 t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle)
 {
 	t_ray_data	raycast;
@@ -35,6 +41,9 @@ t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle)
 	return (raycast);
 }
 
+/**
+ * @brief Get wall slice height and screen bounds.
+ */
 void	get_wall_slice(t_column *col, float distance)
 {
 	col->wall_height = (int)((TILE_SIZE / distance) * DIST_PROJ);
@@ -46,6 +55,10 @@ void	get_wall_slice(t_column *col, float distance)
 		col->y_end = WIN_HEIGHT;
 }
 
+/**
+ * @brief Select appropriate texture for ray hit.
+ * @return Texture corresponding to wall or door
+ */
 t_texture	select_texture(t_ray_data *raycast, t_map *map)
 {
 	if (raycast->tile_type == 'C')
@@ -53,6 +66,10 @@ t_texture	select_texture(t_ray_data *raycast, t_map *map)
 	return (map->textures[raycast->hit_side]);
 }
 
+/**
+ * @brief Get horizontal texture coordinate for wall.
+ * @return Texture x coordinate
+ */
 int	get_texture_x(t_ray_data *raycast, float pos[2], t_map *map)
 {
 	t_texture	texture;

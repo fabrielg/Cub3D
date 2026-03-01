@@ -20,6 +20,10 @@ static long get_ticks(void)
 	return (tv.tv_sec * (long)1e6 + tv.tv_usec);
 }
 
+/**
+ * @brief get delta time in seconds between frames.
+ * @return Delta time in seconds with safety limits
+ */
 static float get_delta_time(long time)
 {
 	static long	last_time = 0;
@@ -34,7 +38,6 @@ static float get_delta_time(long time)
 	last_time = time;
 	if (diff < UPDATE_DTIME_INTERVAL)
 		diff = UPDATE_DTIME_INTERVAL;
-
 	if (diff > 10000L)
 		diff = 10000L;
 	return ((float)diff / 1e6f);

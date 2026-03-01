@@ -1,6 +1,10 @@
 #include "cub3d.h"
 #include "libft.h"
 
+/**
+ * @brief Toggle the door state in front of the player.
+ * @return 0 if success, 1 if target is current tile
+ */
 int	interact_with_door(t_cub *cub)
 {
 	int	target_x;
@@ -20,6 +24,9 @@ int	interact_with_door(t_cub *cub)
 	return (0);
 }
 
+/**
+ * @brief Update door animation frame based on elapsed delta time.
+ */
 void	update_door(t_door *door, t_fps *fps)
 {
 	door->timer += fps->delta_time;

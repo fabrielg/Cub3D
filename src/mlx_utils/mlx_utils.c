@@ -3,6 +3,9 @@
 #include <mlx.h>
 #include <stdlib.h>
 
+/**
+ * @brief Free MLX resources and destroy the window.
+ */
 void	mlx_clear(t_libx *libx)
 {
 	if (!libx->mlx)
@@ -14,6 +17,10 @@ void	mlx_clear(t_libx *libx)
 		free(libx->mlx);
 }
 
+/**
+ * @brief Close the game window and free all resources.
+ * @return 0 on normal exit, 1 if cub pointer is invalid
+ */
 int	close_window(t_cub *cub)
 {
 	if (!cub)

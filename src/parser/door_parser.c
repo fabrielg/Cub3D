@@ -12,6 +12,10 @@
 #define ERR_TXTR_EXTENSION "Error: Texture \"%s\" need [.xpm] extension\n"
 #define ERR_TEXTURE "Error: invalid texture file \"%s\"\n"
 
+/**
+ * @brief Check if door texture file can be opened.
+ * @return 0 if valid, 1 on open error
+ */
 static int check_door_texture(char *fd_name)
 {
 	int	fd;
@@ -25,6 +29,10 @@ static int check_door_texture(char *fd_name)
 	return (close(fd), 0);
 }
 
+/**
+ * @brief Validate door texture path and duplicate it.
+ * @return Duplicated path or NULL on error
+ */
 char	*get_raw_door(char *str)
 {
 	if (!str || !str[0])
@@ -36,6 +44,10 @@ char	*get_raw_door(char *str)
 	return (ft_strdup(str));
 }
 
+/**
+ * @brief Get door animation textures path into map.
+ * @return 0 on success, 1 on failure
+ */
 int	parse_door(t_map *map)
 {
 	map->door.raw_door_texture[0] = get_raw_door(DOOR_ANIM_1);
