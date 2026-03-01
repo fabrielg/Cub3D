@@ -22,7 +22,8 @@ int	cub_init(t_cub *cub, char *map_name)
 		return (free_map(&cub->libx, &cub->map), close(fd), 1);
 	close(fd);
 	init_player(&cub->map, &cub->player);
-	init_window(cub);
+	if (init_window(cub))
+		return (free_map(&cub->libx, &cub->map), close(fd), 1);
 	if (load_textures(&cub->libx, &cub->map))
 		return (free_map(&cub->libx, &cub->map), close(fd), 1);
 	return (0);

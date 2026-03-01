@@ -4,6 +4,7 @@
 #define DIR_CELLS "NSWE"
 #define ERR_MULT_PLAYER "Error: [x: %i, y:%i] can't be more than one player\n"
 #define ERR_MISS_PLAYER "Error: missing player in grid\n"
+#define ERR_NULL_GRID	"Error: grid is NULL\n"
 
 #define VALID_CELLS "0OCNSWE"
 #define ERR_SURROUND "Error: [x: %i, y:%i] not surrounded (%s)\n"
@@ -64,6 +65,8 @@ int	check_grid(char **grid, int *widths)
 	int		y;
 	char	player;
 
+	if (!grid)
+		return (printf(ERR_NULL_GRID), 1);
 	player = '\0';
 	y = -1;
 	while (grid[++y])

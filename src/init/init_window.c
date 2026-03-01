@@ -50,9 +50,11 @@ static void	init_game_img(t_libx *libx)
 /**
  * @brief Initialize MLX, window, image buffers and hooks.
  */
-void	init_window(t_cub *cub)
+int	init_window(t_cub *cub)
 {
 	cub->libx.mlx = mlx_init();
+	if (cub->libx.mlx == NULL)
+		return (1);
 	cub->libx.window = mlx_new_window(
 			cub->libx.mlx,
 			WIN_WIDTH,
@@ -63,4 +65,5 @@ void	init_window(t_cub *cub)
 	if (HIDE_MOUSE)
 		mlx_mouse_hide(cub->libx.mlx, cub->libx.window);
 	register_hooks(cub);
+	return (0);
 }
