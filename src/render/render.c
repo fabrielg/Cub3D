@@ -33,7 +33,7 @@ static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 		WIN_HEIGHT - 1, map->colors[1]);
 }
 
-void	render_frame(t_cub *cub)
+void	update_frame(t_cub *cub)
 {
 	t_column	col;
 	t_player	*p;
@@ -53,11 +53,19 @@ void	render_frame(t_cub *cub)
 		draw_column(&cub->libx, map, x, &col);
 		x++;
 	}
-	update_door(&map->door, &cub->fps);
-	render_minimap(&cub->libx, &cub->player, &cub->map);
-	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window,
-		cub->libx.game_img.img, 0, 0);
+}
+
+void	render_frame(t_cub *cub)
+{
+	t_libx	*libx;
+
+	libx = &cub->libx;
+	update_frame(cub);
+	render_minimap(libx, &cub->player, &cub->map);
+	mlx_put_image_to_window(libx->mlx, libx->window,
+		libx->game_img.img, 0, 0);
+	mlx_put_image_to_window(libx->mlx, libx->window,
+		libx->minimap_img.img, WIN_WIDTH - libx->minimap_size - 10, 10);
 	show_fps(cub);
-	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window,
-		cub->libx.minimap_img.img, WIN_WIDTH - cub->libx.minimap_size - 10, 10);
+	update_door(&cub->map.door, &cub->fps);
 }

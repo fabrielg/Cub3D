@@ -7,6 +7,8 @@
 #define DOOR_ANIM_2 "textures/door/door_anim2.xpm"
 #define DOOR_ANIM_3 "textures/door/door_anim3.xpm"
 
+#define DOOR_FRAME_DURATION 0.1f
+
 #define ERR_TXTR_EXTENSION "Error: Texture \"%s\" need [.xpm] extension\n"
 #define ERR_TEXTURE "Error: invalid texture file \"%s\"\n"
 
@@ -42,5 +44,6 @@ int	parse_door(t_map *map)
 	if (!map->door.raw_door_texture[0] || !map->door.raw_door_texture[1]
 		|| !map->door.raw_door_texture[2])
 		return (1);
+	map->door.frame_duration = DOOR_FRAME_DURATION;
 	return (0);
 }

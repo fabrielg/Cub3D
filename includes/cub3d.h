@@ -45,6 +45,7 @@ typedef struct s_fps
 {
 	float	delta_time;
 	int		frame_count;
+	long	elapsed;
 	int		fps;
 }	t_fps;
 
@@ -140,9 +141,9 @@ int			get_texture_x(t_ray_data *raycast, float pos[2], t_map *map);
 t_texture	select_texture(t_ray_data *raycast, t_map *map);
 void		draw_vertical_line(t_img_data *img, int x, int y_start, int y_end, int color);
 void		draw_horizontal_line(t_img_data *img, int x_start, int y, int x_end, int color);
+void		update_frame(t_cub *cub);
 void		render_frame(t_cub *cub);
 t_ray_data	dda(char **grid, float p_position[2], float ray_angle);
-void		render_routine(t_cub* cub);
 
 /* FPS */
 
@@ -156,7 +157,7 @@ float		get_cardinal_angle(t_direction direction);
 int			move_player(t_cub *cub, float dir_x, float dir_y);
 int			rotate_player(t_cub *cub, float delta);
 int			respawn(t_cub *cub);
-int			open_door(t_cub *cub);
+int			interact_with_door(t_cub *cub);
 void		update_door(t_door *door, t_fps *fps);
 
 #endif

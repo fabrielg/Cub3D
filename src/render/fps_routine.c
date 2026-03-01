@@ -24,18 +24,20 @@ static float get_delta_time(long time)
 {
 	static long	last_time = 0;
 	long		diff;
-	float		delta;
 
-	diff = time - last_time;
 	if (last_time == 0)
+	{
 		last_time = time;
+		return (0.0f);
+	}
+	diff = time - last_time;
+	last_time = time;
 	if (diff < UPDATE_DTIME_INTERVAL)
 		diff = UPDATE_DTIME_INTERVAL;
-	delta = (float)diff / (float)1e6;
-	last_time = time;
-	if (delta > 0.1f)
-		delta = 0.1f;
-	return (delta);
+
+	if (diff > 10000L)
+		diff = 10000L;
+	return ((float)diff / 1e6f);
 }
 
 /**
@@ -84,12 +86,7 @@ int	fps_routine(t_cub *cub)
 
 	time = get_ticks();
 	cub->fps.delta_time = get_delta_time(time);
-	if (!update_fps_counter(&cub->fps, time))
-		return (0);
-	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window,
-		cub->libx.game_img.img, 0, 0);
-	mlx_put_image_to_window(cub->libx.mlx, cub->libx.window, 
-		cub->libx.minimap_img.img, WIN_WIDTH - cub->libx.minimap_size - 10, 10);
-	show_fps(cub);
+	if (update_fps_counter(&cub->fps, time))
+		show_fps(cub);
 	return (0);
 }

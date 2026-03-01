@@ -39,7 +39,11 @@ void	get_wall_slice(t_column *col, float distance)
 {
 	col->wall_height = (int)((TILE_SIZE / distance) * DIST_PROJ);
 	col->y_start = (WIN_HEIGHT / 2) - (col->wall_height / 2);
+	if (col->y_start < 0)
+		col->y_start = 0;
 	col->y_end = (WIN_HEIGHT / 2) + (col->wall_height / 2);
+	if (col->y_end > WIN_HEIGHT)
+		col->y_end = WIN_HEIGHT;
 }
 
 t_texture	select_texture(t_ray_data *raycast, t_map *map)
