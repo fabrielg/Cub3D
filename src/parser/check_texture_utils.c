@@ -38,17 +38,17 @@ static int	get_texture_data(t_libx *libx, t_texture *texture, char *raw)
 	int	height;
 
 	texture->img_data.img = mlx_xpm_file_to_image(
-		libx->mlx, raw, &width, &height);
+			libx->mlx, raw, &width, &height);
 	if (!texture->img_data.img || width != height
-			|| width <= 0 || height <= 0)
+		|| width <= 0 || height <= 0)
 		return (1);
 	texture->img_data.addr = mlx_get_data_addr(
-		texture->img_data.img,
-		&texture->img_data.bits_per_pixel,
-		&texture->img_data.line_length,
-		&texture->img_data.endian
-		);
-		texture->size = width;
+			texture->img_data.img,
+			&texture->img_data.bits_per_pixel,
+			&texture->img_data.line_length,
+			&texture->img_data.endian
+			);
+	texture->size = width;
 	return (0);
 }
 
@@ -70,7 +70,7 @@ int	load_textures(t_libx *libx, t_map *map)
 	while (++i < 3)
 	{
 		if (get_texture_data(libx, &map->door.frames[i],
-			map->door.raw_door_texture[i]))
+				map->door.raw_door_texture[i]))
 			return (1);
 	}
 	return (0);

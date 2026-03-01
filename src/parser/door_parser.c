@@ -16,7 +16,7 @@
  * @brief Check if door texture file can be opened.
  * @return 0 if valid, 1 on open error
  */
-static int check_door_texture(char *fd_name)
+static int	check_door_texture(char *fd_name)
 {
 	int	fd;
 

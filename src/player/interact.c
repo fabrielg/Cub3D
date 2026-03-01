@@ -11,9 +11,9 @@ int	interact_with_door(t_cub *cub)
 	int	target_y;
 
 	target_x = (int)(cub->player.position[0]
-		+ cosf(cub->player.angle_view) * 1.2f);
+			+ cosf(cub->player.angle_view) * 1.2f);
 	target_y = (int)(cub->player.position[1]
-		+ sinf(cub->player.angle_view) * 1.2f);
+			+ sinf(cub->player.angle_view) * 1.2f);
 	if ((int)(cub->player.position[0]) == target_x
 		&& (int)(cub->player.position[1]) == target_y)
 		return (1);
@@ -30,7 +30,6 @@ int	interact_with_door(t_cub *cub)
 void	update_door(t_door *door, t_fps *fps)
 {
 	door->timer += fps->delta_time;
-
 	if (door->timer >= door->frame_duration)
 	{
 		door->timer = 0.0f;

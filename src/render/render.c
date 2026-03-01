@@ -3,35 +3,39 @@
 #include "minimap.h"
 
 /**
- * @brief Draw a textured wall column with ceiling and floor.
+ * @brief Draw the textured wall slice between y_start and y_end.
  */
-static void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
+static void	draw_wall_slice(t_libx *libx, t_texture *txt, int x, t_column *col)
 {
-	t_texture	texture;
-	float		step;
-	float		tex_pos;
-	int			tex_y;
-	int			color;
-	int			y;
+	float	step;
+	float	tex_pos;
+	int		tex_y;
+	int		color;
+	int		y;
 
-	draw_vertical_line(&libx->game_img, x, 0,
-		col->y_start - 1, map->colors[0]);
-
-	texture = select_texture(&col->raycast, map);
-	step = (float)(texture.size) / (float)col->wall_height;
+	step = (float)(txt->size) / (float)col->wall_height;
 	tex_pos = (col->y_start - WIN_HEIGHT / 2 + col->wall_height / 2) * step;
 	y = col->y_start;
 	while (y <= col->y_end)
 	{
-		tex_y = (int)tex_pos % texture.size;
+		tex_y = (int)tex_pos % txt->size;
 		tex_pos += step;
-
-		color = get_texture_pixel(&texture, col->texture_x, tex_y);
+		color = get_texture_pixel(txt, col->texture_x, tex_y);
 		put_pixel(&libx->game_img, x, y, color);
-
 		y++;
 	}
+}
 
+/**
+ * @brief Draw a textured wall column with ceiling and floor.
+ */
+void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
+{
+	t_texture	texture;
+
+	draw_vertical_line(&libx->game_img, x, 0, col->y_start - 1, map->colors[0]);
+	texture = select_texture(&col->raycast, map);
+	draw_wall_slice(libx, &texture, x, col);
 	draw_vertical_line(&libx->game_img, x, col->y_end + 1,
 		WIN_HEIGHT - 1, map->colors[1]);
 }

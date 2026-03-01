@@ -43,7 +43,8 @@ static int	perform_dda_loop(t_ray_data *ray, char **grid)
 			|| !grid[ray->map_y] || !grid[ray->map_y][ray->map_x])
 			return (0);
 		ray->tile_type = grid[ray->map_y][ray->map_x];
-		if (grid[ray->map_y][ray->map_x] == '1' || grid[ray->map_y][ray->map_x] == 'C')
+		if (grid[ray->map_y][ray->map_x] == '1'
+				|| grid[ray->map_y][ray->map_x] == 'C')
 			return (1);
 	}
 }
@@ -54,9 +55,15 @@ static int	perform_dda_loop(t_ray_data *ray, char **grid)
 static void	get_distance(t_ray_data *ray, float pos[2])
 {
 	if (ray->side == 0)
-		ray->distance = (ray->map_x - pos[0] + (1 - ray->step_x) / 2) / ray->dir_x;
+	{
+		ray->distance = (ray->map_x - pos[0]
+				+ (1 - ray->step_x) / 2) / ray->dir_x;
+	}
 	else
-		ray->distance = (ray->map_y - pos[1] + (1 - ray->step_y) / 2) / ray->dir_y;
+	{
+		ray->distance = (ray->map_y - pos[1]
+				+ (1 - ray->step_y) / 2) / ray->dir_y;
+	}
 }
 
 /**

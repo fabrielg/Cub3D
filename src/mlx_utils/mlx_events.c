@@ -71,6 +71,6 @@ static int	mouse_move_handler(int x, int y, t_cub *cub)
 void	register_hooks(t_cub *cub)
 {
 	mlx_hook(cub->libx.window, 17, 0, close_window, cub);
-	mlx_hook(cub->libx.window, 2, 1L<<0, key_press, cub);
-	mlx_hook(cub->libx.window, 6, 1L<<6, mouse_move_handler, cub);
+	mlx_hook(cub->libx.window, 2, 1L << 0, key_press, cub);
+	mlx_hook(cub->libx.window, 6, 1L << 6, mouse_move_handler, cub);
 }

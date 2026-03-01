@@ -19,6 +19,21 @@ static int	get_cell_color(int x, int y, t_map *map)
 	return (FLOOR_COLOR);
 }
 
+// Draws a filled rectangle between two corners
+static void	draw_minimap_cell(t_libx *libx, int x, int y, int color)
+{
+	int		tmp;
+	int		size;
+
+	size = libx->minimap_size / 7;
+	tmp = x;
+	while (tmp <= (x + size))
+	{
+		draw_vertical_line(&libx->minimap_img, tmp, y, y + size, color);
+		tmp++;
+	}
+}
+
 /**
  * @brief Render visible minimap cells around player.
  */
@@ -27,9 +42,7 @@ static void	render_minimap_cells(t_libx *libx, t_player *p, t_map *map)
 	int	x;
 	int	y;
 	int	color;
-	int	size;
 
-	size = libx->minimap_size / 7;
 	y = 0;
 	while (y < 7)
 	{
@@ -40,7 +53,8 @@ static void	render_minimap_cells(t_libx *libx, t_player *p, t_map *map)
 					(x - 3) + (int)p->position[0],
 					(y - 3) + (int)p->position[1],
 					map);
-			draw_square(&libx->minimap_img, x * size, y * size, size, color);
+			draw_minimap_cell(libx, x * (libx->minimap_size / 7),
+				y * (libx->minimap_size / 7), color);
 			x++;
 		}
 		y++;

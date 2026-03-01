@@ -25,12 +25,11 @@ SRCS_COMMUN		= \
 	$(CUB3D_DIR)mlx_utils/mlx_events.c \
 	$(CUB3D_DIR)mlx_utils/mlx_utils.c \
 	$(CUB3D_DIR)mlx_utils/mlx_draw_text.c \
-	$(CUB3D_DIR)mlx_utils/mlx_draw.c \
 	$(CUB3D_DIR)init/init_cub.c \
 	$(CUB3D_DIR)init/init_window.c \
 	$(CUB3D_DIR)minimap/minimap_cells.c \
 	$(CUB3D_DIR)minimap/minimap_cursor.c \
-	$(CUB3D_DIR)parser/textures_utils.c \
+	$(CUB3D_DIR)parser/check_texture_utils.c \
 	$(CUB3D_DIR)parser/debug.c \
 	$(CUB3D_DIR)parser/free_map.c \
 	$(CUB3D_DIR)parser/check_extension.c \
@@ -47,6 +46,7 @@ SRCS_COMMUN		= \
 	$(CUB3D_DIR)render/draw.c \
 	$(CUB3D_DIR)render/fps_routine.c \
 	$(CUB3D_DIR)render/render_utils.c \
+	$(CUB3D_DIR)render/render_texture_utils.c \
 	$(CUB3D_DIR)render/render.c
 
 
