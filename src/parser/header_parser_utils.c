@@ -53,7 +53,7 @@ int	ft_atoi_rgb(char *str, int *out)
  * out the RGB int color.
  * @return Integer representing the RGB color
  */
-int	rgb_from_split(char **split, _int32_t *out)
+int	rgb_from_split(char **split, t_int32 *out)
 {
 	int	r;
 	int	g;
@@ -62,7 +62,7 @@ int	rgb_from_split(char **split, _int32_t *out)
 	if (ft_atoi_rgb(split[0], &r) || ft_atoi_rgb(split[1], &g)
 		|| ft_atoi_rgb(split[2], &b))
 		return (printf(ERR_INVALID_COLOR, split[0], split[1], split[2]), 1);
-	*out = (_int32_t)((r << 16) | (g << 8) | b);
+	*out = (t_int32)((r << 16) | (g << 8) | b);
 	return (0);
 }
 
@@ -70,7 +70,7 @@ int	rgb_from_split(char **split, _int32_t *out)
  * @brief Identify the prefix of a line and return its corresponding flag.
  * @return Bit flag corresponding to the line prefix
  */
-uint32_t	get_prefix(char *line)
+t_uint32	get_prefix(char *line)
 {
 	static const char	*args[7] = {"NO", "SO", "EA", "WE", "C", "F"};
 	char				*tmp;

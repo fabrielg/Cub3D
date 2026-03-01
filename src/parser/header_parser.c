@@ -11,9 +11,9 @@
  * @brief Check header flag duplication and update flags.
  * @return Current flag value or 0 on repetition error
  */
-static int	check_flag_repetition(char *line, uint32_t *flags)
+static int	check_flag_repetition(char *line, t_uint32 *flags)
 {
-	uint32_t	current_flag;
+	t_uint32	current_flag;
 
 	current_flag = get_prefix(line);
 	if (current_flag & *flags)
@@ -26,7 +26,7 @@ static int	check_flag_repetition(char *line, uint32_t *flags)
  * @brief Parse a texture (NO, SO, EA, WE) and store its path in map data.
  * @return 0 on success, 1 on error
  */
-static int	texture_parser(t_map *map, char *line, uint32_t flag)
+static int	texture_parser(t_map *map, char *line, t_uint32 flag)
 {
 	char	*texture;
 	int		texture_id;
@@ -48,7 +48,7 @@ static int	texture_parser(t_map *map, char *line, uint32_t flag)
  * @brief Parse a color line and store it in the map data structure.
  * @return 0 on success, 1 on error
  */
-_int32_t	color_parser(t_map *map, char *line, uint32_t flag)
+t_int32	color_parser(t_map *map, char *line, t_uint32 flag)
 {
 	char	*color_str;
 	char	**split;
@@ -70,9 +70,9 @@ _int32_t	color_parser(t_map *map, char *line, uint32_t flag)
 /**
  * @brief Call the correct parser depending on the line flag type.
  */
-int	header_parser(t_map *map, char *line, uint32_t flag)
+int	header_parser(t_map *map, char *line, t_uint32 flag)
 {
-	uint32_t	current_flag;
+	t_uint32	current_flag;
 
 	current_flag = check_flag_repetition(line, &flag);
 	if (!current_flag)

@@ -38,9 +38,9 @@ static void	nullset_last_char(char *str)
  * @brief Process line as header or grid based on flags.
  * @return 0 on success, 1 on parsing error
  */
-static int	get_content(t_map *map, char *line, uint32_t *flags, char **r_grid)
+static int	get_content(t_map *map, char *line, t_uint32 *flags, char **r_grid)
 {
-	if (*flags == (uint32_t)0b00111111)
+	if (*flags == (t_uint32)0b00111111)
 	{
 		if (raw_grid_parser(line, r_grid) == 1)
 			return (1);
@@ -62,7 +62,7 @@ static int	map_parser(int fd, t_map *map)
 {
 	char		*line;
 	char		*raw_grid;
-	uint32_t	flags;
+	t_uint32	flags;
 
 	flags = 0;
 	line = get_next_line(fd);

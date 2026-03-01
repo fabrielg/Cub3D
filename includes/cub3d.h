@@ -3,19 +3,29 @@
 
 # include <math.h>
 
-
 # define WIN_WIDTH		1600
 # define WIN_HEIGHT		900
 # define WIN_TITLE		"Cub3D"
 
-# define FOV			M_PI / 3
-# define TILE_SIZE		1.0
-# define DIST_PROJ		(WIN_WIDTH / 2) / tan(FOV / 2)
+# define HIDE_MOUSE		0
 
-# define HIDE_MOUSE		1
+typedef unsigned char	t_uint32;
+typedef unsigned int	t_int32;
 
-typedef unsigned char uint32_t;
-typedef unsigned int _int32_t;
+typedef struct s_cub_config
+{
+	float	fov;
+	float	tile_size;
+	float	dist_proj;
+	float	mouse_sensitivity;
+	float	move_speed;
+	float	rot_speed;
+	float	collision_margin;
+	int		update_fps_interval;
+	int		update_dtime_interval;
+	int		fps_x;
+	int		fps_y;
+}	t_cub_config;
 
 typedef struct s_img_data
 {
@@ -87,10 +97,11 @@ typedef struct s_player
 
 typedef struct s_cub
 {
-	t_libx		libx;
-	t_fps		fps;
-	t_map		map;
-	t_player	player;
+	t_libx			libx;
+	t_cub_config	config;
+	t_fps			fps;
+	t_map			map;
+	t_player		player;
 }	t_cub;
 
 typedef struct s_ray_data
@@ -133,14 +144,14 @@ int			get_texture_pixel(t_texture *texture, int tex_x, int tex_y);
 
 /* Rendering */
 
-float		get_ray_angle(t_player *p, int x);
+float		get_ray_angle(t_player *p, int x, float fov);
 void		init_ray_direction(t_ray_data *ray, float angle, float pos[2]);
 t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle);
-void		get_wall_slice(t_column *col, float distance);
+void		get_wall_slice(t_column *col, float distance, t_cub_config *conf);
 int			get_texture_x(t_ray_data *raycast, float pos[2], t_map *map);
 t_texture	select_texture(t_ray_data *raycast, t_map *map);
-void		draw_vertical_line(t_img_data *img, int x, int y_start, int y_end, int color);
-void		draw_horizontal_line(t_img_data *img, int x_start, int y, int x_end, int color);
+void		draw_vertical_line(t_img_data *img, int x, int y[2], int color);
+void		draw_horizontal_line(t_img_data *img, int x[2], int y, int color);
 void		update_frame(t_cub *cub);
 void		render_frame(t_cub *cub);
 t_ray_data	dda(char **grid, float p_position[2], float ray_angle);
@@ -156,7 +167,7 @@ void		init_player(t_map *map, t_player *player);
 float		get_cardinal_angle(t_direction direction);
 int			move_player(t_cub *cub, float dir_x, float dir_y);
 int			rotate_player(t_cub *cub, float delta);
-int			respawn(t_cub *cub);
+void		respawn(t_cub *cub);
 int			interact_with_door(t_cub *cub);
 void		update_door(t_door *door, t_fps *fps);
 

@@ -4,8 +4,10 @@
 #include <mlx.h>
 #include "libft.h"
 
-#define MOUSE_SENSITIVITY 0.02f
-
+/**
+ * @brief Handle key press events for movement and actions.
+ * @return 0 if handled, 1 if unrecognized key
+ */
 static int	key_press(int k, t_cub *cub)
 {
 	float	angle;
@@ -34,6 +36,10 @@ static int	key_press(int k, t_cub *cub)
 	return (0);
 }
 
+/**
+ * @brief Rotate player based on horizontal mouse movement.
+ * @return 0 if rotation applied, 1 if not
+ */
 static int	mouse_move_handler(int x, int y, t_cub *cub)
 {
 	static int	prev_x = WIN_WIDTH / 2;
@@ -42,9 +48,9 @@ static int	mouse_move_handler(int x, int y, t_cub *cub)
 	(void)y;
 	if (x == prev_x)
 		return (0);
-	delta_x = (int)((x - prev_x) * MOUSE_SENSITIVITY);
+	delta_x = (int)((x - prev_x) * cub->config.mouse_sensitivity);
 	if (ft_abs(delta_x) < 1)
-		return (0);
+		return (1);
 	rotate_player(cub, delta_x);
 	if (x < (WIN_WIDTH / 2) - 20 || x > (WIN_WIDTH / 2) + 20)
 	{
@@ -57,9 +63,12 @@ static int	mouse_move_handler(int x, int y, t_cub *cub)
 	return (0);
 }
 
+/**
+ * @brief Register keyboard, mouse, and close window hooks.
+ */
 void	register_hooks(t_cub *cub)
 {
 	mlx_hook(cub->libx.window, 17, 0, close_window, cub);
-	mlx_hook(cub->libx.window, 2, 1L<<0, key_press, cub);
-	mlx_hook(cub->libx.window, 6, 1L<<6, mouse_move_handler, cub);
+	mlx_hook(cub->libx.window, 2, 1L << 0, key_press, cub);
+	mlx_hook(cub->libx.window, 6, 1L << 6, mouse_move_handler, cub);
 }

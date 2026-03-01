@@ -3,6 +3,10 @@
 #include "libft.h"
 #include "mlx_utils.h"
 
+/**
+ * @brief Main game loop updating FPS and rendering.
+ * @return Always returns 0
+ */
 int	game_loop(t_cub *cub)
 {
 	fps_routine(cub);
@@ -10,6 +14,10 @@ int	game_loop(t_cub *cub)
 	return (0);
 }
 
+/**
+ * @brief Cub3D main
+ * @return 0 on normal exit, 1 on error
+ */
 int	main(int argc, char *argv[])
 {
 	t_cub	cub;

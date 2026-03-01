@@ -22,8 +22,8 @@ int			parse_door(t_map *map);
 
 char		*ft_strskip(char *line, char *charset);
 int			ft_atoi_rgb(char *str, int *out);
-int			rgb_from_split(char **split, _int32_t *out);
-uint32_t	get_prefix(char *line);
+int			rgb_from_split(char **split, t_int32 *out);
+t_uint32	get_prefix(char *line);
 int			check_extension(char *str, char *ext);
 
 // ============== TEXTURES_UTILS ============== //

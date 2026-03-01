@@ -2,6 +2,10 @@
 #include "libft.h"
 #include <math.h>
 
+/**
+ * @brief Convert cardinal direction to corresponding angle in radians.
+ * @return Angle in radians for the given direction
+ */
 float	get_cardinal_angle(t_direction direction)
 {
 	static const float	angles[4] = {
@@ -14,6 +18,10 @@ float	get_cardinal_angle(t_direction direction)
 	return (angles[direction]);
 }
 
+/**
+ * @brief Find player start position and return initial direction.
+ * @return Direction index corresponding to starting orientation
+ */
 static t_direction	init_player_position(t_map *map, t_player *player)
 {
 	const char	*dir = "NSEW";
@@ -42,6 +50,9 @@ static t_direction	init_player_position(t_map *map, t_player *player)
 	return (NORTH);
 }
 
+/**
+ * @brief Initialize player position, default position and angle view.
+ */
 void	init_player(t_map *map, t_player *player)
 {
 	map->default_direction = init_player_position(map, player);
