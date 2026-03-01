@@ -5,16 +5,14 @@
 
 #define UPDATE_FPS_INTERVAL 500
 #define UPDATE_DTIME_INTERVAL 1000
-#define FPS_X WIN_WIDTH - 50
-#define FPS_Y 250
 
 /**
  * @brief Get current time in microseconds.
  * @return Time in microseconds since epoch
  */
-static long get_ticks(void)
+static long	get_ticks(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * (long)1e6 + tv.tv_usec);
@@ -24,7 +22,7 @@ static long get_ticks(void)
  * @brief get delta time in seconds between frames.
  * @return Delta time in seconds with safety limits
  */
-static float get_delta_time(long time)
+static float	get_delta_time(long time)
 {
 	static long	last_time = 0;
 	long		diff;
@@ -49,7 +47,7 @@ static float get_delta_time(long time)
  */
 static int	update_fps_counter(t_fps *fps, long time)
 {
-	static long	int last_fps_time = 0;
+	static long	last_fps_time = 0;
 
 	if (last_fps_time == 0)
 		last_fps_time = time;
@@ -71,11 +69,13 @@ void	show_fps(t_cub *cub)
 {
 	char	*fps_s;
 
-	draw_text(&cub->libx, "FPS :", FPS_X - 50, FPS_Y);
+	draw_text(&cub->libx, "FPS :", (int)(WIN_WIDTH * 0.855f),
+		(int)(WIN_HEIGHT / 3.6f));
 	fps_s = ft_itoa(cub->fps.fps);
 	if (!fps_s)
 		return ;
-	draw_text(&cub->libx, fps_s, FPS_X, FPS_Y);
+	draw_text(&cub->libx, fps_s, (int)(WIN_WIDTH * 0.88f),
+		(int)(WIN_HEIGHT / 3.6f));
 	free (fps_s);
 }
 
