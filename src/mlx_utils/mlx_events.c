@@ -4,8 +4,6 @@
 #include <mlx.h>
 #include "libft.h"
 
-#define MOUSE_SENSITIVITY 0.02f
-
 /**
  * @brief Handle key press events for movement and actions.
  * @return 0 if handled, 1 if unrecognized key
@@ -49,8 +47,8 @@ static int	mouse_move_handler(int x, int y, t_cub *cub)
 
 	(void)y;
 	if (x == prev_x)
-		return (1);
-	delta_x = (int)((x - prev_x) * MOUSE_SENSITIVITY);
+		return (0);
+	delta_x = (int)((x - prev_x) * cub->config.mouse_sensitivity);
 	if (ft_abs(delta_x) < 1)
 		return (1);
 	rotate_player(cub, delta_x);

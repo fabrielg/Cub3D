@@ -4,9 +4,9 @@
  * @brief Get ray angle for given screen column.
  * @return Ray angle in radians
  */
-float	get_ray_angle(t_player *p, int x)
+float	get_ray_angle(t_player *p, int x, float fov)
 {
-	return (p->angle_view - (FOV / 2.0f) + ((float)x * FOV / WIN_WIDTH));
+	return (p->angle_view - (fov / 2.0f) + ((float)x * fov / WIN_WIDTH));
 }
 
 /**
@@ -43,9 +43,9 @@ t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle)
 /**
  * @brief Get wall slice height and screen bounds.
  */
-void	get_wall_slice(t_column *col, float distance)
+void	get_wall_slice(t_column *col, float distance, float tile_size, float dist_proj)
 {
-	col->wall_height = (int)((TILE_SIZE / distance) * DIST_PROJ);
+	col->wall_height = (int)((tile_size / distance) * dist_proj);
 	col->y_start = (WIN_HEIGHT / 2) - (col->wall_height / 2);
 	if (col->y_start < 0)
 		col->y_start = 0;

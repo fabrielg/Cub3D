@@ -55,11 +55,11 @@ void	update_frame(t_cub *cub)
 	x = 0;
 	while (x < WIN_WIDTH)
 	{
-		col.angle = get_ray_angle(p, x);
+		col.angle = get_ray_angle(p, x, cub->config.fov);
 		col.raycast = get_wall_distance(&cub->map, p, col.angle);
 		col.texture_x = get_texture_x(&col.raycast, p->position, map);
 		col.raycast.distance *= cosf(col.angle - p->angle_view);
-		get_wall_slice(&col, col.raycast.distance);
+		get_wall_slice(&col, col.raycast.distance, cub->config.tile_size, cub->config.dist_proj);
 		draw_column(&cub->libx, map, x, &col);
 		x++;
 	}
