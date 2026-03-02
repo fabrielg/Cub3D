@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alde-abr <alde-abr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/02 20:32:45 by alde-abr          #+#    #+#             */
+/*   Updated: 2026/03/02 20:36:40 by alde-abr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /**
@@ -19,11 +31,11 @@ void	init_ray_direction(t_ray_data *ray, float angle, float pos[2])
 	ray->map_x = (int)pos[0];
 	ray->map_y = (int)pos[1];
 	if (ray->dir_x == 0)
-		ray->delta_dist_x = 1e30f;
+		ray->delta_dist_x = (float)1e30;
 	else
 		ray->delta_dist_x = fabsf(1.0f / ray->dir_x);
 	if (ray->dir_y == 0)
-		ray->delta_dist_y = 1e30f;
+		ray->delta_dist_y = (float)1e30;
 	else
 		ray->delta_dist_y = fabsf(1.0f / ray->dir_y);
 }

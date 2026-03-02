@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fps_routine.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alde-abr <alde-abr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/02 20:34:23 by alde-abr          #+#    #+#             */
+/*   Updated: 2026/03/02 20:37:17 by alde-abr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 #include "libft.h"
 #include <sys/time.h>
@@ -35,7 +47,7 @@ static float	get_delta_time(long time, int update_dtime_interval)
 		diff = update_dtime_interval;
 	if (diff > 10000L)
 		diff = 10000L;
-	return ((float)diff / 1e6f);
+	return ((float)diff / (float)1e6);
 }
 
 /**

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dda_algo.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alde-abr <alde-abr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/02 20:32:37 by alde-abr          #+#    #+#             */
+/*   Updated: 2026/03/02 20:35:11 by alde-abr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 #include "stdio.h"
 
@@ -41,8 +53,8 @@ static int	perform_dda_loop(t_ray_data *ray, t_map *map)
 			ray->hit_side = NORTH + ((SOUTH - NORTH) * (ray->step_y > 0));
 		}
 		if (ray->map_y < 0 || ray->map_x < 0
-				|| ray->map_y >= map->max_height
-				|| ray->map_x >= map->widths[ray->map_y])
+			|| ray->map_y >= map->max_height
+			|| ray->map_x >= map->widths[ray->map_y])
 			return (0);
 		if (map->grid[ray->map_y][ray->map_x] == '1'
 				|| map->grid[ray->map_y][ray->map_x] == 'C')
