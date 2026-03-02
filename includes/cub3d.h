@@ -7,8 +7,6 @@
 # define WIN_HEIGHT		900
 # define WIN_TITLE		"Cub3D"
 
-# define HIDE_MOUSE		0
-
 typedef unsigned char	t_uint32;
 typedef unsigned int	t_int32;
 
