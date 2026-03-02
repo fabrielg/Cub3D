@@ -1,6 +1,5 @@
 #include "cub3d.h"
 #include "mlx_utils.h"
-#include "minimap.h"
 
 /**
  * @brief Draw the textured wall slice between y_start and y_end.
@@ -35,7 +34,7 @@ void	draw_column(t_libx *libx, t_map *map, int x, t_column *col)
 
 	draw_vertical_line(&libx->game_img, x, (int [2]){0, col->y_start - 1},
 		map->colors[0]);
-	texture = select_texture(&col->raycast, map);
+	texture = map->textures[col->raycast.hit_side];
 	draw_wall_slice(libx, &texture, x, col);
 	draw_vertical_line(&libx->game_img, x,
 		(int [2]){col->y_end + 1, WIN_HEIGHT - 1}, map->colors[1]);
@@ -75,11 +74,6 @@ void	render_frame(t_cub *cub)
 
 	libx = &cub->libx;
 	update_frame(cub);
-	render_minimap(libx, &cub->player, &cub->map);
 	mlx_put_image_to_window(libx->mlx, libx->window,
 		libx->game_img.img, 0, 0);
-	mlx_put_image_to_window(libx->mlx, libx->window,
-		libx->minimap_img.img, WIN_WIDTH - libx->minimap_size - 10, 10);
-	show_fps(cub);
-	update_door(&cub->map.door, &cub->fps);
 }

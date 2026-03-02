@@ -36,7 +36,7 @@ t_ray_data	get_wall_distance(t_map *map, t_player *p, float angle)
 {
 	t_ray_data	raycast;
 
-	raycast = dda(map->grid, p->position, angle);
+	raycast = dda(map, p->position, angle);
 	return (raycast);
 }
 

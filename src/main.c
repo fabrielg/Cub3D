@@ -9,7 +9,6 @@
  */
 int	game_loop(t_cub *cub)
 {
-	fps_routine(cub);
 	render_frame(cub);
 	return (0);
 }

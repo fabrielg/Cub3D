@@ -1,17 +1,6 @@
 #include "cub3d.h"
 
 /**
- * @brief Select appropriate texture for ray hit.
- * @return Texture corresponding to wall or door
- */
-t_texture	select_texture(t_ray_data *raycast, t_map *map)
-{
-	if (raycast->tile_type == 'C')
-		return (map->door.frames[map->door.current_frame]);
-	return (map->textures[raycast->hit_side]);
-}
-
-/**
  * @brief Get horizontal texture coordinate for wall.
  * @return Texture x coordinate
  */
@@ -26,7 +15,7 @@ int	get_texture_x(t_ray_data *raycast, float pos[2], t_map *map)
 	else
 		wall_x_hit = pos[0] + raycast->distance * raycast->dir_x;
 	wall_x_hit -= floorf(wall_x_hit);
-	texture = select_texture(raycast, map);
+	texture = map->textures[raycast->hit_side];
 	texture_x = (int)(wall_x_hit * texture.size);
 	if ((raycast->side == 0 && raycast->dir_x > 0)
 		|| (raycast->side == 1 && raycast->dir_y < 0))

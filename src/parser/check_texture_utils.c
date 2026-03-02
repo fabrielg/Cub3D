@@ -66,12 +66,5 @@ int	load_textures(t_libx *libx, t_map *map)
 		if (get_texture_data(libx, &map->textures[i], map->raw_textures[i]))
 			return (1);
 	}
-	i = -1;
-	while (++i < 3)
-	{
-		if (get_texture_data(libx, &map->door.frames[i],
-				map->door.raw_door_texture[i]))
-			return (1);
-	}
 	return (0);
 }

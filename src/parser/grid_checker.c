@@ -6,7 +6,7 @@
 #define ERR_MISS_PLAYER "Error: missing player in grid\n"
 #define ERR_NULL_GRID	"Error: grid is NULL\n"
 
-#define VALID_CELLS "0OCNSWE"
+#define VALID_CELLS "0NSWE"
 #define ERR_SURROUND "Error: [x: %i, y:%i] not surrounded (%s)\n"
 
 /**

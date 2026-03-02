@@ -13,9 +13,10 @@
 // ============== MAP_PARSING ============== //
 
 int			get_map(int fd, t_map *map_data);
-int			header_parser(t_map *map, char *line, t_uint32 flag);
+int			header_parser(t_map *data, char *line, unsigned char flag);
 int			raw_grid_parser(char *line, char **raw_grid);
 int			create_grid(t_map *map, char *raw_grid);
+int			parse_door(t_map *map);
 
 // ============== PARSING_UTILS ============== //
 

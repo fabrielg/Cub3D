@@ -12,14 +12,8 @@ static void	init_config(t_cub *cub)
 	cub->config.fov = M_PI / 3;
 	cub->config.tile_size = 1.0;
 	cub->config.dist_proj = (WIN_WIDTH / 2) / tan(cub->config.fov / 2);
-	cub->config.mouse_sensitivity = 0.02f;
-	cub->config.move_speed = 20.0f;
-	cub->config.rot_speed = 10.0f;
-	cub->config.collision_margin = 0.2f;
-	cub->config.update_fps_interval = 500;
-	cub->config.update_dtime_interval = 1000;
-	cub->config.fps_x = WIN_WIDTH - 50;
-	cub->config.fps_y = 250;
+	cub->config.move_speed = 0.2f;
+	cub->config.rot_speed = 0.1f;
 }
 
 /**

@@ -17,8 +17,14 @@ typedef struct s_cub_config
 	float	fov;
 	float	tile_size;
 	float	dist_proj;
+	float	mouse_sensitivity;
 	float	move_speed;
 	float	rot_speed;
+	float	collision_margin;
+	int		update_fps_interval;
+	int		update_dtime_interval;
+	int		fps_x;
+	int		fps_y;
 }	t_cub_config;
 
 typedef struct s_img_data
@@ -41,7 +47,26 @@ typedef struct s_libx
 	void		*mlx;
 	void		*window;
 	t_img_data	game_img;
+	t_img_data	minimap_img;
+	int			minimap_size;
 }	t_libx;
+
+typedef struct s_fps
+{
+	float	delta_time;
+	int		frame_count;
+	long	elapsed;
+	int		fps;
+}	t_fps;
+
+typedef struct s_door
+{
+	char		*raw_door_texture[3];
+	t_texture	frames[3];
+	int			current_frame;
+	float		timer;
+	float		frame_duration;
+}	t_door;
 
 typedef enum e_direction
 {
@@ -55,6 +80,7 @@ typedef struct s_map
 {
 	char			*raw_textures[4];
 	t_texture		textures[4];
+	t_door			door;
 	unsigned int	colors[2];
 	char			**grid;
 	int				*widths;
@@ -73,6 +99,7 @@ typedef struct s_cub
 {
 	t_libx			libx;
 	t_cub_config	config;
+	t_fps			fps;
 	t_map			map;
 	t_player		player;
 }	t_cub;
@@ -91,6 +118,7 @@ typedef struct s_ray_data
 	int			step_y;
 	int			side;
 	t_direction	hit_side;
+	char		tile_type;
 	float		distance;
 }	t_ray_data;
 
@@ -126,7 +154,12 @@ void		draw_vertical_line(t_img_data *img, int x, int y[2], int color);
 void		draw_horizontal_line(t_img_data *img, int x[2], int y, int color);
 void		update_frame(t_cub *cub);
 void		render_frame(t_cub *cub);
-t_ray_data	dda(t_map *map, float p_position[2], float ray_angle);
+t_ray_data	dda(char **grid, float p_position[2], float ray_angle);
+
+/* FPS */
+
+int			fps_routine(t_cub *cub);
+void		show_fps(t_cub *cub);
 
 /* Player */
 
@@ -135,5 +168,7 @@ float		get_cardinal_angle(t_direction direction);
 int			move_player(t_cub *cub, float dir_x, float dir_y);
 int			rotate_player(t_cub *cub, float delta);
 void		respawn(t_cub *cub);
+int			interact_with_door(t_cub *cub);
+void		update_door(t_door *door, t_fps *fps);
 
 #endif

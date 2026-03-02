@@ -4,27 +4,6 @@
 #include <stdio.h>
 
 /**
- * @brief Check for collision at a given position with walls or doors.
- * @return 1 if collision detected, 0 otherwise
- */
-static int	check_collision(t_map *map, float x, float y, float margin)
-{
-	char	up_l;
-	char	up_r;
-	char	dw_l;
-	char	dw_r;
-
-	up_l = map->grid[(int)(y - margin)][(int)(x - margin)];
-	up_r = map->grid[(int)(y - margin)][(int)(x + margin)];
-	dw_l = map->grid[(int)(y + margin)][(int)(x - margin)];
-	dw_r = map->grid[(int)(y + margin)][(int)(x + margin)];
-	if (ft_strchr("1C", up_l) || ft_strchr("1C", up_r) || ft_strchr("1C", dw_l)
-		|| ft_strchr("1C", dw_r))
-		return (1);
-	return (0);
-}
-
-/**
  * @brief Move player in a specified direction vector with collision check.
  */
 int	move_player(t_cub *cub, float dir_x, float dir_y)
@@ -33,11 +12,9 @@ int	move_player(t_cub *cub, float dir_x, float dir_y)
 	float	new_y;
 
 	new_x = cub->player.position[0]
-		+ dir_x * cub->config.move_speed * cub->fps.delta_time;
+		+ dir_x * cub->config.move_speed;
 	new_y = cub->player.position[1]
-		+ dir_y * cub->config.move_speed * cub->fps.delta_time;
-	if (check_collision(&cub->map, new_x, new_y, cub->config.collision_margin))
-		return (1);
+		+ dir_y * cub->config.move_speed;
 	cub->player.position[0] = new_x;
 	cub->player.position[1] = new_y;
 	return (0);
@@ -49,7 +26,7 @@ int	move_player(t_cub *cub, float dir_x, float dir_y)
 int	rotate_player(t_cub *cub, float delta)
 {
 	cub->player.angle_view += delta
-		* cub->config.rot_speed * cub->fps.delta_time;
+		* cub->config.rot_speed;
 	cub->player.angle_view = fmodf(cub->player.angle_view, 2 * M_PI);
 	if (cub->player.angle_view < 0)
 		cub->player.angle_view += 2 * M_PI;

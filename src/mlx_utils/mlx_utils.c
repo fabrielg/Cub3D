@@ -28,8 +28,6 @@ int	close_window(t_cub *cub)
 	free_map(&cub->libx, &cub->map);
 	if (cub->libx.game_img.img)
 		mlx_destroy_image(cub->libx.mlx, cub->libx.game_img.img);
-	if (cub->libx.minimap_img.img)
-		mlx_destroy_image(cub->libx.mlx, cub->libx.minimap_img.img);
 	mlx_clear(&cub->libx);
 	exit(0);
 	return (1);

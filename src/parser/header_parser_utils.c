@@ -86,7 +86,7 @@ t_uint32	get_prefix(char *line)
 	i = -1;
 	while (args[++i])
 	{
-		if (ft_strncmp(tmp, args[i], size) == 0)
+		if (ft_strncmp(tmp, args[i], ft_max(size, ft_strlen(args[i]))) == 0)
 			break ;
 	}
 	if (i >= 6)
